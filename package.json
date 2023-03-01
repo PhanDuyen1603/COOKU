@@ -1,21 +1,22 @@
 {
-  "name": "nuxt",
-  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
   },
-  "dependencies": {
+  "devDependencies": {
+    "nuxt": "^3.2.3",
+    "@nuxtjs/device": "^3.0.0",
+    "@pinia/nuxt": "^0.4.7",
     "bootstrap": "^4.6.2",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.25.3",
-    "nuxt": "^2.15.8",
-    "vue": "^2.7.10",
-    "vue-server-renderer": "^2.7.10",
-    "vue-template-compiler": "^2.7.10"
-  },
-  "devDependencies": {}
+    "sass": "^1.56.1",
+    "dayjs": "^1.11.6",
+    "chokidar": "^3.5.3",
+    "clean-css": "^5.3.1"
+  }
 }
