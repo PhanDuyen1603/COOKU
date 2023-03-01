@@ -8,15 +8,19 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "nuxt": "^3.2.3",
     "@nuxtjs/device": "^3.0.0",
+    "@nuxtjs/strapi": "^1.8.1",
     "@pinia/nuxt": "^0.4.7",
     "bootstrap": "^4.6.2",
     "bootstrap-vue": "^2.22.0",
-    "core-js": "^3.25.3",
-    "sass": "^1.56.1",
-    "dayjs": "^1.11.6",
     "chokidar": "^3.5.3",
-    "clean-css": "^5.3.1"
+    "clean-css": "^5.3.1",
+    "core-js": "^3.25.3",
+    "dayjs": "^1.11.6",
+    "nuxt": "^3.2.3",
+    "sass": "^1.56.1"
+  },
+  "dependencies": {
+    "@vueuse/core": "^9.13.0"
   }
 }
