@@ -1007,7 +1007,7 @@
     vite-plugin-checker "^0.5.6"
     vue-bundle-renderer "^1.0.2"
 
-"@nuxtjs/device@^3.0.0":
+"@nuxtjs/device@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@nuxtjs/device/-/device-3.1.0.tgz#50c165563cdac07c9229528b763e65c247614f5b"
   integrity sha512-jXWCVuPmzsGpn86GTA9/TOmfWulf9h3r2g6o5LpoZk4P1a9McMlpbDiaMPmyG5erfCj6H+XoZ6HBPCN9DtoCDA==
