@@ -2,6 +2,7 @@
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
+  <ModalContainer />
   <p>
     this is app.vue
   </p>
