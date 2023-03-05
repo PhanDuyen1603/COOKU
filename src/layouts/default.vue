@@ -1,7 +1,7 @@
 <template>
   <div class="wrap__body">
     <!-- <WelcomeScreen></WelcomeScreen> -->
-    <HeaderMain />
+    <GlobalHeaderMain />
     <main class="main">
       <slot />
     </main>

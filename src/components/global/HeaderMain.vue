@@ -3,7 +3,7 @@
     <nav class="header-main__nav nav-main navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <NuxtLink to="/" class="navbar-brand">
-          <LogoCircle />
+          <GlobalLogoCircle />
         </NuxtLink>
 
         <div

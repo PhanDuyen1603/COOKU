@@ -4,7 +4,7 @@
     class="rounded-circle object-image"
   >
     <img
-      :src="getMediaLink(data)"
+      :src="$$strapi.getMediaLink(data)"
       :alt="data.username"
     >
   </div>

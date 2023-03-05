@@ -1,0 +1,31 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+import VEditor, { E } from 'yimo-vue-editor'
+E.langs.en.submit = 'Chèn'
+E.langs.en.cancel = 'Hủy'
+const token = localStorage.getItem('authToken') ? JSON.parse(localStorage.getItem('authToken')).token : null;
+
+export default function({$config}) {
+  Vue.use(Vuex)
+  Vue.use(VEditor, {
+    name: 'v-editor',
+    config: {
+      lang: E.langs.en,
+      uploadImgUrl: `${$config.strapi.url}/upload`,
+      uploadHeaders: {
+        'Authorization': `Bearer ${token}`
+      },
+      uploadImgFileName: 'files',
+    },
+    uploadHandler: (type, resTxt) => {
+      if (type === 'success') {
+        const data = JSON.parse(resTxt)
+        if (data.length) {
+          return $config.strapi.url + data[0].url
+        }
+        return ''
+      }
+      return 'error'
+    }
+  })
+}

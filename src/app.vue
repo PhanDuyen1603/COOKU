@@ -3,10 +3,14 @@
     <NuxtLoadingIndicator />
     <NuxtPage />
   </NuxtLayout>
-  <ModalContainer />
+  <GlobalModalContainer />
 </template>
 
 <script setup>
+import useAppStateStore from '~/stores/appState.store'
+
+const appState = useAppStateStore()
+
 useHead({
   title: 'Cooku',
   htmlAttrs: {

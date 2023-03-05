@@ -9,25 +9,27 @@
       class="slider-banner slider-banner__wrapepr"
       slideItemClass="slider-banner__item"
     />
-    <TemplateHomeSectionDiet :data="{ diets: diets || [], topDiets: topDiets || [] }"/>
+    <TemplateHomeSectionDiet :data="{ diets , topDiets}" />
+    <TemplateHomeSectionRecipe :dataList="recipes" />
+    <!-- <LazyTemplatesHomeSection2 :items="diets"></LazyTemplatesHomeSection2>
+    <TemplatesHomeSection3></TemplatesHomeSection3>
+    <LazyTemplatesHomeSection5></LazyTemplatesHomeSection5>
+    <LazyTemplatesHomeSection6></LazyTemplatesHomeSection6> -->
   </div>
 </template>
 
 <script setup>
 const { find } = useStrapi()
-// try {
+
 const [ banners, { data: randomDiets }, diets, topDiets ] = await Promise.all([
   find('galleries', { slug: 'home_banner' }),
   find('diets/random', { _limit: 10 }),
   find('diets', { _limit: 5, _sort: 'created_at:desc' }),
   find('diets/top-by/join_users')
 ])
-// } catch (error) {
-//   console.log(error)
-// }
-// console.log(diets, topDiets )
-// /diets/random?_limit=10
 
-// const banners = await find('galleries', { slug: 'home_banner' })
+const [ recipes ] = await Promise.all([
+  find('recipes', { _start: 0, _limit: 10, _sort: 'created_at:desc' }),
+])
 
 </script>
