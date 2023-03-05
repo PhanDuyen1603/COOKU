@@ -1,6 +1,7 @@
 export default defineNuxtPlugin((nuxt) => {
   const user = useStrapiUser()
-
+  const { $config } = useNuxtApp()
+  const publicConfig = $config.public
   // nuxt.hook('strapi:error', (e) => {
   //   let description
   //   if (Array.isArray(e.message)) {
@@ -12,12 +13,38 @@ export default defineNuxtPlugin((nuxt) => {
   //   }
   //   nuxt.$toast.error({ title: e.error, description })
   // })
+  function getStrapiMedia(url) {
+    if (url.startsWith('/')) {
+      return `${ publicConfig.strapi.url }${url}`
+    }
+    return url
+  }
+  function getMediaLink(objectImage, size = 'small') {
+    if (objectImage) {
+      if (objectImage.formats?.[size]) {
+        return (
+          `${ publicConfig.strapi.url }/uploads/${size}_` +
+          objectImage.hash +
+          objectImage.ext
+        )
+      } else {
+        return getStrapiMedia(objectImage.url)
+      }
+    } else {
+      return 'images/image_loading.svg'
+    }
+  }
 
   return {
     provide: {
       $isSigned: !!user?.value,
-      $user: user || {}
+      $user: user || {},
+      $strapi: {
+        getMediaLink
+      }
     }
   }
 })
+
+
 
