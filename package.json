@@ -19,7 +19,8 @@
     "core-js": "^3.25.3",
     "dayjs": "^1.11.6",
     "nuxt": "^3.2.3",
-    "sass": "^1.56.1"
+    "sass": "^1.56.1",
+    "swiper": "^8.4.5"
   },
   "dependencies": {
     "@vueuse/core": "^9.13.0"

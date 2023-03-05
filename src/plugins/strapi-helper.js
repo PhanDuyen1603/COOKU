@@ -15,7 +15,8 @@ export default defineNuxtPlugin((nuxt) => {
 
   return {
     provide: {
-      $isSigned: !!user?.value
+      $isSigned: !!user?.value,
+      $user: user || {}
     }
   }
 })

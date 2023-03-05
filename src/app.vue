@@ -1,11 +1,9 @@
 <template>
   <NuxtLayout>
+    <NuxtLoadingIndicator />
     <NuxtPage />
   </NuxtLayout>
   <ModalContainer />
-  <p>
-    this is app.vue
-  </p>
 </template>
 
 <script setup>

@@ -1,0 +1,12 @@
+.section {
+  padding: 20px 0;
+  &__shadow {
+    margin: 38px auto;
+    background: #fff;
+    box-shadow: 4px 4px 11px 1px rgb(0 0 0 / 12%);
+    border-radius: 40px;
+  }
+  &__content {
+    padding: 0 20px;
+  }
+}

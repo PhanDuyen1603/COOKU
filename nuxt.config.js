@@ -17,8 +17,9 @@ export default defineNuxtConfig({
   },
 
   css: [
+    'bootstrap/dist/css/bootstrap.min.css',
+    '~/styles/reset.css',
     '~/styles/_app.scss',
-    'bootstrap/dist/css/bootstrap.min.css'
   ],
 
   script: [

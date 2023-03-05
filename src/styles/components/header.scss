@@ -1,8 +1,4 @@
-.header-top {
-  .logo-foodmood {
-    max-height: 50px;
-  }
-
+.header-main {
   .navbar-brand {
     padding: 0;
   }
@@ -75,5 +71,50 @@
     flex-grow: inherit;
     width: 100%;
     justify-content: flex-end;
+    align-items: center;
+  }
+}
+
+.nav-item__login {
+  border-radius: 100px;
+  padding: 5px 25px;
+  background-color: #fff;
+  border-color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  span {
+    color: $clr-main;
+  }
+}
+
+.nav-item__search {
+  position: relative;
+  margin-left: 25px;
+  input {
+    background: #fff;
+    height: 30px;
+    width: 290px;
+    font-size: 14px;
+    padding-left: 13px;
+    // padding-right: 2.25rem;
+    border-radius: 30px;
+  }
+  .search-icon__wrapper {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background: #e5625c;
+    height: 21px;
+    padding: 5px;
+    width: 35px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 14px;
+      height: 14px;
+    }
   }
 }

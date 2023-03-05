@@ -1,0 +1,42 @@
+.slider-banner {
+  margin-top: 60px;
+
+}
+
+.home-section {
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+  .section-title,
+  .section-navigate {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title h3 {
+    font-size: 20px;
+    color: $section-primary;
+  }
+  .section-navigate span {
+    color: $section-primary;
+  }
+  .section-navigate-icon {
+
+  }
+  &__tags {
+    display: flex;
+    gap: 10px;
+    padding: 0;
+    margin-bottom: 30px;
+    .tag {
+      background-color: $gray-200;
+      font-weight: 400;
+      font-size: 14px;
+      color: $gray-900;
+      border-radius: 100px;
+      padding: 5px 10px;
+    }
+  }
+}
