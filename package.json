@@ -17,12 +17,18 @@
     "chokidar": "^3.5.3",
     "clean-css": "^5.3.1",
     "core-js": "^3.25.3",
-    "dayjs": "^1.11.6",
+    "date-fns": "^2.26.0",
+    "lodash": "^4.17.21",
+    "node-sass": "^6.0.1",
     "nuxt": "^3.2.3",
     "sass": "^1.56.1",
+    "sass-loader": "10.1.1",
+    "vue-slick": "^1.2.0",
     "swiper": "^8.4.5"
   },
   "dependencies": {
-    "@vueuse/core": "^9.13.0"
+    "@vueuse/core": "^9.13.0",
+    "jquery": "^3.6.3",
+    "vue-content-loader": "^2.0.1"
   }
 }

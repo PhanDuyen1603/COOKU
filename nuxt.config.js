@@ -1,7 +1,24 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const strapiBaseUri = process.env.STRAPI_URL || "http://localhost:1337";
 export default defineNuxtConfig({
   rootDir: __dirname,
   srcDir: './src',
+
+  components: {
+    dirs: [
+      {
+        global: true,
+        path: '~/components',
+        extensions: ['vue'],
+      },
+      {
+        global: true,
+        path: '~/components/global',
+        pathPrefix: false,
+        extensions: ['vue'],
+      },
+    ]
+  },
 
   modules: [
     '@nuxtjs/device',
@@ -10,7 +27,7 @@ export default defineNuxtConfig({
   ],
 
   strapi: {
-    url: process.env.STRAPI_URL || 'http://localhost:1337',
+    url: strapiBaseUri,
     version: 'v3',
     cookie: {},
     cookieName: 'strapi_jwt'
@@ -27,4 +44,7 @@ export default defineNuxtConfig({
       src: 'bootstrap/dist/js/bootstrap.bundle.min.js'
     }
   ],
+  publicRuntimeConfig: {
+    baseURL: strapiBaseUri,
+  }
 })
