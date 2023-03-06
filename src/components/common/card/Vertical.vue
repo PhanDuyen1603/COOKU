@@ -17,14 +17,14 @@
          <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @click="$emit('edit-item', data)">
           <img
             class="btn p-0"
-            src="/icon/edit.svg"
+            src="icons/edit.svg"
           />
         </div>
 
          <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @click="$emit('remove-item', data)">
           <img
             class="btn p-0 ml-2 trash-icon"
-            src="/icon/trash-bin.svg"
+            src="icons/trash-bin.svg"
           />
         </div>
 

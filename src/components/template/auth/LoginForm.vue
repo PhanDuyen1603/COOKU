@@ -3,20 +3,20 @@
     <Form class="login__from--wrap" v-slot="observe" ref="loginInfomation" :validation-schema="validationSchema">
       <div class="login-form-group mb-2">
         <label for="name">Tên đăng nhập</label>
-        <Field name="name" v-model="name" />
+        <Field name="name" v-model="dataLogin.name" />
         <ErrorMessage class="error-message" name="name" />
       </div>
       <div class="login-form-group mb-3">
         <label for="password">Mật khẩu</label>
-        <Field name="password" v-model="password" />
+        <Field name="password" v-model="dataLogin.password" />
         <ErrorMessage class="error-message" name="password" />
       </div>
       <div class="form-check mb-2">
-        <input type="checkbox" class="form-check-input" id="status" v-model="loginStatus" >
+        <input type="checkbox" class="form-check-input" id="status" v-model="dataLogin.loginStatus" >
         <label class="form-check-label" for="status">Lưu trạng thái đăng nhập</label>
       </div>
 
-      <button type="button" @click="handleSubmit(observe)" class="btn btn-login">Đăng Nhập</button>
+      <button type="button" @click="handleLogin(observe)" class="btn btn-login">Đăng Nhập</button>
     </Form>
     <div class="forget-pass">
       <span>Quên mật khẩu ?</span>
@@ -47,8 +47,10 @@
 
 <script>
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import auth from './auth.vue';
 
 export default {
+  extends: auth,
   components: {
     Form, Field, ErrorMessage
   },
@@ -57,17 +59,16 @@ export default {
       name: 'required',
       password: 'required'
     }
-    // return {
-    //   name: '',
-    //   password: '',
-    //   loginStatus: false
-    // }
   },
   async setup(_, { emit }) {
-    const { $modal, $wait } = useNuxtApp()
-    const name = ref('')
-    const password = ref('')
-    const loginStatus = ref(false)
+    const { $modal, $wait, $toast } = useNuxtApp()
+    const { login } = useStrapiAuth()
+
+    const dataLogin = reactive({
+      name: '',
+      password: '',
+      loginStatus: false
+    })
 
     const openSignupModal = async () => {
       emit('close')
@@ -86,45 +87,30 @@ export default {
       })
     }
 
-    const handleSubmit = async (observe) => {
+    const handleLogin = async (observe) => {
       const result = await observe.validate()
       if (result.valid) {
-        console.log(name, password, loginStatus)
+        try {
+          await login({ identifier: dataLogin.name, password: dataLogin.password })
+          await $toast.show({
+            message: 'đăng nhập thành công'
+          })
+          emit('close')
+        } catch (error) {
+          await $toast.show({
+            message: error
+          })
+          console.log(error)
+        }
+
       }
     }
-
     return {
       openSignupModal,
-      handleSubmit,
-      name,
-      password,
-      loginStatus
+      handleLogin,
+      dataLogin
     }
   },
-  methods: {
 
-    // async openSignupModal() {
-    //   this.$emit('close')
-    //   await this.$wait(200)
-    //   await this.$modal.show({
-    //     component: 'TemplateAuthModalAuth',
-    //     wrapper: 'ModalWrapperAuthForm',
-    //     wrapperProps: {
-    //       style: {
-    //         width: '900px'
-    //       },
-    //     },
-    //     props: {
-    //       type: 'signup',
-    //     }
-    //   })
-    // },
-    // async handleSubmit(observe) {
-    //   const result = await observe.validate()
-    //   if (result.valid) {
-    //     console.log(this.name, this.password, this.loginStatus)
-    //   }
-    // }
-  }
 }
 </script>

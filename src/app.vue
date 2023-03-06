@@ -4,6 +4,7 @@
     <NuxtPage />
   </NuxtLayout>
   <GlobalModalContainer />
+  <GlobalToastContainer />
 </template>
 
 <script setup>

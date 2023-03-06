@@ -13,9 +13,7 @@
         <div class="widget__item--image--content position-absolute">
           <div v-if="getListShowElements.cookingTime" class="widget__item--badge">
             <div class="icon__circle">
-              <AtomsIcon>
-                <IconsStopWatch></IconsStopWatch>
-              </AtomsIcon>
+              <img src="icons/stop-watch.svg" alt="">
             </div>
             <span>{{ $get(data, 'cooking_time', 0) }}p</span>
           </div>

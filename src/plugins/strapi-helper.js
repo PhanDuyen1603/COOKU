@@ -1,5 +1,6 @@
 export default defineNuxtPlugin((nuxt) => {
   const user = useStrapiUser()
+  const { logout } = useStrapiAuth()
   const { $config } = useNuxtApp()
   const publicConfig = $config.public
   // nuxt.hook('strapi:error', (e) => {
@@ -40,7 +41,8 @@ export default defineNuxtPlugin((nuxt) => {
       $isSigned: !!user?.value,
       $user: user || {},
       $strapi: {
-        getMediaLink
+        getMediaLink,
+        logout
       }
     }
   }

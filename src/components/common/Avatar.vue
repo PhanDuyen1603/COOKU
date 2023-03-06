@@ -8,7 +8,7 @@
       :alt="data.username"
     >
   </div>
-  <div v-else class="icon__circle avatar" :class="'avatar--'+ size">
+  <div v-else class="avatar" :class="'avatar--'+ size">
      <img src="icons/avatar.svg" alt="">
   </div>
 </template>

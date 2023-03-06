@@ -76,7 +76,6 @@ export default {
         slidesPerView: this.itemShow,
         spaceBetween: this.itemsSpace,
         pagination: { clickable: true },
-        class: this.wrapperClass,
         modules,
       }
     },

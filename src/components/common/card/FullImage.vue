@@ -10,7 +10,7 @@
         <h3 :class="titleClass" class="card__image--title">{{ data.title }}</h3>
         <div class="card__image--author">
           <div class="symbol me-2">
-            <GlobalAvatar v-if="data.author" :author="data.author" :avatar-size="$$isMobile ? 'small' : 'normal'" />
+            <CommonAvatar v-if="data.author" :author="data.author" :avatar-size="$$isMobile ? 'small' : 'normal'" />
           </div>
           <div class="cal">
             <div class="p">

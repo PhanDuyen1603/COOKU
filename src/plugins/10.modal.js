@@ -55,7 +55,6 @@ export default defineNuxtPlugin(( ) => {
         }) {
           return new Promise(resolve => {
             const $store = useModalStore()
-            console.log($store)
             $store.addModal({
               ...rest,
               id, component, wrapper, wrapperProps,

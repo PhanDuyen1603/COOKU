@@ -12,7 +12,7 @@
       </div>
       <div class="line__dash"></div>
       <div class="auth__form--content">
-        <component :is="getComponent(formContent?.[0].component)" @close="$emit('close')"/>
+        <component :is="getComponent(formContent?.[0]?.component)" @close="$emit('close')"/>
       </div>
     </div>
   </div>

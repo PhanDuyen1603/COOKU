@@ -41,7 +41,7 @@
               <div v-else class="dropdown">
                 <button
                   id="dropdownMenuButton1"
-                  class="btn btn-secondary dropdown-toggle"
+                  class="btn__dropdown--profile dropdown-toggle"
                   type="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
@@ -49,18 +49,18 @@
                   <CommonAvatar :data="$$user" />
                 </button>
                 <ul
-                  class="dropdown-menu"
+                  class="dropdown-menu dropdown-menu__profile"
                   aria-labelledby="dropdownMenuButton1"
                 >
-                  <li>
+                  <li class="dropdown-item__profile">
                     <NuxtLink
                       class="pl-3 nav-link"
-                      :to="{ name: 'profile-slug', params: { slug: $strapi.user.username } }"
+                      :to="{ name: 'profile-slug', params: { slug: $$user.username || 'error' } }"
                     >
                       Trang cá nhân
                     </NuxtLink>
                    </li>
-                  <li><a class="pl-3 nav-link" @click="logout">Đăng xuất</a></li>
+                  <li class="dropdown-item__profile"><a class="pl-3 nav-link cursor-pointer" @click="$$strapi.logout">Đăng xuất</a></li>
                 </ul>
               </div>
             </li>
@@ -130,3 +130,25 @@ const openLoginModal = async () => {
 }
 // const response = await find('recipes')
 </script>
+
+<style lang="scss">
+.btn__dropdown--profile {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background-color: inherit;
+}
+.dropdown-menu__profile {
+  width: 150px;
+  background: var(--clr-red-primary);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  .dropdown-item__profile a{
+    font-weight: 800;
+    font-size: var(--fs-sm);
+    padding: 3px 10px !important;
+    line-height: 22px;
+    color: #FFFFFF;
+  }
+}
+</style>
