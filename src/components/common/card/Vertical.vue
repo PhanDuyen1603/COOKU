@@ -1,0 +1,256 @@
+<template>
+  <div v-if="data" class="card__vertical">
+    <div class="card__vertical--image position-relative">
+      <NuxtLink
+        :to="{ name: 'post-slug', params: { slug: data.slug } }"
+      >
+        <div class="img-blog">
+          <img
+            :src="$$strapi.getMediaLink(data.featured_media, 'small')"
+            class="img-response"
+            alt="image-31"
+            loading="lazy"
+          />
+        </div>
+      </NuxtLink>
+      <div class="action-icon-right">
+         <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @click="$emit('edit-item', data)">
+          <img
+            class="btn p-0"
+            src="/icon/edit.svg"
+          />
+        </div>
+
+         <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @click="$emit('remove-item', data)">
+          <img
+            class="btn p-0 ml-2 trash-icon"
+            src="/icon/trash-bin.svg"
+          />
+        </div>
+
+        <div class="icon icon-bookmark"  @click="openAddModal()">
+          <img
+            class="btn p-0"
+            src="icons/bookmark-yellow.svg"
+            alt="bookmark-yellow"
+          />
+        </div>
+
+        <div class="icon icon-wrap-circle" @click="shareUrl('/post/' + data.slug)">
+          <img src="icons/share.svg" alt="share" />
+        </div>
+      </div>
+      <div class="card__vertical--author">
+        <div class="img-author">
+          <CommonAvatar :author="data.author" />
+        </div>
+        <div v-if="data.post_categories?.length" class="mt-2">
+          <NuxtLink :to="{ name: 'post-category-slug', params: { slug: data.post_categories[0].slug }}"
+            class="tag line-clamp-1"
+          >
+            # {{ data.post_categories?.[0]?.title }}
+          </NuxtLink>
+        </div>
+        <div v-else class="tag line-clamp-1">#</div>
+      </div>
+    </div>
+    <span v-if="isTop" class="top-number font-mitr">{{ cardIndex }}</span>
+    <div class="bottom-blog">
+      <NuxtLink
+        :to="{ name: 'post-slug', params: { slug: data.slug } }"
+      >
+        <h3 class="card__vertical--title line-clamp-2">{{ data.title }}</h3>
+      </NuxtLink>
+      <p v-if="!isTop" class="card__vertical--content" :class="`line-clamp-${ $$isMobile ? 2 : 3 }`">
+        {{ data.excerpt }}
+      </p>
+      <div class="social-share">
+        <div class="comment">{{ count.comments }}</div>
+        <div class="like">{{ count.likes }}</div>
+        <div class="share">{{ count.shares }}</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+    isTop: {
+      type: Boolean,
+      default: false
+    },
+    cardIndex: {
+      type: Number,
+      default: 1
+    },
+    itemClasses: {
+      type: String,
+      default: '',
+    },
+    itemStyles: {
+      type: Object,
+      default:() => {},
+    },
+    isLogin: {
+      type: Boolean,
+      default: false
+    },
+  },
+  data() {
+    return {
+      count: {
+        likes: 0,
+        comments: 0,
+        shares: 0
+      }
+    }
+  },
+  async mounted() {
+    const self = this
+
+    // await this.$strapi.count('likes', {
+    //   'post': this.data.id,
+    // }).then((result) => {
+    //   self.count.likes = result
+    // }).catch((err) => {
+    //   self.$toast.error(err)
+    // });
+    // await this.$strapi.count('comments', {
+    //   'post': this.data.id,
+    // }).then((result) => {
+    //   self.count.comments = result
+    // }).catch((err) => {
+    //   self.$toast.error(err)
+    // });
+
+  },
+  methods: {
+    openAddModal() {
+      if(this.$strapi.user) {
+        this.$emit('open-modal', this.data, 'post', "Bài viết")
+      } else {
+        this.$toast.error('Bạn phải đăng nhập trước khi tạo bộ sưu tập')
+        this.$store.dispatch('modules/app/changeModeForm', 'login')
+        this.$store.dispatch('modules/app/changeFormStatus', true)
+      }
+    },
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.card__vertical {
+  background: #fff;
+  box-shadow: 2px 2px 10px 1px rgb(0 0 0 / 5%);
+  border-radius: 20px;
+  padding: 15px 20px 20px;
+  .action-icon-right {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+  }
+}
+.card__vertical--image {
+  position: relative;
+  .img-blog {
+    position: relative;
+    padding-top: 200px;
+    background: #8898aa;
+    border-radius: 25px;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+.card__vertical--title {
+  height: 3.2rem;
+  margin: 14px 0 8px 0;
+  font-weight: 600;
+  line-height: 1.7rem;
+  color: #4f4f4f;
+}
+.card__vertical--content {
+  max-height: 3.9rem;
+  overflow: hidden;
+}
+.card__vertical--author {
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+}
+.top-number {
+  position: absolute;
+  bottom: 0;
+  right: 1rem;
+  font-weight: 500;
+  font-size: 60px;
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: #65A06B;
+}
+.social-share {
+  display: flex;
+  align-items: center;
+  color: #65a06b;
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+
+  .comment:before,
+  .like:before,
+  .share:before {
+    content: '';
+    // background: url('icons/comment-green.png') center center;
+    background-size: cover;
+    width: 18px;
+    height: 14px;
+    display: block;
+    position: absolute;
+    left: -22px;
+    top: 0;
+  }
+
+  .like:before {
+    // background: url('icons/like-green.png') center center;
+    background-size: cover;
+  }
+
+  .share:before {
+    // background: url('icons/share-2.png') center center;
+    background-size: cover;
+    width: 14px;
+  }
+
+  .comment,
+  .like,
+  .share {
+    margin-right: 10px;
+    margin-left: 23px;
+    text-align: right;
+  }
+
+  div {
+    position: relative;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+}
+
+</style>
+

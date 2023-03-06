@@ -1,9 +1,9 @@
 <template>
   <Teleport to="body">
-    <component
-      v-for="item in $store.list"
-      :key="item.id"
-      :is="getComponent(item.wrapper || 'DefaultModalWrapper')"
+    <div v-for="item in $store.list"  :key="item.id">
+      <div class="modal-overlay" @click="close(item, $event)"></div>
+      <component
+      :is="getComponent(item.wrapper || 'ModalWrapperDefault')"
       v-bind="{
         ...item.config,
         ...item.wrapperProps,
@@ -11,12 +11,14 @@
       @close="close(item, $event)"
     >
       <component
-        :is="getComponent(item.component)"
+        :is="item.component"
         v-bind="item.props"
         @close="close(item, $event)"
       >
       </component>
     </component>
+    </div>
+
   </Teleport>
 </template>
 

@@ -32,7 +32,7 @@
                   class="nav-item__login"
                   data-toggle="modal"
                   data-target="#authModal"
-                  @click="changeToLogin()"
+                  @click="openLoginModal()"
                 >
                   <img class="icon-login" src="images/login.png" />
                   <span>ĐĂNG NHẬP</span>
@@ -90,7 +90,7 @@
 
 <script setup>
 // const { find } = useStrapi()
-const { $config } = useNuxtApp()
+const { $config, $modal } = useNuxtApp()
 const showMobileMenu = false
 
 const searchString = ref('')
@@ -117,5 +117,16 @@ const handleSearch = () => {
   console.log(searchString)
 }
 
+const openLoginModal = async () => {
+  await $modal.show({
+    component: 'TemplateAuthModalAuth',
+    wrapper: 'ModalWrapperAuthForm',
+    wrapperProps: {
+      style: {
+        width: '900px'
+      },
+    }
+  })
+}
 // const response = await find('recipes')
 </script>

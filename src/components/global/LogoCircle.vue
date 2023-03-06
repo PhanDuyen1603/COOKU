@@ -16,6 +16,7 @@
   overflow: hidden;
   padding-top: 50px;
   position: relative;
+  margin: auto;
   img {
     width: 100%;
     height: 100%;

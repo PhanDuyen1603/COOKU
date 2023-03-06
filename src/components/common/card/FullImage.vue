@@ -10,7 +10,7 @@
         <h3 :class="titleClass" class="card__image--title">{{ data.title }}</h3>
         <div class="card__image--author">
           <div class="symbol me-2">
-            <GlobalAvatar v-if="data.author" :author="data.author" :avatar-size="isMobile ? 'small' : 'normal'" />
+            <GlobalAvatar v-if="data.author" :author="data.author" :avatar-size="$$isMobile ? 'small' : 'normal'" />
           </div>
           <div class="cal">
             <div class="p">
@@ -97,7 +97,7 @@ export default {
           'url(' + this.$$strapi.getMediaLink(this.data.featured_media, 'small') + ')',
         'background-size': 'cover',
         'background-position': 'center',
-        'padding-top': this.getAspectRatio() + '%',
+        // 'padding-top': this.getAspectRatio() + '%',
         ...this.itemStyles
       }
     },
@@ -116,7 +116,7 @@ export default {
       if(this.imageRatioPercent > 0) {
         return this.imageRatioPercent
       }
-      if(this.itemStyles && this.itemStyles.height && this.itemStyles.width && this.itemStyles.height.length > 0 && this.itemStyles.width.length > 0) {
+      if(this.itemStyles?.height && this.itemStyles?.width) {
         const numReg = /\d+/i
         const height = this.itemStyles.height.match(numReg)
         const width = this.itemStyles.width.match(numReg)
@@ -202,18 +202,7 @@ export default {
   align-items: center;
   z-index: 1;
 }
-.icon-wrap-circle {
-  background: #fff;
-  width: 27px;
-  height: 27px;
-  border-radius: 50%;
-  img {
-    margin: 5px;
-    &.trash-icon {
-      margin-left: 7px;
-    }
-  }
-}
+
 .icon__circle {
   width: 25px;
   height: 25px;

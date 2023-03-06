@@ -31,25 +31,30 @@ export default {
 <style lang="scss">
 .avatar {
   background-color: var(--clr-gray) !important;
+  position: relative;
+  border-radius: 50%;
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    object-fit: contain;
+    transform: translate(-50%, -50%);
+  }
   &--normal {
     padding-top: 40px;
     width: 40px !important;
-    height: 40px !important;
   }
   &--small {
     padding-top: 30px;
     width: 30px !important;
-    height: 30px !important;
   }
   &--large {
     padding-top: 74px;
     width: 74px !important;
-    height: 74px !important;
   }
   &--big {
     padding-top: 60px;
     width: 60px !important;
-    height: 60px !important;
   }
 }
 </style>

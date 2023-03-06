@@ -3,9 +3,9 @@
     <div class="home-section home-section__head">
       <div class="section-title">
         <img alt="Cooku" src="images/spaghetti.svg" class="icon">
-        <h3>MÓN ĂN HẤP DẪN</h3>
+        <h3>BÀI VIẾT MỚI NHẤT</h3>
       </div>
-      <a href="/diet" class="section-navigate">
+      <a href="/post" class="section-navigate">
         <span>Xem tất cả</span>
         <div class="section-navigate-icon">
           <span>
@@ -25,7 +25,7 @@
     <div class="section__body--group">
       <div class="section__body--title">
         <span>
-          <h4>Công Thức Vừa Đăng</h4>
+          <h4>Bài viết vừa đăng</h4>
         </span>
       </div>
       <div class="section__body--content">
@@ -34,15 +34,10 @@
           :items-to-show="$$isMobile ? 2 : 4"
           :total="4"
           :item-space="20"
-          item-component="CommonCardFullImage"
+          item-component="CommonCardVertical"
           :dataList="dataList"
           to-page-name="recipe"
           :load-more="false"
-          :itemProps="{
-            itemStyles:{
-              height: '240px'
-            }
-          }"
         />
       </div>
     </div>

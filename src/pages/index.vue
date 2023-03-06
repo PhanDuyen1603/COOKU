@@ -11,10 +11,7 @@
     />
     <TemplateHomeSectionDiet :data="{ diets , topDiets}" />
     <TemplateHomeSectionRecipe :dataList="recipes" />
-    <!-- <LazyTemplatesHomeSection2 :items="diets"></LazyTemplatesHomeSection2>
-    <TemplatesHomeSection3></TemplatesHomeSection3>
-    <LazyTemplatesHomeSection5></LazyTemplatesHomeSection5>
-    <LazyTemplatesHomeSection6></LazyTemplatesHomeSection6> -->
+    <TemplateHomeSectionPosts :dataList="posts" />
   </div>
 </template>
 
@@ -29,7 +26,11 @@ const [ banners, { data: randomDiets }, diets, topDiets ] = await Promise.all([
 ])
 
 const [ recipes ] = await Promise.all([
-  find('recipes', { _start: 0, _limit: 10, _sort: 'created_at:desc' }),
+  find('recipes', { _limit: 10, _sort: 'created_at:desc' }),
+])
+
+const [ posts ] = await Promise.all([
+  find('posts', { _limit: 10, _sort: 'created_at:desc' }),
 ])
 
 </script>

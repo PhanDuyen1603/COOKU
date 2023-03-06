@@ -12,7 +12,7 @@
           <slot name="item" :data="data">
             <component
               :is="getComponent(itemComponent)"
-              :item="data"
+              :data="data"
               :to-page-name="toPageName"
               :route-info="buildRoute(data)"
               :card-index="index + 1"

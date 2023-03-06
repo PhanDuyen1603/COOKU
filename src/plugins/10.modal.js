@@ -49,12 +49,13 @@ export default defineNuxtPlugin(( ) => {
           })
         },
         show({
-          component, wrapper, wrapperProps, btns, props: {}, btnYes = 'OK', btnNo = 'NO',
+          component, wrapper, wrapperProps, btns, props = {}, btnYes = 'OK', btnNo = 'NO',
           beforeClose, id = Math.random().toString(),
           ...rest
         }) {
           return new Promise(resolve => {
             const $store = useModalStore()
+            console.log($store)
             $store.addModal({
               ...rest,
               id, component, wrapper, wrapperProps,

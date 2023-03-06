@@ -5,6 +5,6 @@
     <main class="main">
       <slot />
     </main>
-    <!-- <ThemeTheFooter /> -->
+    <GlobalFooterMain />
   </div>
 </template>

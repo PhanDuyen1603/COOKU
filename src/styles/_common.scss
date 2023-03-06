@@ -96,3 +96,29 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+// icon
+.icon-wrap-circle {
+  background: #fff;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  img {
+    margin: 5px;
+    &.trash-icon {
+      margin-left: 7px;
+    }
+  }
+}
+
+// tag
+.tag {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-size: .9rem;
+  background: #e5625c;
+  border-radius: 110px;
+  color: #fff;
+  padding: 0px 15px;
+}

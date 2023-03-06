@@ -2,11 +2,11 @@
   <div class="widget">
     <div class="d-flex wrap widget__item--wrap">
       <nuxt-link to="/"
-        class="widget__item--image clicked shadow-sm" :style="getItemStyle(item)">
+        class="widget__item--image clicked shadow-sm" :style="getItemStyle(data)">
         <div>
-          <span v-if="getListShowElements.member" class="member-total">{{ item.hit || 0 }} thành viên</span>
-          <span v-if="getListShowElements.practice" class="member-total">{{ item.hit }} Lượt thực hành</span>
-          <span v-if="getListShowElements.commentCount" class="member-total">{{ item.comment_count ? item.comment_count
+          <span v-if="getListShowElements.member" class="member-total">{{ data.hit || 0 }} thành viên</span>
+          <span v-if="getListShowElements.practice" class="member-total">{{ data.hit }} Lượt thực hành</span>
+          <span v-if="getListShowElements.commentCount" class="member-total">{{ data.comment_count ? data.comment_count
               : 0
           }} Bình luận</span>
         </div>
@@ -17,14 +17,14 @@
                 <IconsStopWatch></IconsStopWatch>
               </AtomsIcon>
             </div>
-            <span>{{ $get(item, 'cooking_time', 0) }}p</span>
+            <span>{{ $get(data, 'cooking_time', 0) }}p</span>
           </div>
           <!-- <nuxt-link v-if="showList.category" :to="{ name: 'tag-slug', params: { slug: getCategory.slug } }"> -->
           <nuxt-link v-if="showList.category">
             <span class="badge rounded-pill bg-primary">#{{ getCategory.title }}</span>
           </nuxt-link>
           <h5 v-if="!getListShowElements.descTitle" class="line-clamp-2">
-            {{ item.title }}
+            {{ data.title }}
           </h5>
         </div>
       </nuxt-link>
@@ -33,22 +33,22 @@
           <nuxt-link>
           <!-- <nuxt-link :to="{
             name: 'profile-slug',
-            params: { slug: $get(item, 'author.username', '') },
+            params: { slug: $get(data, 'author.username', '') },
           }"> -->
-            <!-- <AtomsAvatar v-if="showAvatar || getListShowElements.avatar" :author="item.author" /> -->
+            <!-- <AtomsAvatar v-if="showAvatar || getListShowElements.avatar" :author="data.author" /> -->
           </nuxt-link>
           <CommonListColorCircle/>
         </div>
         <nuxt-link v-if="!getListShowElements.descTitle"
           class="line-clamp-4">
-          {{ getItemContent(item) }}
+          {{ getItemContent(data) }}
         </nuxt-link>
         <div v-else class="widget__item--content line-clamp-4">
           <h4>
             <nuxt-link>
               {{ $get(item, 'title', '') }}</nuxt-link>
           </h4>
-          <p>{{ getItemContent(item) }}</p>
+          <p>{{ getItemContent(data) }}</p>
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@ export default {
       default: 'recipe',
       validator: (value) => Object.values(postTypes).includes(value),
     },
-    item: {
+    data: {
       type: Object,
       required: true,
     },
@@ -109,9 +109,9 @@ export default {
       return { ...showList, ...toObject(matchList) }
     },
     getCategory() {
-      const category = this.item.diet_category
-        ? this.$get(this.item, 'diet_category', null)
-        : this.$get(this.item, 'post_categories[0]', null)
+      const category = this.data.diet_category
+        ? this.$get(this.data, 'diet_category', null)
+        : this.$get(this.data, 'post_categories[0]', null)
       return {
         title: category.title || '',
         slug: category.slug || '',
@@ -120,7 +120,7 @@ export default {
     navigate() {
       const navigate = {
         class: this.toPageName === 'null' ? "nuxt-link-disabled" : '',
-        to: { name: this.toPageName + '-slug', params: { slug: this.item.slug } },
+        to: { name: this.toPageName + '-slug', params: { slug: this.data.slug } },
       }
       if(this.toPageName === 'null') navigate.event = "disabled"
       return navigate
