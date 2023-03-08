@@ -23,9 +23,9 @@
     "nuxt": "^3.2.3",
     "sass": "^1.56.1",
     "sass-loader": "10.1.1",
-    "vue-slick": "^1.2.0",
     "swiper": "^8.4.5",
-    "vee-validate": "^4.7.3"
+    "vee-validate": "^4.7.3",
+    "vue-slick": "^1.2.0"
   },
   "dependencies": {
     "@vueuse/core": "^9.13.0",

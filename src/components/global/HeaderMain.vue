@@ -34,7 +34,7 @@
                   data-target="#authModal"
                   @click="openLoginModal()"
                 >
-                  <img class="icon-login" src="images/login.png" />
+                  <img class="icon-login" src="/images/login.png" />
                   <span>ĐĂNG NHẬP</span>
                 </div>
               </div>
@@ -77,7 +77,7 @@
                 class="search-icon__wrapper"
                 @click="handleSearch()"
               >
-                <img class="img-response" src="images/search.png" />
+                <img class="img-response" src="/images/search.png" />
               </span>
             </li>
           </ul>

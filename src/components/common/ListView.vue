@@ -29,15 +29,17 @@
         v-bind="extraWrapperOptions"
       >
         <div v-for="(item, index) in totalShowItems">
-          <component
-            :is="getComponent(itemComponent)"
-            :key="index"
-            :data="item"
-            :card-index="index + 1"
-            :to-page-name="toPageName"
-            v-bind="itemProps"
-            @click="handleItemAction"
-          />
+          <slot name="item" :data="item" :index="index">
+            <component
+              :is="getComponent(itemComponent)"
+              :key="index"
+              :data="item"
+              :index="index"
+              :to-page-name="toPageName"
+              v-bind="itemProps"
+              @click="handleItemAction"
+            />
+          </slot>
         </div>
       </div>
       <div
@@ -46,6 +48,7 @@
         :class="wrapperClass"
         v-bind="extraWrapperOptions"
       >
+
         <component
           :is="getComponent(itemComponent)"
           v-for="(item, index) in totalShowItems"
@@ -228,6 +231,11 @@ export default {
   &__message {
     margin-top: 20px;
     text-align: center;
+  }
+
+  &__modal {
+    max-height: 600px;
+    overflow-y: scroll;
   }
 }
 

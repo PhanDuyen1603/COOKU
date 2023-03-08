@@ -2,33 +2,71 @@ export const categories = [
   {
     id: 1,
     featured_media: {
-      url: '/images/news/nguyen-lieu.jpg'
+      url: '/images/nguyen-lieu.jpg'
     },
+    subTitle: "Gà, cải thảo, mì gói, bông bí...",
     title: 'Nguyên liệu',
-    slug: 'nguyen-lieu'
+    slug: 'nguyen-lieu',
+    tags: [],
+    component: 'ModalRecipeIngredients',
+    service: {
+      api: 'ingredients',
+      params: {
+        is_official: true,
+        _limit: 50,
+        page: 1
+      }
+    }
   },
   {
     id: 2,
     featured_media: {
-      url: '/images/news/loai-bua-an.jpg'
+      url: '/images/loai-bua-an.jpg'
     },
     title: 'Loại bữa ăn',
-    slug: 'loai-bua-an'
+    subTitle: "Bữa sáng, bữa tối, ăn nhậu...",
+    slug: 'loai-bua-an',
+    tags: [],
+    component: 'ModalRecipeCookType',
+    service: {
+      api: 'recipe-categories/random',
+      params: {
+        _limit: 20
+      }
+    }
   },
   {
     id: 3,
     featured_media: {
-      url: '/images/news/cach-nau.jpg'
+      url: '/images/cach-nau.jpg'
     },
     title: 'Cách nấu',
-    slug: 'cach-nau'
+    subTitle: "Hấp, chiên, luộc xào, nướng...",
+    slug: 'cach-nau',
+    tags: [],
+    component: 'ModalRecipeCookProcess',
+    service: {
+      api: 'processings/random',
+      params: {
+        _limit: 20
+      }
+    }
   },
   {
     id: 4,
     featured_media: {
-      url: '/images/news/vung-mien.jpg'
+      url: '/images/vung-mien.jpg'
     },
     title: 'Vùng miền',
-    slug: 'vung-mien'
+    subTitle: "Bắc, Trung, Hàn, Nhật...",
+    slug: 'vung-mien',
+    tabs: [{ 'name': 'Trong nước', 'slug': 'trong-nuoc' }, { 'name': 'Ngoài nước', 'slug': 'ngoai-nuoc' }],
+    component: 'ModalRecipeRegions',
+    service: {
+      api: 'regionals',
+      params: {
+        _limit: 20
+      }
+    }
   },
 ]

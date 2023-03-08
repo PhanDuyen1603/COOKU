@@ -18,9 +18,8 @@
 <script setup>
 const { find } = useStrapi()
 
-const [ banners, { data: randomDiets }, diets, topDiets ] = await Promise.all([
+const [ banners, diets, topDiets ] = await Promise.all([
   find('galleries', { slug: 'home_banner' }),
-  find('diets/random', { _limit: 10 }),
   find('diets', { _limit: 5, _sort: 'created_at:desc' }),
   find('diets/top-by/join_users')
 ])

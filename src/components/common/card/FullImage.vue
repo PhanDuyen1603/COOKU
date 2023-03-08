@@ -15,7 +15,7 @@
           <div class="cal">
             <div class="p">
               <span class="p-wrap">
-                <img width="12" src="icons/cooking-time.svg" alt />
+                <img width="12" src="/icons/cooking-time.svg" alt />
               </span>
               {{ data.cooking_time || 0 }} p
             </div>
@@ -27,33 +27,39 @@
       <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @onClick="$emit('edit-item', data)">
         <img
           class="btn p-0"
-          src="icons/edit.svg"
+          src="/icons/edit.svg"
         />
       </div>
 
       <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @onClick="$emit('remove-item', data)">
         <img
           class="btn p-0 trash-icon"
-          src="icons/trash-bin.svg"
+          src="/icons/trash-bin.svg"
         />
       </div>
 
       <div class="icon icon-bookmark cursor-pointer" @onClick="openAddRecipeModal()">
-        <img src="icons/bookmark-yellow.svg" alt="bookmark-yellow" />
+        <img src="/icons/bookmark-yellow.svg" alt="bookmark-yellow" />
       </div>
       <div v-if="hasMaterialIcon" class="icon ms-1 icon-bookmark cursor-pointer">
-        <img src="icons/material.svg" alt="bookmark-yellow" />
+        <img src="/icons/material.svg" alt="bookmark-yellow" />
       </div>
       <!-- <div class="icon__circle" @onClick="shareUrl('/recipe/' + item.slug)"> -->
       <div class="icon-wrap-circle">
-        <img src="icons/share.svg" alt="bookmark-yellow" />
+        <img src="/icons/share.svg" alt="bookmark-yellow" />
       </div>
     </div>
-    <slot name="header"></slot>
+    <div v-if="getListShowElements.number_top" class="number-top">{{ index + 1 }}</div>
   </div>
 </template>
-<script>
 
+<script>
+const showList = {
+  avatar: true,
+  number_top: false,
+}
+const intersection = (xs, ys) => xs.filter((x) => ys.includes(x))
+const toObject = (array) => array.reduce((ac, a) => ({ ...ac, [a]: true }), {})
 export default {
   props: {
     data: {
@@ -88,8 +94,31 @@ export default {
       type: Boolean,
       default: false
     },
+    index: {
+      type: Number,
+      default: 0
+    },
+    elementShow: {
+      type: [Object, Array],
+      default: () => [],
+    },
+  },
+  data() {
+    this.showList = showList
+    return {}
   },
   computed: {
+    getListShowElements() {
+      if (Array.isArray(this.elementShow)) {
+        const list = Object.keys(showList)
+        const matchList = list.filter((x) => this.elementShow.includes(x))
+        return { ...showList, ...toObject(matchList) }
+      }
+      const list = Object.keys(this.elementShow)
+      const defaultList = Object.keys(showList)
+      const matchList = intersection(list, defaultList)
+      return { ...showList, ...toObject(matchList) }
+    },
     wrapperStyles() {
       return {
         backgroundImage: this.gradientBackground
@@ -97,10 +126,19 @@ export default {
           'url(' + this.$$strapi.getMediaLink(this.data.featured_media, 'small') + ')',
         'background-size': 'cover',
         'background-position': 'center',
-        // 'padding-top': this.getAspectRatio() + '%',
-        ...this.itemStyles
+        ...this.styles
       }
     },
+    styles() {
+      let res = {...this.itemStyles}
+      if(+this.imageRatioPercent > 0) {
+        res = {
+          ...res,
+          'padding-top': this.imageRatioPercent + '%',
+        }
+      }
+      return res
+    }
   },
   methods: {
     openAddRecipeModal() {
@@ -113,7 +151,7 @@ export default {
       }
     },
     getAspectRatio() {
-      if(this.imageRatioPercent > 0) {
+      if(+this.imageRatioPercent > 0) {
         return this.imageRatioPercent
       }
       if(this.itemStyles?.height && this.itemStyles?.width) {
@@ -219,5 +257,19 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
+
+.number-top {
+  font-size: 5rem;
+  line-height: 110px;
+  display: flex;
+  align-items: center;
+  color: #df8c26;
+  font-weight: 700;
+  position: absolute;
+  left: 25px;
+  top: -30px;
+  z-index: 1;
+  text-shadow: 1px 0 0 #fff, 0 1px 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
 }
 </style>

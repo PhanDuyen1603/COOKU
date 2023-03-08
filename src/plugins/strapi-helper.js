@@ -32,7 +32,7 @@ export default defineNuxtPlugin((nuxt) => {
         return getStrapiMedia(objectImage.url)
       }
     } else {
-      return 'images/image_loading.svg'
+      return '/images/image_loading.svg'
     }
   }
 

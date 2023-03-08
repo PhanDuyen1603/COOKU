@@ -1,7 +1,7 @@
 <template>
   <div class="logo__wrapper">
     <img
-      src="images/logo.png"
+      src="/images/logo.png"
       alt="logo-Cooku"
     />
   </div>

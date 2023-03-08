@@ -9,7 +9,7 @@
     >
   </div>
   <div v-else class="avatar" :class="'avatar--'+ size">
-     <img src="icons/avatar.svg" alt="">
+     <img src="/icons/avatar.svg" alt="">
   </div>
 </template>
 

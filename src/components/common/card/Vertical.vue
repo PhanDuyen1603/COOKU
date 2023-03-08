@@ -17,27 +17,27 @@
          <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @click="$emit('edit-item', data)">
           <img
             class="btn p-0"
-            src="icons/edit.svg"
+            src="/icons/edit.svg"
           />
         </div>
 
          <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @click="$emit('remove-item', data)">
           <img
             class="btn p-0 ml-2 trash-icon"
-            src="icons/trash-bin.svg"
+            src="/icons/trash-bin.svg"
           />
         </div>
 
         <div class="icon icon-bookmark"  @click="openAddModal()">
           <img
             class="btn p-0"
-            src="icons/bookmark-yellow.svg"
+            src="/icons/bookmark-yellow.svg"
             alt="bookmark-yellow"
           />
         </div>
 
         <div class="icon icon-wrap-circle" @click="shareUrl('/post/' + data.slug)">
-          <img src="icons/share.svg" alt="share" />
+          <img src="/icons/share.svg" alt="share" />
         </div>
       </div>
       <div class="card__vertical--author">
@@ -54,7 +54,7 @@
         <div v-else class="tag line-clamp-1">#</div>
       </div>
     </div>
-    <span v-if="isTop" class="top-number font-mitr">{{ cardIndex }}</span>
+    <span v-if="isTop" class="top-number font-mitr">{{ Index }}</span>
     <div class="bottom-blog">
       <NuxtLink
         :to="{ name: 'post-slug', params: { slug: data.slug } }"
@@ -84,7 +84,7 @@ export default {
       type: Boolean,
       default: false
     },
-    cardIndex: {
+    Index: {
       type: Number,
       default: 1
     },

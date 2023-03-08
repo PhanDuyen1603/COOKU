@@ -2,7 +2,7 @@
   <div class="row auth">
     <div class="col-12 col-md-6 login__image">
       <div class="auth__image--wrap">
-        <img src="images/login-theme.png" alt="">
+        <img src="/images/login-theme.png" alt="">
       </div>
     </div>
     <div class="col-12 col-md-6 auth__form">

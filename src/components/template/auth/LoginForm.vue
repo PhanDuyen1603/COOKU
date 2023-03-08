@@ -25,13 +25,13 @@
       <p>Đăng nhập bằng</p>
       <ul class="icons-social">
         <li>
-          <img src="images/login-facebook.png" alt="login-facebook">
+          <img src="/images/login-facebook.png" alt="login-facebook">
         </li>
         <li>
-          <img src="images/login-google.png" alt="login-google">
+          <img src="/images/login-google.png" alt="login-google">
         </li>
         <li>
-          <img src="images/login-apple.png" alt="login-apple">
+          <img src="/images/login-apple.png" alt="login-apple">
         </li>
       </ul>
     </div>

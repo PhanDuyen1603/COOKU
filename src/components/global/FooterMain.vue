@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="icon-scroll-top icon" @click="scrollToTop">
-      <img src="icons/arrow-up-solid.svg" alt="icon">
+      <img src="/icons/arrow-up-solid.svg" alt="icon">
     </div>
     <div class="footer__wrapper">
       <div class="footer__item">
@@ -15,13 +15,13 @@
         </div>
         <div class="social__list">
           <div class="icon__circle icon__circle--big icon__circle--shadow ">
-            <img src="icons/facebook.svg" alt="">
+            <img src="/icons/facebook.svg" alt="">
           </div>
           <div class="icon__circle icon__circle--big icon__circle--shadow">
-            <img src="icons/instagram.svg" alt="">
+            <img src="/icons/instagram.svg" alt="">
           </div>
           <div class="icon__circle icon__circle--big icon__circle--shadow">
-            <img src="icons/twitter.svg" alt="">
+            <img src="/icons/twitter.svg" alt="">
           </div>
         </div>
       </div>

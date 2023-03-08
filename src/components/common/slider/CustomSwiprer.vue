@@ -94,7 +94,7 @@ export default {
       const el = e.target || e.path[0]
 
       if (el && el.naturalHeight <= 1) {
-        this.errorSrc = 'images/image_loading.svg'
+        this.errorSrc = '/images/image_loading.svg'
       }
 
       if (this.handleThumbImg) {
@@ -107,7 +107,7 @@ export default {
       const el = e.target || e.path[0];
 
       if (el && el.naturalHeight <= 1) {
-        this.errorSrc = 'images/image_loading.svg'
+        this.errorSrc = '/images/image_loading.svg'
       }
 
     },

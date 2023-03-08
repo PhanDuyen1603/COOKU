@@ -13,7 +13,7 @@
         <div class="widget__item--image--content position-absolute">
           <div v-if="getListShowElements.cookingTime" class="widget__item--badge">
             <div class="icon__circle">
-              <img src="icons/stop-watch.svg" alt="">
+              <img src="/icons/stop-watch.svg" alt="">
             </div>
             <span>{{ $get(data, 'cooking_time', 0) }}p</span>
           </div>
@@ -33,7 +33,7 @@
             name: 'profile-slug',
             params: { slug: $get(data, 'author.username', '') },
           }"> -->
-            <!-- <AtomsAvatar v-if="showAvatar || getListShowElements.avatar" :author="data.author" /> -->
+            <CommonAvatar v-if="showAvatar || getListShowElements.avatar" :author="data.author" />
           </nuxt-link>
           <CommonListColorCircle/>
         </div>

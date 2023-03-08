@@ -2,14 +2,14 @@
   <CommonSectionWrapperType1 :style="getDefaultStyles">
     <div class="home-section home-section__head">
       <div class="section-title">
-        <img alt="Cooku" src="images/spaghetti.svg" class="icon">
+        <img alt="Cooku" src="/images/spaghetti.svg" class="icon">
         <h3>MÓN ĂN HẤP DẪN</h3>
       </div>
       <a href="/diet" class="section-navigate">
         <span>Xem tất cả</span>
         <div class="section-navigate-icon">
           <span>
-            <img src="icons/arrow-right.svg" alt="">
+            <img src="/icons/arrow-right.svg" alt="">
           </span>
         </div>
       </a>
