@@ -42,6 +42,7 @@ export default defineNuxtPlugin((nuxt) => {
       $user: user || {},
       $strapi: {
         getMediaLink,
+        getStrapiMedia,
         logout
       }
     }

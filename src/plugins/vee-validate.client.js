@@ -104,6 +104,34 @@ export default defineNuxtPlugin(() => {
   //   return isValid || $t('validate.message.phoneNumber', { field: fieldName })
   // })
 
+  // const imageValidator = (files: unknown) => {
+  //   if (isEmpty(files)) {
+  //     return true;
+  //   }
+
+  //   const regex = /\.(jpg|svg|jpeg|png|bmp|gif|webp)$/i;
+  //   if (Array.isArray(files)) {
+  //     return files.every(file => regex.test((file as File).name));
+  //   }
+
+  //   return regex.test((files as File).name);
+  // };
+
+  defineRule('image', (files) => {
+    const isValid = (() => {
+      if (!files) {
+        return true
+      }
+      const regex = /\.(jpg|svg|jpeg|png|bmp|gif|webp)$/i;
+      if (Array.isArray(files)) {
+        return files.every(file => regex.test(file.name ? file.name : file));
+      }
+      return regex.test(files.name ? files.name : files);
+    })()
+
+    return isValid || 'vui long tai hinh anh';;
+  })
+
   defineRule('birthday', (value) => {
     const isValid = (() => {
       if (!value) {

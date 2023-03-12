@@ -19,7 +19,7 @@
       <TemplateRecipeCreateStep1
         v-show="activeItem === 'info'"
         key="info"
-        ref="info"
+        ref="infoTab"
         :class="{ 'active show': activeItem === 'info' }"
       />
       <TemplateRecipeCreateStep2
@@ -72,14 +72,41 @@
   </div>
 </template>
 
-<script setup>
-const activeItem = ref('info')
+<script>
+export default {
+  setup(props) {
+    const activeItem = ref('info')
 
-const setActive = (name) => activeItem.value = name
+    const setActive = (name) => activeItem.value = name
 
-const submit = () => console.log('submit')
-const next = () => console.log('next')
-const prev = () => console.log('prev')
+    const prev = () => {
+      if (activeItem.value === 'material') {
+        activeItem.value.value = 'info'
+      } else if (activeItem.value === 'cooking') {
+        activeItem.value = 'material'
+      }
+    }
+    const next = () => {
+      if (activeItem.value === 'info') {
+        activeItem.value = 'material'
+      } else if (activeItem.value === 'material') {
+        activeItem.value = 'cooking'
+      }
+    }
+
+    return {
+      setActive,
+      prev,
+      next,
+      activeItem
+    }
+  },
+  methods: {
+    async submit() {
+      await this.$refs.infoTab.validate()
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

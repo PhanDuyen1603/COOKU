@@ -8,6 +8,7 @@ export const categories = [
     title: 'Nguyên liệu',
     slug: 'nguyen-lieu',
     tags: [],
+    name: 'ingredient',
     component: 'ModalRecipeIngredients',
     service: {
       api: 'ingredients',
@@ -27,6 +28,7 @@ export const categories = [
     subTitle: "Bữa sáng, bữa tối, ăn nhậu...",
     slug: 'loai-bua-an',
     tags: [],
+    name: 'meal',
     component: 'ModalRecipeCookType',
     service: {
       api: 'recipe-categories/random',
@@ -43,6 +45,7 @@ export const categories = [
     title: 'Cách nấu',
     subTitle: "Hấp, chiên, luộc xào, nướng...",
     slug: 'cach-nau',
+    name: 'processing',
     tags: [],
     component: 'ModalRecipeCookProcess',
     service: {
@@ -60,6 +63,7 @@ export const categories = [
     title: 'Vùng miền',
     subTitle: "Bắc, Trung, Hàn, Nhật...",
     slug: 'vung-mien',
+    name: 'regional',
     tabs: [{ 'name': 'Trong nước', 'slug': 'trong-nuoc' }, { 'name': 'Ngoài nước', 'slug': 'ngoai-nuoc' }],
     component: 'ModalRecipeRegions',
     service: {

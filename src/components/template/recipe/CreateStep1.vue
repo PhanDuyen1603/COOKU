@@ -2,26 +2,33 @@
   <div id="info" class="tab-pane fade">
     <div class="d-flex row">
       <div class="col-6">
-        <Form as="div">
-          <Field name="recipeName" rules="required">
+        <Form
+          as="div"
+          ref="basicInfo"
+          :validation-schema="validationSchema"
+          v-slot="observe"
+        >
+          <Field v-slot="{ field }" name="recipeName">
             <div class="input-text-wrap">
               <input
                 v-model="Formdata.title"
                 type="text"
                 placeholder="Tên món ăn (*)"
                 class="input-texts"
+                v-bind="field"
               />
             </div>
           </Field>
           <ErrorMessage name="recipeName" class="error-red" />
 
-          <Field name="cooktime" rules="required">
+          <Field v-slot="{ field }" name="cooktime" rules="required">
             <div
               class="input-text-wrap d-flex"
               @click="openModel('timeCook')"
             >
               <input
                 :modelValue="cooking_time.humanReadable"
+                v-bind="field"
                 type="text"
                 placeholder="Thời gian nấu (*)"
                 class="input-texts" autocomplete="off"
@@ -33,9 +40,9 @@
           </Field>
           <ErrorMessage name="cooktime" class="error-red" />
 
-          <!-- <Field name="servings" rules="required">
+          <Field v-slot="{ field }" name="servings" rules="required">
             <div class="input-text-wrap d-flex">
-              <select id="ration" v-model="Formdata.serving" class="input-texts" >
+              <select id="ration" v-bind="field" v-model="Formdata.serving" class="input-texts" >
                 <option value="" disabled selected >Số khẩu phần *</option>
                 <option v-for="(item, index) in numbers" :key="index" :value="item">{{item}}</option>
               </select>
@@ -44,27 +51,11 @@
               </div>
             </div>
           </Field>
-          <ErrorMessage name="servings" class="error-red" /> -->
+          <ErrorMessage name="servings" class="error-red" />
 
-          <Field name="methods" rules="required">
-            <div
-              class="input-text-wrap d-flex"
-              @click="openModel('cooks')"
-            >
-              <input
-                v-model="processing.name"
-                name="Phương pháp nấu chính"
-                type="text"
-                placeholder="Phương pháp nấu chính (*)"
-                class="input-texts"
-                autocomplete="off"
-              />
-              <div class="wrap-icon">
-                <img src="/images/arrow-down.png" />
-              </div>
-            </div>
-          </Field>
-          <ErrorMessage name="methods" class="error-red" />
+          <div class="input-text-wrap">
+            <input v-model="Formdata.tags" type="text" placeholder="Tag (cách nhau bởi dấu phẩy)" name="tag" class="input-texts" />
+          </div>
 
           <div class="add-image">
             <label>
@@ -72,42 +63,48 @@
               <span>(*)</span>
             </label>
 
-            <Field name="files" rules="required">
+            <Field v-slot="{ field }" name="files" rules="required">
+              {{ field }}
               <div class="d-flex mt-3 mt-3">
                 <div v-if="image" class="img-wrap mr-2 mt-0">
                   <img class="img-response" :src="image" />
                 </div>
-                <input v-model="image" type="hidden" name="Hình đại diện">
+                <input v-bind="field" v-model="image" type="hidden" name="Hình đại diện">
                 <span v-if="loadingImage" role="status" class="spinner-border spinner-border-sm">
                   <span class="visually-hidden">Loading...</span>
                 </span>
                 <div class="img-wrap position-relative mt-0 mb-3">
                   <img src="/images/plus-big.png" />
-                  <input accept="image/*" type="file" required class="upload file-hidden" @change="onFileChange" />
+                  <input
+                    accept="image/*"
+                    type="file"
+                    required
+                    class="upload file-hidden"
+                    @change="onFileChange($event, observe)"
+                  />
                 </div>
               </div>
             </Field>
             <ErrorMessage name="files" class="error-red" />
-
           </div>
         </Form>
       </div>
 
       <div class="col-6">
-        <div class="input-text-wrap d-flex" @click="openModel('dataDomestics')">
-          <input v-model="regional.name" type="text" placeholder="Đặc sản vùng miền " class="input-texts" autocomplete="off" />
+        <div
+          v-for="item in createCategories" :key="item.id"
+          class="input-text-wrap d-flex"
+          @click="openModal(item)"
+        >
+          <input
+            v-model="extraData[item.name].name"
+            type="text"
+            :placeholder="`${extraData[item.name].name} ${item.title} (${item.subTitle})`"
+            class="input-texts"
+          />
           <div class="wrap-icon">
             <img src="/images/arrow-down.png" />
           </div>
-        </div>
-        <div class="input-text-wrap d-flex" @click="openModel('recipeCategories')" >
-          <input v-model="meal.name" type="text" readonly="true" placeholder="Loại bữa ăn" class="input-texts" autocomplete="off"/>
-          <div class="wrap-icon">
-            <img src="/images/arrow-down.png" />
-          </div>
-        </div>
-        <div class="input-text-wrap">
-          <input v-model="Formdata.tags" type="text" placeholder="Tag (cách nhau bởi dấu phẩy)" name="tag" class="input-texts" />
         </div>
 
         <div class="d-flex justify-content-between align-items-center">
@@ -142,9 +139,10 @@
 </template>
 
 <script>
-// import axios from 'axios'
 import { Form, Field, ErrorMessage } from 'vee-validate'
 // import useCookStore from '~/stores/cook.store'
+
+import { categories } from '~/constants/recipe'
 export default {
   props: {
     time: {
@@ -162,25 +160,36 @@ export default {
   },
 
   data() {
+    this.validationSchema = {
+      recipeName: 'required',
+      cooktime: 'required|number',
+      servings: 'required',
+      files: 'required|image'
+    }
     return {
       numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      image: '',
-      loadingImage: false,
-      Formdata: {
-        title: null,
-        content: null,
-        featured_media: null,
-        recipe_categories: null,
-        processing: null,
-        level: 'normal',
-        serving: '',
-        tags: null,
-        cooking_time: null,
-      },
-      cooking_time: {
-        time: 0,
-        humanReadable: '',
-      },
+    }
+  },
+
+  async setup(props) {
+    const { find } = useStrapi()
+    const token = useStrapiToken()
+    const { $modal, $config, $axios, $$strapi } = useNuxtApp()
+
+    const files = ref(null)
+
+    const strapiBaseUri = unref($config).public.strapi.url
+
+    const createCategories = computed(() => categories.filter(i => i.slug !== 'nguyen-lieu'))
+
+    const cooking_time = reactive({
+      time: 0,
+      humanReadable: '',
+    })
+
+    const loadingImage = ref(false)
+
+    const extraData = reactive({
       processing: {
         name: '',
         id: 0
@@ -192,13 +201,104 @@ export default {
       meal: {
         name: ''
       }
+    })
+
+    const Formdata = reactive({
+      title: '',
+      content: null,
+      featured_media: null,
+      recipe_categories: null,
+      processing: null,
+      level: 'normal',
+      serving: '',
+      tags: null,
+      cooking_time: null,
+    })
+
+    const image = ref('')
+
+    // methods
+    const createImage = async (file, observe) => {
+      console.log(files)
+      loadingImage.value = true
+      const formData = new FormData()
+      formData.append('files', file)
+
+      const { data } = await $axios.post(
+        strapiBaseUri + '/upload',
+        formData, {
+          headers: {
+            Authorization: 'Bearer ' + unref(token),
+          },
+        }
+      )
+      image.value = $$strapi.getStrapiMedia(data[0].url)
+      observe.setFieldValue('files', $$strapi.getStrapiMedia(data[0].url))
+      Formdata.featured_media = data[0].id
+      loadingImage.value = false
     }
+
+    const onFileChange = async (e, observe) => {
+      console.log(e, observe)
+      const files = e.target.files || e.dataTransfer.files
+      if (!files.length) return
+      const imgPath = files[0].name
+      const extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase()
+      if (
+        extn === 'gif' ||
+        extn === 'png' ||
+        extn === 'jpg' ||
+        extn === 'jpeg'
+      ) {
+        await createImage(files[0], observe)
+        // console.log(files[0])
+      } else {
+        alert('Chưa đúng định dạng gif, png, jpg, jpeg')
+      }
+    }
+
+    const openModal = async (category) => {
+      console.log(category)
+      let res = await find(category.service.api)
+      if(typeof res === 'object' && !!res.data) res = res.data
+      const data = await $modal.show({
+        component: 'ModalRecipeIngredients',
+        props: {
+          style: {
+            width: '900px'
+          },
+          dataList: res,
+          tags: category.tags
+        }
+      })
+      if (!!data) {
+        if (category.name === 'processing') extraData.processing.name = data.title
+        if (category.name === 'meal') extraData.meal.name = data.title
+        if (category.name === 'regional') extraData.regional.name = data.title
+      }
+    }
+
+    return {
+      openModal,
+      onFileChange,
+
+      loadingImage,
+      createCategories,
+      cooking_time,
+      extraData,
+      Formdata,
+      image,
+      files
+    }
+
   },
 
-  setup(props) {
-
-  },
-
+  methods: {
+    async validate() {
+      const result = await this.$refs.basicInfo.validate()
+      console.log(result)
+    }
+  }
   // computed: {
   //   cookStore() { return useCookStore() },
   //   recipeData() { return this.cookStore.recipeData },
@@ -225,48 +325,6 @@ export default {
   //     tags.style.opacity = 0.5
   //   }
   // },
-
-  methods: {
-    // onFileChange(e) {
-    //   const files = e.target.files || e.dataTransfer.files
-    //   if (!files.length) return
-    //   const imgPath = files[0].name
-    //   const extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase()
-    //   if (
-    //     extn === 'gif' ||
-    //     extn === 'png' ||
-    //     extn === 'jpg' ||
-    //     extn === 'jpeg'
-    //   ) {
-    //     this.createImage(files[0])
-    //   } else {
-    //     alert('Chưa đúng định dạng gif, png, jpg, jpeg')
-    //   }
-    // },
-    // async createImage(file) {
-    //   this.loadingImage = true
-    //   const formData = new FormData()
-    //   formData.append('files', file)
-
-    //   const {
-    //     data
-    //   } = await axios.post(
-    //     process.env.strapiBaseUri + '/upload',
-    //     formData, {
-    //       headers: {
-    //         Authorization: 'Bearer ' + this.$strapi.getToken(),
-    //       },
-    //     }
-    //   )
-    //   // this.image = this.getStrapiMedia(data[0].url)
-    //   this.data.featured_media = data[0].id
-    //   this.loadingImage = false
-    // },
-    openModel(modalName) {
-      // this.$emit('open-modal', modalName)
-      console.log(111)
-    },
-  },
 }
 
 </script>
@@ -284,7 +342,8 @@ export default {
   .error-red {
     color: red;
     margin-top: -10px;
-    padding-bottom: 10px;
+    margin-left: 20px;
+    font-size: var(--fs-sm);
     display: block;
   }
 
@@ -358,6 +417,9 @@ export default {
   &.active {
     color: #fff;
     background: #df8c26;
+  }
+  &--sm {
+    font-size: var(--fs-sm);
   }
 }
 .add-image {

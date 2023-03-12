@@ -26,7 +26,6 @@ const { find } = useStrapi()
 const { $modal } = useNuxtApp()
 
 const openModal = async (category) => {
-  console.log(category)
   let res = await find(category.service.api)
   if(typeof res === 'object' && !!res.data) res = res.data
   await $modal.show({

@@ -39,7 +39,7 @@
 
       <CommonListView :dataList="filterData" :items-to-show="5" :item-space="15" class="list__modal" :load-more="false">
         <template #item="{ data }">
-          <div class="object-image masonry__item" style="padding-top: 69%">
+          <div class="object-image masonry__item" style="padding-top: 69%" @click="getItem(data)">
 
             <img :src="$$strapi.getMediaLink(data.featured_media, 'small')" alt="">
             <p class="masonry__item--title">{{ data.title }}</p>
@@ -133,6 +133,9 @@ export default {
         }
       }
     },
+    getItem(data) {
+      this.$emit('close', data)
+    }
   },
 }
 </script>
