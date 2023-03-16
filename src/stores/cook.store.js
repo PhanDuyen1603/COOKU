@@ -38,7 +38,7 @@ export default defineStore({
   getters: {
     changeCook: (state) => state.mainCook,
     changeMeal: (state) => state.recipeMeal,
-    // cooking_time: (state) => state.cooking_time,
+    cooking_time: (state) => state.cooking_time,
     recipeData: (state) => state.data,
     // processing: (state) => state.processing,
     // regional: (state) => state.regional,
@@ -70,7 +70,15 @@ export default defineStore({
       const readableMinutes = isHumanReadable ? +minutes : +minutes % 60
       const humanReadable = readableHours === 0 ? `${readableMinutes} phút` : `${readableHours} giờ ${readableMinutes} phút`
       const time = readableHours * 60 + minutes
-      this.cooking_time = ( time, humanReadable )
+      console.log(time, humanReadable )
+      // this.cooking_time = ( time, humanReadable )
+      // this.cooking_time = {
+      //   ...this.cooking_time,
+      //   time,
+      //   humanReadable
+      // }
+      this.cooking_time.time = time
+      this.cooking_time.humanReadable = humanReadable
     },
     clearCook() {
       this.cooking_time = {time: 60, humanReadable: '1 giờ'}

@@ -1,39 +1,46 @@
 <template>
-  <div id="material" class="tab-pane fade">
-    <Form as="div" class="row">
-      <div v-for="(item, index) in data" :key="index" class="col-6">
-        <div class="wrap-items" :class="{ 'active-wrap-items': index === activeItem }" @click="setActive(index)">
-          <Field
-            :name="`ingredient-${ index }`"
-            rules="required"
-          >
-            <div class=" d-flex justify-content-between align-items-center position-relative">
-              <img width="10" height="16" src="/images/grid.png" />
-              <div
-                class="gray-avt" :style="{
-                background: data[index].materialImage
-                  ? 'url(' + data[index].materialImage + ')'
-                  : '#b0b0b0',
-              }"></div>
+  <div id="material" class="tab-pane fade" ref="el">
+    <Form
+      as="div"
+      class="row"
+      ref="createStep2"
+      :validation-schema="validationSchema"
+      v-slot="observe"
+    >
+      <div v-for="(item, index) in formData" :key="index" class="col-6">
+        <div
+          class="wrap-items"
+          :class="{ 'active-wrap-items': index === activeItem }" @click="setActive(index)"
+        >
+          <div class="validation-input__wrapper">
+            <Field
+              :name="`ingredient-${ index }`"
+              rules="required"
+              v-slot="{ field }"
+            >
+              <div class=" d-flex justify-content-between align-items-center position-relative">
+                <img width="10" height="16" src="/images/grid.png" />
+                <div
+                  class="gray-avt" :style="{
+                  background: item.materialImage
+                    ? 'url(' + item.materialImage + ')'
+                    : '#b0b0b0',
+                }"></div>
 
-              <input
-                v-model="data[index].title"
-                :name="'Nguyên liệu ' + (index + 1)"
-                :placeholder="'Nguyên liệu ' + (index + 1) + ' *'"
-                class="select-input-wrap ms-2 me-2"
-                @keyup="changeTitleMaterial($event.target.value)"
-              />
+                <input
+                  v-model="item.title"
+                  v-bind="field"
+                  :name="`ingredient-${ index }`"
+                  :placeholder="'Nguyên liệu ' + (index + 1) + ' *'"
+                  class="select-input-wrap ms-2 me-2"
+                  @click="changeIngredient(observe, index)"
+                />
 
-              <!-- modal chose material -->
-              <!-- <TemplatesRecipeCreateMaterialItem v-if="activeItem === index" :active="activeMaterial" :pos="index"
-                :search="textSearchMaterial" @change-title-material="changeTitleMaterialPopup">
-              </TemplatesRecipeCreateMaterialItem> -->
-
-
-              <img src="/images/trash-bin-red.png" @click="removeField(index, item)" />
-            </div>
-          </Field>
-          <ErrorMessage :name="`ingredient-${ index }`" class="error-red" />
+                <img src="/images/trash-bin-red.png" @click="removeField(index, item)" />
+              </div>
+            </Field>
+            <ErrorMessage :name="`ingredient-${ index }`" class="error-red" />
+          </div>
 
           <div class="
               d-flex
@@ -41,43 +48,85 @@
               wrap-cound-items
               position-relative
             ">
-            <Field :name="`quantity-${index}`" v-slot="{ errors }" rules="required">
-              <div class="right-in">
-                <input v-model="data[index].number" :name="`quantity-${index}`" width="130" type="number"
-                  class="wrap-item fix-wrap-item w-130" placeholder="Số lượng*" min="0" />
-              </div>
-            </Field>
-            <ErrorMessage :name="`quantity-${index}`" class="error-red" />
+            <div class="validation-input__wrapper">
+              <Field
+                :name="`quantity-${index}`"
+                v-slot="{ field }"
+                rules="required"
+              >
+                <div class="right-in">
+                  <input
+                    v-model="item.number"
+                    :name="`quantity-${index}`"
+                    width="130" type="number"
+                    class="wrap-item fix-wrap-item w-130"
+                    placeholder="Số lượng*" min="0"
+                    v-bind="field"
+                  />
+                </div>
+              </Field>
+              <ErrorMessage :name="`quantity-${index}`" class="error-red" />
+            </div>
 
-            <Field :name="`unit-${index}`" v-slot="{ errors }" rules="required">
-              <div class="right-in">
-                <input v-model="data[index].unit" name="Đơn vị" width="130" class="wrap-item fix-wrap-item w-130"
-                  placeholder="Đơn vị*" @keyup="changeMaterialUnit($event.target.value, index)"
-                />
-                <!-- modal chose unit -->
-                <!-- <TemplatesRecipeCreateMaterialUnit v-if="activeItemUnit === index" :active="activeUnit" :pos="index"
-                  :units="units" :search="textSearchUnit" @change-title-unit="changeTitleUnitPopup"
-                  @close-modal-material="closeModalMaterial"></TemplatesRecipeCreateMaterialUnit> -->
-              </div>
-            </Field>
-            <ErrorMessage :name="`unit-${index}`" class="error-red" />
+            <div class="validation-input__wrapper">
+              <Field :name="`unit-${index}`" v-slot="{ field }" rules="required">
+                <div class="right-in">
+                  <input
+                    v-model="item.unit"
+                    v-bind="field"
+                    name="Đơn vị" width="130"
+                    class="wrap-item fix-wrap-item w-130"
+                    placeholder="Đơn vị*"
+                    @keyup="changeMaterialUnit($event.target.value, index)"
+                  />
+
+                </div>
+              </Field>
+              <ErrorMessage :name="`unit-${index}`" class="error-red" />
+            </div>
           </div>
 
           <div class="d-flex justify-content-between align-items-center">
-            <input :id="'one' + index" v-model="data[index].type" type="radio" name="type" class="hidden-input"
-              value="main" />
-            <label class="select-button select-button--sm  fix-btn-tabs" :class="{
-              active: data[index].type === 'main',
-            }" :for="'one' + index">Nguyên liệu chính</label>
-            <input :id="'two' + index" v-model="data[index].type" type="radio" name="type" class="hidden-input"
-              value="side" />
-            <label class="select-button select-button--sm fix-btn-tabs" :class="{
-              active: data[index].type === 'side' || !data[index].type,
-            }" :for="'two' + index">Nguyên liệu phụ</label>
-            <input :id="'three' + index" v-model="data[index].type" type="radio" name="type" class="hidden-input"
-              value="spice" />
-            <label class="select-button select-button--sm fix-btn-tabs" :class="{ active: data[index].type === 'spice' }"
-              :for="'three' + index">Gia vị</label>
+            <input
+              :id="'one' + index"
+              v-model="item.type"
+              type="radio" name="type"
+              class="hidden-input"
+              value="main"
+            />
+            <label
+              class="select-button select-button--sm  fix-btn-tabs"
+              :class="{ active: item.type === 'main' }"
+              :for="'one' + index"
+            >
+              Nguyên liệu chính
+            </label>
+            <input
+              :id="'two' + index"
+              v-model="item.type"
+              type="radio"
+              name="type"
+              class="hidden-input"
+              value="side"
+            />
+            <label
+              class="select-button select-button--sm fix-btn-tabs"
+              :class="{ active: item.type === 'side' || !item.type }"
+              :for="'two' + index"
+            >Nguyên liệu phụ</label>
+            <input
+              :id="'three' + index"
+              v-model="item.type"
+              type="radio"
+              name="type"
+              class="hidden-input"
+              value="spice"
+            />
+            <label
+              class="select-button select-button--sm fix-btn-tabs"
+              :class="{ active: item.type === 'spice' }"
+              :for="'three' + index"
+            >Gia vị</label>
           </div>
         </div>
       </div>
@@ -96,18 +145,13 @@
 <script>
 // import { mapGetters } from 'vuex';
 import { Field, Form, ErrorMessage } from 'vee-validate'
+import { categories } from '~/constants/recipe'
+
+const ingredientCategory = categories.find(x => x.slug === 'nguyen-lieu')
+
 export default {
   data() {
     return {
-      data: [{
-        id: '',
-        title: '',
-        number: '',
-        unit: '',
-        unitId: '',
-        type: 'main',
-        materialImage: '',
-      }],
       activeItem: 0,
       activeItemUnit: 0,
       activeMaterial: false,
@@ -123,11 +167,14 @@ export default {
   // async fetch() {
   //   this.units = await this.$strapi.$http.$get('units')
   // },
-  // computed: {
-  //   ...mapGetters({
-  //     ingredients: 'modules/cook/ingredients',
-  //   }),
-  // },
+  computed: {
+    // ...mapGetters({
+    //   ingredients: 'modules/cook/ingredients',
+    // }),
+    // ingredientCategory() {
+    //   return categories.find(x => x.slug === 'nguyen-lieu')
+    // }
+  },
   // mounted() {
   //   if (this.ingredients?.length > 0) {
   //     const ingredients = this.ingredients
@@ -143,28 +190,90 @@ export default {
   //     });
   //   }
   // },
-  methods: {
-    changeTitleMaterial(e) {
-      if (e == null || e === '') {
-        this.activeMaterial = false
+  async setup(props) {
+    const { find } = useStrapi()
+    const { $modal , $cloneDeep} = useNuxtApp()
+
+    const formData = reactive([{
+      id: '',
+      title: '',
+      number: '',
+      unit: '',
+      unitId: '',
+      type: 'main',
+      materialImage: '',
+    }])
+
+    // vee valiation
+    const validationSchema = reactive({
+      [`ingredient-0`]: 'required',
+      [`quantity-0`]: 'required',
+      [`unit-0`]: 'required',
+    })
+
+    watch('formData.length', ( newValue, oldValue ) => {
+      if(newValue > oldValue) {
+        validationSchema = {
+          validationSchema,
+          [`ingredient-${newValue - 1}`]: 'required',
+          [`quantity-${newValue - 1}`]: 'required',
+          [`unit-${newValue - 1}`]: 'required',
+        }
+      } else {
+        const cloneOb = $cloneDeep(validationSchema)
+        delete cloneOb[`ingredient-${oldValue - 1}`]
+        delete cloneOb[`quantity-${oldValue - 1}`]
+        delete cloneOb[`unit-${oldValue - 1}`]
+        validationSchema = cloneOb
       }
-      this.activeMaterial = true
-      this.textSearchMaterial = e
-    },
+    })
+    //
+
+    const ingredient = ref('')
+
+    const changeIngredient = async (observe, index) => {
+      let res = await find(ingredientCategory.service.api)
+      if(typeof res === 'object' && !!res.data) res = res.data
+      const data = await $modal.show({
+        component: 'ModalRecipeIngredients',
+        props: {
+          style: {
+            width: '900px'
+          },
+          dataList: res,
+          tags: ingredientCategory.tags
+        }
+      })
+      observe.setFieldValue(`ingredient-${index}`, data.title)
+      formData[index].title = data.title || ''
+      formData[index].ingredient = data.id
+      // TODO: unit
+      formData[index].unit = null
+    }
+
+    return {
+      changeIngredient,
+
+      ingredient,
+      formData,
+      validationSchema
+    }
+  },
+  methods: {
     changeMaterialUnit(e, index) {
       this.activeItemUnit = index
       this.activeUnit = true
       this.textSearchUnit = e
     },
     changeTitleMaterialPopup(title, indexMaterial, imageMaterial, id) {
-      this.data[indexMaterial].title = title
-      this.data[indexMaterial].id = id
-      this.data[indexMaterial].materialImage = imageMaterial
+      this.formData[indexMaterial].title = title
+      this.formData[indexMaterial].id = id
+      this.formData[indexMaterial].materialImage = imageMaterial
       this.activeMaterial = false
     },
     changeTitleUnitPopup(title, indexUnit, id) {
-      this.data[indexUnit].unit = title
-      this.data[indexUnit].unitId = id
+      this.formData[indexUnit].unit = title
+      this.formData[indexUnit].unitId = id
       this.activeUnit = false
     },
     closeModalMaterial() {
@@ -174,7 +283,7 @@ export default {
       this.$emit('open-modal', modalName)
     },
     addField() {
-      this.data.push({
+      this.formData.push({
         id: '',
         title: '',
         number: '',
@@ -185,13 +294,22 @@ export default {
       })
     },
     removeField(index, item) {
-      if (this.data?.length === 1) {
+      if (this.formData?.length === 1) {
         return this.$toast.error('Món ăn cần ít nhất 1 nguyên liệu');
       }
-      this.data.splice(index, 1)
+      this.formData.splice(index, 1)
     },
     setActive(index) {
       this.activeItem = index
+    },
+    async validate() {
+      const result = await this.$refs.createStep2.validate()
+      if (!result.valid) {
+        this.$toast.show({ message: 'Vui lòng kiểm tra thông tin bước 2' })
+        this.$emit('swtich-step', 1)
+        return false
+      }
+      return true
     }
   },
 }
@@ -225,25 +343,6 @@ export default {
     font-size: 20px;
     line-height: 27px;
     color: #4f4f4f;
-  }
-}
-.wrap-items {
-  .img-wrap {
-    width: 60px;
-    height: 59px;
-    background: #f1f1f1;
-    border: 1px dashed #b0b0b0;
-    border-radius: 10px;
-    margin-top: 24px;
-    cursor: pointer;
-    position: relative;
-
-    img {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
   }
 }
 
@@ -316,6 +415,15 @@ export default {
     border-radius: 50%;
     background-color: #fff;
     margin-right: 5px;
+  }
+}
+.validation-input__wrapper {
+  position: relative;
+  .error-red {
+    position: absolute;
+    bottom: -5px;
+    margin: 0;
+    font-size: var(--fs-xs);
   }
 }
 </style>

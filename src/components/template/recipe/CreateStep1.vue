@@ -11,7 +11,7 @@
           <Field v-slot="{ field }" name="recipeName">
             <div class="input-text-wrap">
               <input
-                v-model="Formdata.title"
+                v-model="formData.title"
                 type="text"
                 placeholder="Tên món ăn (*)"
                 class="input-texts"
@@ -24,7 +24,7 @@
           <Field v-slot="{ field }" name="cooktime" rules="required">
             <div
               class="input-text-wrap d-flex"
-              @click="openModel('timeCook')"
+              @click="openTimePickerModal(observe)"
             >
               <input
                 :modelValue="cooking_time.humanReadable"
@@ -42,7 +42,12 @@
 
           <Field v-slot="{ field }" name="servings" rules="required">
             <div class="input-text-wrap d-flex">
-              <select id="ration" v-bind="field" v-model="Formdata.serving" class="input-texts" >
+              <select
+                id="ration"
+                v-bind="field"
+                class="input-texts"
+                @change="changeServing(observe, $event)"
+              >
                 <option value="" disabled selected >Số khẩu phần *</option>
                 <option v-for="(item, index) in numbers" :key="index" :value="item">{{item}}</option>
               </select>
@@ -54,7 +59,7 @@
           <ErrorMessage name="servings" class="error-red" />
 
           <div class="input-text-wrap">
-            <input v-model="Formdata.tags" type="text" placeholder="Tag (cách nhau bởi dấu phẩy)" name="tag" class="input-texts" />
+            <input v-model="formData.tags" type="text" placeholder="Tag (cách nhau bởi dấu phẩy)" name="tag" class="input-texts" />
           </div>
 
           <div class="add-image">
@@ -64,7 +69,6 @@
             </label>
 
             <Field v-slot="{ field }" name="files" rules="required">
-              {{ field }}
               <div class="d-flex mt-3 mt-3">
                 <div v-if="image" class="img-wrap mr-2 mt-0">
                   <img class="img-response" :src="image" />
@@ -109,29 +113,29 @@
 
         <div class="d-flex justify-content-between align-items-center">
           <div
-            :class="{ active: Formdata.level === 'easy' }"
+            :class="{ active: formData.level === 'easy' }"
             class="select-button"
-            @click="Formdata.level = 'easy'"
+            @click="formData.level = 'easy'"
           >
             Dễ
           </div>
           <div
-            :class="{ active: Formdata.level === 'normal' }"
+            :class="{ active: formData.level === 'normal' }"
             class="select-button"
-            @click="Formdata.level = 'normal'"
+            @click="formData.level = 'normal'"
           >
             Trung bình
           </div>
           <div
-            :class="{ active: Formdata.level === 'hard' }"
+            :class="{ active: formData.level === 'hard' }"
             class="select-button"
-            @click="Formdata.level = 'hard'"
+            @click="formData.level = 'hard'"
           >
             Khó
           </div>
         </div>
         <div class="input-text-wrap texts-area mb-3">
-          <textarea v-model="Formdata.content" class="input-texts" placeholder="Mô tả" cols="4" rows="4"></textarea>
+          <textarea v-model="formData.content" class="input-texts" placeholder="Mô tả" cols="4" rows="4"></textarea>
         </div>
       </div>
     </div>
@@ -140,8 +144,9 @@
 
 <script>
 import { Form, Field, ErrorMessage } from 'vee-validate'
-// import useCookStore from '~/stores/cook.store'
+import useCookStore from '~/stores/cook.store'
 
+import { readableTime } from '~/utils/StringUtils'
 import { categories } from '~/constants/recipe'
 export default {
   props: {
@@ -162,7 +167,7 @@ export default {
   data() {
     this.validationSchema = {
       recipeName: 'required',
-      cooktime: 'required|number',
+      cooktime: 'required',
       servings: 'required',
       files: 'required|image'
     }
@@ -175,7 +180,7 @@ export default {
     const { find } = useStrapi()
     const token = useStrapiToken()
     const { $modal, $config, $axios, $$strapi } = useNuxtApp()
-
+    const $store = useCookStore()
     const files = ref(null)
 
     const strapiBaseUri = unref($config).public.strapi.url
@@ -203,30 +208,31 @@ export default {
       }
     })
 
-    const Formdata = reactive({
+    const formData = reactive({
       title: '',
       content: null,
       featured_media: null,
-      recipe_categories: null,
-      processing: null,
+      serving: null,
       level: 'normal',
-      serving: '',
       tags: null,
       cooking_time: null,
+      //
+      recipe_categories: [],
+      regional: null,
+      processing: null,
     })
 
     const image = ref('')
 
     // methods
     const createImage = async (file, observe) => {
-      console.log(files)
       loadingImage.value = true
-      const formData = new FormData()
-      formData.append('files', file)
+      const fileData = new FormData()
+      fileData.append('files', file)
 
       const { data } = await $axios.post(
         strapiBaseUri + '/upload',
-        formData, {
+        fileData, {
           headers: {
             Authorization: 'Bearer ' + unref(token),
           },
@@ -234,12 +240,11 @@ export default {
       )
       image.value = $$strapi.getStrapiMedia(data[0].url)
       observe.setFieldValue('files', $$strapi.getStrapiMedia(data[0].url))
-      Formdata.featured_media = data[0].id
+      formData.featured_media = data[0].id
       loadingImage.value = false
     }
 
     const onFileChange = async (e, observe) => {
-      console.log(e, observe)
       const files = e.target.files || e.dataTransfer.files
       if (!files.length) return
       const imgPath = files[0].name
@@ -258,7 +263,6 @@ export default {
     }
 
     const openModal = async (category) => {
-      console.log(category)
       let res = await find(category.service.api)
       if(typeof res === 'object' && !!res.data) res = res.data
       const data = await $modal.show({
@@ -272,21 +276,48 @@ export default {
         }
       })
       if (!!data) {
-        if (category.name === 'processing') extraData.processing.name = data.title
-        if (category.name === 'meal') extraData.meal.name = data.title
-        if (category.name === 'regional') extraData.regional.name = data.title
+        if (category.name === 'processing') {
+          formData.processing = data.id
+          extraData.processing.name = data.title
+        }
+        if (category.name === 'meal') {
+          formData.recipe_categories.push(data.id)
+          extraData.meal.name = data.title
+        }
+        if (category.name === 'regional') {
+          formData.regional = data.id
+          extraData.regional.name = data.title
+        }
       }
+    }
+
+    const openTimePickerModal = async (observe) => {
+      const time = await $modal.show({
+        component: 'ModalRecipeTimePicker'
+      })
+      // console.log(time)
+      cooking_time.humanReadable = readableTime(time)
+      cooking_time.time = time.hours * 60 + time.minutes
+      formData.cooking_time = time.hours * 60 + time.minutes
+      observe.setFieldValue('cooktime', cooking_time.humanReadable)
+    }
+
+    const changeServing = (observe, $event) => {
+      formData.serving = $event.target.value
+      observe.setFieldValue('servings', $event.target.value)
     }
 
     return {
       openModal,
       onFileChange,
+      openTimePickerModal,
+      changeServing,
 
       loadingImage,
       createCategories,
       cooking_time,
       extraData,
-      Formdata,
+      formData,
       image,
       files
     }
@@ -296,7 +327,12 @@ export default {
   methods: {
     async validate() {
       const result = await this.$refs.basicInfo.validate()
-      console.log(result)
+      if(!result.valid) {
+        this.$toast.show({ message: 'Vui lòng kiểm tra thông tin bước 1' })
+        this.$emit('swtich-step', 1)
+        return false
+      }
+      return true
     }
   }
   // computed: {

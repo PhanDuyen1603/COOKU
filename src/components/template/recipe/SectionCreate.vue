@@ -21,18 +21,21 @@
         key="info"
         ref="infoTab"
         :class="{ 'active show': activeItem === 'info' }"
+        @swtich-step="setActive('info')"
       />
       <TemplateRecipeCreateStep2
         v-show="activeItem === 'material'"
         ref="material"
         key="material"
         :class="{ 'active show': activeItem === 'material' }"
+        @swtich-step="setActive('material')"
       />
       <TemplateRecipeCreateStep3
         v-show="activeItem === 'cooking'"
         ref="cooking"
         key="cooking"
         :class="{ 'active show': activeItem === 'cooking' }"
+        @swtich-step="setActive('cooking')"
       />
     </div>
 
@@ -79,6 +82,8 @@ export default {
 
     const setActive = (name) => activeItem.value = name
 
+    const { create } = useStrapi()
+
     const prev = () => {
       if (activeItem.value === 'material') {
         activeItem.value.value = 'info'
@@ -98,13 +103,97 @@ export default {
       setActive,
       prev,
       next,
+      strapiCreate: create,
+
       activeItem
     }
   },
   methods: {
     async submit() {
-      await this.$refs.infoTab.validate()
-    }
+      try {
+        const step1 = await this.$refs.infoTab.validate()
+        if(!step1) return
+        const step2 = await this.$refs.material.validate()
+        if(!step2) return
+        const step3 = await this.$refs.cooking.validate()
+        if(!step3) return
+        const itemIngredients = []
+        const step1Data = this.$refs.infoTab.formData
+        const material = this.$refs.material.formData
+        const cookings = this.$refs.cooking.formData
+
+        for (const index in material) {
+          const item = {
+            ingredient: material[index].ingredient,
+            quantity: parseInt(material[index].number),
+            unit: material[index].unitId || null,
+            type: material[index].type ? material[index].type : 'side',
+          }
+          itemIngredients.push(item)
+        }
+
+        const itemSteps = []
+        // const Cooking = this.$refs.cooking.data
+        for (const index in cookings) {
+          const item = {
+            title: cookings[index].title,
+            content: cookings[index].desc,
+            order: +index + 1,
+            type: cookings[index].type ? cookings[index].type : 'cook',
+            galleries: cookings[index].galleryId ? cookings[index].galleryId : [],
+          }
+          if (this.submitType !== 'create') item.id = cookings[index].id
+          itemSteps.push(item)
+        }
+
+        const formData = {
+          title: step1Data.title,
+          content: step1Data.content,
+          recipe_categories: step1Data.recipe_categories,
+          cooking_time: step1Data.cooking_time,
+          level: step1Data.level,
+          featured_media: step1Data.featured_media,
+          serving: step1Data.serving,
+          processing: step1Data.processing,
+          regional: step1Data.regional,
+          author: unref(this.$$user).id,
+          ingredients: itemIngredients,
+          steps: itemSteps,
+        }
+        const routeName = this.$route.name
+        const type = routeName.includes('create') ? 'create' : 'update'
+        if (type === 'create') {
+          formData.comments = []
+          formData.tags = []
+          // formData.tags = info.data.tags && info.data.tags.length ? info.data.tags.split(',').map(e => e.trim()) : []
+          // console.log(formData)
+          await this.postCreateRecipes(formData)
+        } else {
+          // formData.tags = info.data.tags.split(',').map(e => e.trim())
+          // await this.postUpdate(formData)
+          console.log('update')
+        }
+
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async postCreateRecipes(formData) {
+      this.loadingInsert = true
+      try {
+        const res = await this.strapiCreate('recipes', formData)
+        await this.$toast.show({
+          message: 'Tạo mới món ăn thành công'
+        })
+
+        console.log(res)
+
+      } catch (error) {
+        await this.$toast.show({
+          message: 'Tạo mới món ăn thất bại, vui lòng thử lại'
+        })
+      }
+    },
   }
 }
 </script>

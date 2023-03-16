@@ -8,3 +8,9 @@ export function removeAccent(str) {
   str = str.replace(/đ/gi, 'd')
   return str
 }
+
+export function readableTime({ hours, minutes }) {
+  const readableHours = hours > 0 ? hours : Math.floor(+minutes / 60)
+  const readableMinutes =  hours > 0 ? +minutes : +minutes % 60
+  return `${readableHours} giờ ${readableMinutes} phút`
+}

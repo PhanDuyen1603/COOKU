@@ -1,20 +1,20 @@
 <template>
-  <div class="d-flex mb-4 add-image">
+  <div class="d-flex mb-4 add-image" :class="`gallery-${index}`">
 
-    <!-- <div v-show="gallery.length < 4" class="img-wrap me-3 max-image">
-      <input ref="file" class="input-file" type="file" multiple accept="image/*"
-        @change="handleGalleryUploads(index, $event)" />
-      <img class="no-margin" src="/images/plus-big.png" />
-    </div> -->
     <div v-show="gallery.length < 4"  class="img-wrap position-relative mt-0 mb-3">
       <img src="/images/plus-big.png" />
-      <input accept="image/*" type="file" required class="upload file-hidden" @change="handleGalleryUploads(index, $event)" />
+      <input
+        accept="image/*"
+        type="file" required
+        class="upload file-hidden"
+        @change="handleGalleryUploads(index, $event)"
+      />
     </div>
     <span v-if="loading" role="status" class="spinner-border spinner-border-sm">
       <span class="visually-hidden">Loading...</span>
     </span>
 
-    <div :ref="'gallery-image' + (index + 1)" class="d-flex flex-wrap" :class="'gallery-image' + (index + 1)">
+    <div v-if="gallery.length" :ref="'gallery-image' + (index)" class="d-flex flex-wrap" :class="'gallery-image' + (index)">
 
       <div class="item-image hidden">
         <span class="close"></span><img src="" width="104px" />
@@ -44,6 +44,10 @@ export default {
     gallery: {
       type: Array,
       required: true
+    },
+    key: {
+      type: [String, Number],
+      default: 0
     }
   },
   data() {
@@ -51,10 +55,11 @@ export default {
       loading: false,
     }
   },
+
   mounted() {
     const self = this;
-    const gallery = document.querySelectorAll(`.gallery-image${this.index + 1} .item-image .close`)
-    gallery.forEach((element, index) => {
+    const gallery = document.querySelectorAll(`.gallery-image${this.index} .item-image .close`)
+    gallery.forEach((element, i) => {
       element.addEventListener('click', function() {
         const pos = Array.from(gallery).indexOf(this)
         self.removeImage(pos)
@@ -100,15 +105,16 @@ export default {
           return alert('Bạn không được nhập quá 4 hình ảnh')
         } else {
           const imageUrl = this.$$strapi.getStrapiMedia(data[0].url)
-          const imageWrapElement = document.querySelector(`.gallery-image${this.index + 1} .item-image:nth-child(${i + lengthGalley + 1})`)
-          const imageElement = document.querySelector(`.gallery-image${this.index + 1} .item-image:nth-child(${i + lengthGalley + 1}) img`)
-          imageWrapElement.classList.remove('hidden')
-          imageElement.src = imageUrl
-          this.$emit('addGallery', {
+          await this.$emit('addGallery', {
             pos: index,
             image: imageUrl,
             id: data[0].id
           })
+
+          const imageWrapElement = document.querySelector(`.gallery-image${this.index} .item-image:nth-child(${i + lengthGalley + 1})`)
+          const imageElement = document.querySelector(`.gallery-image${this.index} .item-image:nth-child(${i + lengthGalley + 1}) img`)
+          imageWrapElement.classList.remove('hidden')
+          imageElement.src = imageUrl
         }
       }
       if (this.gallery.length === 4) {
@@ -123,9 +129,9 @@ export default {
         pos: this.index,
         imageIndex
       })
-      const image = document.querySelector(`.gallery-image${this.index + 1} .item-image:nth-child(${imageIndex + 1})`)
+      const image = document.querySelector(`.gallery-${key} .gallery-image${this.index} .item-image:nth-child(${imageIndex})`)
       image.remove()
-      document.querySelector(`.gallery-image${this.index + 1}`).innerHTML +=
+      document.querySelector(`.gallery-image${this.index}`).innerHTML +=
       `<div class="item-image hidden">
         <span class="close"></span><img src="" width="104px" />
       </div>`
@@ -133,8 +139,8 @@ export default {
 
     renderGallery(galery) {
       galery.forEach((url, index) => {
-        const image = document.querySelector(`.gallery-image${this.index + 1} .item-image:nth-child(${index + 1}) img`)
-        document.querySelector(`.gallery-image${this.index + 1} .item-image:nth-child(${index + 1})`).classList.remove('hidden')
+        const image = document.querySelector(`.gallery-${key} .gallery-image${this.index} .item-image:nth-child(${index}) img`)
+        document.querySelector(`.gallery-${key} .gallery-image${this.index} .item-image:nth-child(${index})`).classList.remove('hidden')
         image.src = url
       })
     }
@@ -143,14 +149,6 @@ export default {
 </script>
 
 <style>
-.item-image {
-  position: relative;
-  border: 1px dashed #b0b0b0;
-  border-radius: 10px;
-  margin-right: 10px;
-  width: 110px;
-  height: 110px;
-}
 .img-wrap .input-file {
   opacity: 0;
   height: 100%;
@@ -159,5 +157,12 @@ export default {
   z-index: 99;
   right: 0;
   cursor: pointer;
+}
+.add-image .img-wrap {
+  border: 1px dashed #b0b0b0;
+  border-radius: 10px;
+  margin-right: 10px;
+  width: 110px;
+  height: 110px;
 }
 </style>
