@@ -3,13 +3,33 @@
     <Form class="login__from--wrap" v-slot="observe" ref="loginInfomation" :validation-schema="validationSchema">
       <div class="login-form-group mb-2">
         <label for="name">Tên đăng nhập</label>
-        <Field name="name" v-model="dataLogin.name" />
-        <ErrorMessage class="error-message" name="name" />
+        <div class="input-wrap">
+          <Field name="tên đăng nhập" v-slot="slotField" >
+            <input
+              v-model="dataLogin.name"
+              v-bind="slotField.field"
+              type="text"
+              :class="{ 'input-error': slotField.errors?.length }"
+            >
+          </Field>
+          <ErrorMessage class="error-message" name="tên đăng nhập" />
+        </div>
       </div>
       <div class="login-form-group mb-3">
         <label for="password">Mật khẩu</label>
-        <Field name="password" v-model="dataLogin.password" />
-        <ErrorMessage class="error-message" name="password" />
+        <div class="input-wrap">
+          <Field name="mật khẩu" v-slot="slotField" >
+            <input
+              v-model="dataLogin.password"
+              v-bind="slotField.field"
+              :class="{ 'input-error': slotField.errors?.length }"
+              :type="passwordText ? 'tex' : 'password'"
+              class="input-password"
+            >
+            <img src="/icons/eyes.png" alt="eyes" @click="toggleType">
+          </Field>
+        </div>
+        <ErrorMessage class="error-message" name="mật khẩu" />
       </div>
       <div class="form-check mb-2">
         <input type="checkbox" class="form-check-input" id="status" v-model="dataLogin.loginStatus" >
@@ -18,7 +38,7 @@
 
       <button type="button" @click="handleLogin(observe)" class="btn btn-login">Đăng Nhập</button>
     </Form>
-    <div class="forget-pass">
+    <div class="forget-pass cursor-pointer" @click="openModalForgetPassword">
       <span>Quên mật khẩu ?</span>
     </div>
     <div class="login__socials">
@@ -38,7 +58,7 @@
     <div class="navigate-sign-in">
       <span>
         Bạn chưa có tài khoản?
-        <span class="auth-action" @click="openSignupModal">Đăng ký </span>
+        <span class="auth-action cursor-pointer" @click="openSignupModal">Đăng ký </span>
 
       </span>
     </div>
@@ -56,19 +76,22 @@ export default {
   },
   data() {
     this.validationSchema = {
-      name: 'required',
-      password: 'required'
+      ['tên đăng nhập']: 'required',
+      ['mật khẩu']: 'required'
     }
   },
   async setup(_, { emit }) {
     const { $modal, $wait, $toast } = useNuxtApp()
     const { login } = useStrapiAuth()
+    const router = useRouter()
 
     const dataLogin = reactive({
       name: '',
       password: '',
       loginStatus: false
     })
+
+    const passwordText = ref(false)
 
     const openSignupModal = async () => {
       emit('close')
@@ -87,6 +110,23 @@ export default {
       })
     }
 
+    const openModalForgetPassword = async () => {
+      emit('close')
+      await $wait(200)
+      await $modal.show({
+        component: 'TemplateAuthModalAuth',
+        wrapper: 'ModalWrapperAuthForm',
+        wrapperProps: {
+          style: {
+            width: '900px'
+          },
+        },
+        props: {
+          type: 'forget_password',
+        }
+      })
+    }
+
     const handleLogin = async (observe) => {
       const result = await observe.validate()
       if (result.valid) {
@@ -96,6 +136,7 @@ export default {
             message: 'đăng nhập thành công'
           })
           emit('close')
+          router.push('/')
         } catch (error) {
           await $toast.show({
             message: error
@@ -105,10 +146,17 @@ export default {
 
       }
     }
+
+    const toggleType = () => {
+      passwordText.value = !passwordText.value
+    }
     return {
       openSignupModal,
       handleLogin,
-      dataLogin
+      toggleType,
+      openModalForgetPassword,
+      dataLogin,
+      passwordText
     }
   },
 

@@ -52,6 +52,16 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
 }
+.input-wrap {
+  position: relative;
+  img {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+}
 .error-message {
   margin-top: 10px;
   font-size: 12px;

@@ -16,8 +16,7 @@ export default defineNuxtPlugin(() => {
 
   defineRule('required', (value, _, { field: fieldName }) => {
     const valid = value && value.length
-
-    return valid || 'Vui lòng nhập'
+    return valid || 'Không được để trống'
   });
 
   defineRule('numeric', value => {

@@ -24,9 +24,10 @@
 
       <button type="button" @click="handleSignup(observe)" class="btn btn-login">Đăng Ký</button>
     </Form>
-    <div class="navigate-sign-in">
+    <div class="navigate-sign-in mt-2">
       <span>
-        Bạn đã có tài khoản? Đăng nhập
+        Bạn đã có tài khoản?
+        <span class="auth-action cursor-pointer" @click="openLoginModal">Đăng nhập </span>
       </span>
     </div>
   </div>
@@ -54,6 +55,8 @@ export default {
   async setup(_, { emit }) {
     const { $modal, $wait, $toast } = useNuxtApp()
     const { register } = useStrapiAuth()
+    const router = useRouter()
+
 
     const SignupValidationSchema = {
       name: 'required',
@@ -80,6 +83,9 @@ export default {
             width: '900px'
           },
         },
+        props: {
+          type: 'forget_password',
+        }
       })
     }
 
@@ -92,6 +98,7 @@ export default {
             message: 'đăng ký thành công'
           })
           emit('close')
+          router.push('/')
         } catch (error) {
           await $toast.show({
             message: error
