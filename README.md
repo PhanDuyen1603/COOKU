@@ -40,3 +40,16 @@ npm run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+###
+
+### todo
+
+#### common
+- middleware
+-
+
+#### create recipe:
+- unit search dropdown
+- create tags
+

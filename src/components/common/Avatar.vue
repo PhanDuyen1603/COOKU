@@ -1,14 +1,14 @@
 <template>
   <div
     v-if="data && data.avatar"
-    class="rounded-circle object-image"
+    class="avatar rounded-circle object-image" :class="['avatar--'+ size, circle ? 'avatar__circle' : '']"
   >
     <img
-      :src="$$strapi.getMediaLink(data)"
+      :src="$$strapi.getMediaLink(data.avatar)"
       :alt="data.username"
     >
   </div>
-  <div v-else class="avatar" :class="'avatar--'+ size">
+  <div v-else class="avatar" :class="['avatar--'+ size, circle ? 'avatar__circle' : '']">
      <img src="/icons/avatar.svg" alt="">
   </div>
 </template>
@@ -24,6 +24,10 @@ export default {
       default: 'normal',
       validator: val => ['normal', 'small', 'big' ,'large'].includes(val.toLowerCase()),
     },
+    circle: {
+      type: Boolean,
+      default: true
+    }
   }
 }
 </script>
@@ -32,7 +36,10 @@ export default {
 .avatar {
   background-color: var(--clr-gray) !important;
   position: relative;
-  border-radius: 50%;
+  border-radius: 8px;
+  &__circle {
+    border-radius: 50%;
+  }
   img {
     position: absolute;
     top: 50%;

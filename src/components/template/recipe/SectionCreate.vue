@@ -186,7 +186,6 @@ export default {
           message: 'Tạo mới món ăn thành công'
         })
 
-        console.log(res)
 
       } catch (error) {
         await this.$toast.show({

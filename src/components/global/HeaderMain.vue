@@ -17,7 +17,7 @@
               class="nav-item"
             >
               <NuxtLink
-                :to="item.to"
+                :to="{ name: item.to }"
                 no-prefetch
                 class="nav-link"
                 aria-current="page"
@@ -27,7 +27,7 @@
             </li>
 
             <li class="nav-item login cursor-pointer profile-image">
-              <div v-if="!$$isSigned" class="">
+              <div v-if="!unref($$isSigned)" class="">
                 <div
                   class="nav-item__login"
                   data-toggle="modal"
@@ -55,12 +55,12 @@
                   <li class="dropdown-item__profile">
                     <NuxtLink
                       class="pl-3 nav-link"
-                      :to="{ name: 'profile-slug', params: { slug: $$user.username || 'error' } }"
+                      :to="{ name: 'profile-slug', params: { slug: unref($$user)?.username || 'error' } }"
                     >
                       Trang cá nhân
                     </NuxtLink>
                    </li>
-                  <li class="dropdown-item__profile"><a class="pl-3 nav-link cursor-pointer" @click="$$strapi.logout">Đăng xuất</a></li>
+                  <li class="dropdown-item__profile"><a class="pl-3 nav-link cursor-pointer" @click="logOut">Đăng xuất</a></li>
                 </ul>
               </div>
             </li>
@@ -89,9 +89,9 @@
 </template>
 
 <script setup>
-// const { find } = useStrapi()
-const { $config, $modal } = useNuxtApp()
+const { $modal, $toast} = useNuxtApp()
 const showMobileMenu = false
+const router = useRouter()
 
 const searchString = ref('')
 
@@ -115,6 +115,20 @@ const Menus = [
 
 const handleSearch = () => {
   console.log(searchString)
+}
+
+const logOut = async () => {
+  try {
+    const { logout } = useStrapiAuth()
+    await logout()
+    $toast.show({
+      message: 'logout success'
+    })
+    router.push('/')
+  } catch (error) {
+    console.log('logout', error)
+  }
+
 }
 
 const openLoginModal = async () => {

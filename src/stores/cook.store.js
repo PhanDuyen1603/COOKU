@@ -70,7 +70,6 @@ export default defineStore({
       const readableMinutes = isHumanReadable ? +minutes : +minutes % 60
       const humanReadable = readableHours === 0 ? `${readableMinutes} phút` : `${readableHours} giờ ${readableMinutes} phút`
       const time = readableHours * 60 + minutes
-      console.log(time, humanReadable )
       // this.cooking_time = ( time, humanReadable )
       // this.cooking_time = {
       //   ...this.cooking_time,

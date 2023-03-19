@@ -21,16 +21,14 @@ export default defineNuxtConfig({
   },
 
   modules: [
+    '@nuxtjs/strapi',
     '@nuxtjs/device',
     '@pinia/nuxt',
-    '@nuxtjs/strapi'
   ],
 
   strapi: {
     url: strapiBaseUri,
     version: 'v3',
-    cookie: {},
-    cookieName: 'strapi_jwt'
   },
 
   css: [
