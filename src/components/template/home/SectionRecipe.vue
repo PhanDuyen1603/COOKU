@@ -1,11 +1,11 @@
 <template>
   <CommonSectionWrapperType1 :style="getDefaultStyles">
     <div class="home-section home-section__head">
-      <div class="section-title">
+      <div class="section__head--title">
         <img alt="Cooku" src="/images/spaghetti.svg" class="icon">
         <h3>MÓN ĂN HẤP DẪN</h3>
       </div>
-      <a href="/diet" class="section-navigate">
+      <a href="/diet" class="section__head--title">
         <span>Xem tất cả</span>
         <div class="section-navigate-icon">
           <span>
@@ -15,11 +15,11 @@
       </a>
     </div>
     <ul class="home-section__tags tag-blog">
-      <li> <a href="/tag/keto" class="tag"># keto</a> </li>
-      <li><a href="/tag/eat-clean" class="tag"># eat clean </a></li>
-      <li><a href="/tag/benh-tieu-duong" class="tag"># bệnh tiểu đường </a></li>
-      <li><a href="/tag" class="tag"># dukan </a></li>
-      <li><a href="/tag/low-carb" class="tag"># low carb </a></li>
+      <li v-for="(tag, index) in tags" :key="index">
+        <NuxtLink :to="{ name: 'tag-slug', params: { slug: tag.slug } }" class="tag" >
+          # {{ tag.title }}
+        </NuxtLink>
+      </li>
     </ul>
 
     <div class="section__body--group">
@@ -35,7 +35,7 @@
           :total="4"
           :item-space="20"
           item-component="CommonCardFullImage"
-          :dataList="dataList"
+          :dataList="recipes"
           to-page-name="recipe"
           :load-more="false"
           :itemProps="{
@@ -60,6 +60,12 @@ export default {
       return {
         '--section-main-clr': `var(${colorVariables.ORANGE})`,
       }
+    },
+    recipes() {
+      return this.data.recipes || []
+    },
+    tags() {
+      return this.data.tags || []
     },
   }
 }

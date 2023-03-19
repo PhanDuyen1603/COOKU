@@ -1,11 +1,11 @@
 <template>
   <CommonSectionWrapperType1>
     <div class="home-section home-section__head">
-      <div class="section-title">
+      <div class="section__head--title">
         <img alt="Cooku" src="/images/diet-group.svg" class="icon">
         <h3>CHẾ ĐỘ ĂN HOT</h3>
       </div>
-      <a href="/diet" class="section-navigate">
+      <a href="/diet" class="section__head--title">
         <span>Xem tất cả</span>
         <div class="section-navigate-icon">
           <span>
@@ -14,12 +14,12 @@
         </div>
       </a>
     </div>
-    <ul class="home-section__tags tag-blog">
-      <li> <a href="/tag/keto" class="tag"># keto</a> </li>
-      <li><a href="/tag/eat-clean" class="tag"># eat clean </a></li>
-      <li><a href="/tag/benh-tieu-duong" class="tag"># bệnh tiểu đường </a></li>
-      <li><a href="/tag" class="tag"># dukan </a></li>
-      <li><a href="/tag/low-carb" class="tag"># low carb </a></li>
+    <ul v-if="tags.length" class="home-section__tags tag-blog">
+      <li v-for="(item, index) in tags" :key="index">
+        <NuxtLink :to="{ name: 'tag-slug', params: { slug: item.slug }}" class="tag">
+          # {{ item.title }}
+        </NuxtLink>
+      </li>
     </ul>
 
     <div class="section__body--group">
@@ -59,6 +59,7 @@
 
 <script>
 import commonProps from '../../common/commonProps';
+
 export default {
   extends: commonProps,
   computed: {
@@ -67,7 +68,15 @@ export default {
     },
     topDiets() {
       return this.data.topDiets
-    }
+    },
+    tags() {
+      const allTags = this.$cloneDeep(this.diets).map(item => item.tags).flat() || []
+      if(allTags.length && allTags.length > 5) {
+        return allTags.slice(0, 5)
+      } else {
+        return allTags
+      }
+    },
   }
 }
 </script>

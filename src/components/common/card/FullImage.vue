@@ -168,6 +168,13 @@ export default {
 </script>
 <style lang="scss" scoped>
 .card__image {
+  --elm-rounded: 20px;
+  --elm-border: 1px solid var(--clr-gray-dark);
+  --elm-image-width: 45%;
+  --elm-content-padding: 30px;
+  --elm-content-align: auto;
+  --elm-clr: var(--clr-orange-primary);
+
   position: relative;
 
   .content-title-bottom {
@@ -178,18 +185,19 @@ export default {
   }
   &--bg {
     box-shadow: 4px 4px 11px 1px rgba(0, 0, 0, 0.12);
-    border-radius: 20px;
+    border-radius: var(--elm-rounded);
   }
   &--author {
     display: flex;
+    justify-content: space-between;
   }
   &--title {
     text-shadow: 1px 0 0 #fff, 0 1px 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
-    color: var(--clr-red-primary);
+    color: var(--elm-clr);
     font-family: Nunito;
     font-style: normal;
     font-weight: 600;
-    font-size: 1.25rem;
+    font-size: var(--fs-lg);
   }
 }
 .cal {
@@ -199,11 +207,11 @@ export default {
   font-family: Nunito;
   font-style: normal;
   font-weight: 600;
-  font-size: .9rem;
+  font-size: var(--fs-sm);
   margin: 0;
 
   .cal-number {
-    background: #df8c26;
+    background: var(--elm-clr);
     border-radius: 100px;
     padding: 0px 5px;
     margin-right: 10px;
@@ -211,11 +219,11 @@ export default {
     align-items: center;
   }
   #__layout h1, #__layout .h1{
-      font-size: 1.375rem;
+      font-size: var(--fs-xl);
       line-height: 1.4;
   }
   .p {
-    background: #e5625c;
+    background: var(--elm-clr);
     border-radius: 100px;
     padding: 0px 5px;
     display: flex;
@@ -239,6 +247,10 @@ export default {
   display: flex;
   align-items: center;
   z-index: 1;
+  gap: 5px;
+  .icon {
+    height: 25px;
+  }
 }
 
 .icon__circle {
@@ -264,7 +276,7 @@ export default {
   line-height: 110px;
   display: flex;
   align-items: center;
-  color: #df8c26;
+  color: var(--elm-clr);
   font-weight: 700;
   position: absolute;
   left: 25px;

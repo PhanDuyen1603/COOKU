@@ -110,8 +110,8 @@ export default {
       }
     }
   },
-  async mounted() {
-    const self = this
+  // async mounted() {
+  //   const self = this
 
     // await this.$strapi.count('likes', {
     //   'post': this.data.id,
@@ -128,7 +128,7 @@ export default {
     //   self.$toast.error(err)
     // });
 
-  },
+  // },
   methods: {
     openAddModal() {
       if(this.$strapi.user) {
@@ -145,6 +145,8 @@ export default {
 
 <style lang="scss" scoped>
 .card__vertical {
+  --elm-clr: var(--clr-green-primary);
+
   background: #fff;
   box-shadow: 2px 2px 10px 1px rgb(0 0 0 / 5%);
   border-radius: 20px;
@@ -156,6 +158,10 @@ export default {
     display: flex;
     align-items: center;
     z-index: 1;
+    gap: 5px;
+  }
+  .tag {
+    background-color: var(--elm-clr);
   }
 }
 .card__vertical--image {
@@ -201,38 +207,45 @@ export default {
   font-size: 60px;
   -webkit-text-fill-color: white;
   -webkit-text-stroke-width: 3px;
-  -webkit-text-stroke-color: #65A06B;
+  -webkit-text-stroke-color: var(--elm-clr);
 }
 .social-share {
   display: flex;
   align-items: center;
-  color: #65a06b;
+  color: var(--elm-clr);
   font-family: Nunito;
   font-style: normal;
   font-weight: 600;
-  font-size: 10px;
+  font-size: var(--fs-sm);
+  gap: 5px;
+
+  .comment,
+  .like,
+  .share {
+    position: relative;
+  }
 
   .comment:before,
   .like:before,
   .share:before {
     content: '';
-    // background: url('icons/comment-green.png') center center;
+    background: url('/icons/comment-green.png') center center;
     background-size: cover;
     width: 18px;
     height: 14px;
     display: block;
     position: absolute;
     left: -22px;
-    top: 0;
+    top: 3px;
   }
 
   .like:before {
-    // background: url('icons/like-green.png') center center;
+    background: url('/icons/like-green.png') center center;
     background-size: cover;
   }
 
   .share:before {
-    // background: url('icons/share-2.png') center center;
+    background: url('/icons/share-2.png') center center;
     background-size: cover;
     width: 14px;
   }

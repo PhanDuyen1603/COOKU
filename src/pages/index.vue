@@ -10,8 +10,8 @@
       slideItemClass="slider-banner__item"
     />
     <TemplateHomeSectionDiet :data="{ diets , topDiets}" />
-    <TemplateHomeSectionRecipe :dataList="recipes" />
-    <TemplateHomeSectionPosts :dataList="posts" />
+    <TemplateHomeSectionRecipe :data="{ recipes , tags: recipeTags || []}" />
+    <TemplateHomeSectionPosts :data="{ posts , tags: postTags || []}" />
   </div>
 </template>
 
@@ -24,12 +24,14 @@ const [ banners, diets, topDiets ] = await Promise.all([
   find('diets/top-by/join_users')
 ])
 
-const [ recipes ] = await Promise.all([
+const [ recipes, recipeTags ] = await Promise.all([
   find('recipes', { _limit: 10, _sort: 'created_at:desc' }),
+  find('tags/top/recipe', { _limit: 4, _sort: 'created_at:desc' }),
 ])
 
-const [ posts ] = await Promise.all([
+const [ posts, postTags ] = await Promise.all([
   find('posts', { _limit: 10, _sort: 'created_at:desc' }),
+  find('tags/top/post', { _limit: 4, _sort: 'created_at:desc' }),
 ])
 
 </script>
