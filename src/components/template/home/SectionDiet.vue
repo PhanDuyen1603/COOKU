@@ -16,7 +16,7 @@
     </div>
     <ul v-if="tags.length" class="home-section__tags tag-blog">
       <li v-for="(item, index) in tags" :key="index">
-        <NuxtLink :to="{ name: 'tag-slug', params: { slug: item.slug }}" class="tag">
+        <NuxtLink :to="{ name: 'tag-slug', params: { slug: item.slug || 'error' }}" class="tag">
           # {{ item.title }}
         </NuxtLink>
       </li>

@@ -132,7 +132,7 @@ export default {
       if (result.valid) {
         try {
           await login({ identifier: dataLogin.name, password: dataLogin.password })
-          await $toast.show({
+          $toast.show({
             message: 'đăng nhập thành công'
           })
           emit('close')

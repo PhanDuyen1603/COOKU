@@ -67,7 +67,7 @@
 
             <li class="nav-item__search">
               <input
-                v-model="keywordsearch"
+                v-model="searchString"
                 type="text"
                 class="input__search rounded--30 border-0"
                 placeholder="Tên món, nguyên liệu, chế độ ăn,..."
@@ -115,6 +115,7 @@ const Menus = [
 
 const handleSearch = () => {
   console.log(searchString)
+  if(searchString.value.length > 0) router.push('/search?tab=recipe&_q=' + searchString.value)
 }
 
 const logOut = async () => {

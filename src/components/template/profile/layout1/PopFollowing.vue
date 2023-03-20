@@ -17,8 +17,8 @@
         Người theo dõi
       </div>
     </div>
-    <div class="container-600 mx-auto p-3 single-col-list">
-      <div class="single-col-list__search">
+    <div class="container-600 mx-auto p-3 search-bar-custom">
+      <div class="search-bar-custom__search">
         <div class="" @keyup.enter="search">
           <input
             v-model="keywordsearch"
@@ -177,52 +177,5 @@ export default {
   font-weight: 700;
   color: #333;
   border-bottom: 2px solid #000;
-}
-.single-col-list {
-  width: 100%;
-  max-width: 600px;
-  &__search {
-    padding: 10px;
-    padding-right: 50px;
-    border-radius: 20px;
-    border: 2px solid #F8D7D5;
-    position: relative;
-    margin-bottom: 48px;
-    input {
-      background: #FBFBFB;
-      border-radius: 20px;
-      border: none;
-      padding: 5px;
-      &:focus {
-        outline: none;
-      }
-    }
-    .btn-search {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      right: 5px;
-      top: 5px;
-      display: flex;
-      justify-self: center;
-      align-items: center;
-      background: var(--clr-red-primary);
-      svg {
-        height: 32px;
-      }
-    }
-  }
-  &__content {
-    max-height: 300px;
-    overflow-y: auto;
-
-  }
-  &__item {
-    margin-bottom: 35px;
-    &--title {
-      margin-left: 15px;
-      font-size: 1.25rem;
-    }
-  }
 }
 </style>

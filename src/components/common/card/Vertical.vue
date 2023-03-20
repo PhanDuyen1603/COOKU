@@ -2,7 +2,7 @@
   <div v-if="data" class="card__vertical">
     <div class="card__vertical--image position-relative">
       <NuxtLink
-        :to="{ name: 'post-slug', params: { slug: data.slug } }"
+        :to="{ name: 'post-slug', params: { slug: data.slug || 'error' } }"
       >
         <div class="img-blog">
           <img
@@ -57,7 +57,7 @@
     <span v-if="isTop" class="top-number font-mitr">{{ Index }}</span>
     <div class="bottom-blog">
       <NuxtLink
-        :to="{ name: 'post-slug', params: { slug: data.slug } }"
+        :to="{ name: 'post-slug', params: { slug: data.slug || 'error' } }"
       >
         <h3 class="card__vertical--title line-clamp-2">{{ data.title }}</h3>
       </NuxtLink>
