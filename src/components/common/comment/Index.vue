@@ -39,19 +39,18 @@
             <template #commentAction>
               <div class="like__group--action">
                 <div @click.prevent="handleActionLike(comment)">
-                  <!-- <IconsLike
+                  <img
                     v-if="isCurrentUserLike(comment)"
-                    class="pb-1"
-                    :fill="'#df8c26'"
+                    src="/icons/like.svg"
                     height="20"
-                  />
-                  <IconsLikeOutline
+                    alt="like"
+                  >
+                  <img
                     v-else
-                    class="pb-1"
-                    :fill="!isCurrentUserLike(comment) ? '#FBE4C8' : '#df8c26'"
+                    src="/icons/outline-like.svg"
                     height="20"
-                  /> -->
-
+                    alt="out like"
+                  >
                   <span v-if="comment.likes.length" class="count-like">
                     {{ comment.likes?.length }}
                   </span>
@@ -150,9 +149,11 @@ export default {
       this.fetchComment()
     }, 1000)
   },
+
   async setup(prop) {
-    const { $modal } = useNuxtApp()
-    const { find } = useStrapi()
+    const { $modal, $$user } = useNuxtApp()
+
+    const { find, create, delete: _delete } = useStrapi()
     const paramsFilter = reactive({
       parent_comment_null: true,
       _sort: 'created_at:DESC',
@@ -196,10 +197,47 @@ export default {
       })
     }
 
+    // like
+    const handleActionLike = async (comment) => {
+      try {
+        const found = comment.likes.find((i) => i.author === unref($$user).id)
+        if (found === undefined) {
+          const likeRes = await create('likes', { author: unref($$user).id, comment: comment.id })
+          pushLike({ comment, like: likeRes })
+
+        } else {
+          await _delete('likes', found.id)
+          removeLike({ comment, like: found })
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const pushLike = ({ comment, like }) => {
+      comment.likes.push({
+        id: like.id,
+        author: like.author.id,
+      })
+    }
+    const removeLike = ({ comment, like }) => {
+      comment.likes = comment.likes.filter((i) => i.id !== like.id)
+    }
+
+    const isCurrentUserLike = (comment) => {
+      if (!unref($$user)) return false
+      return !!comment.likes.find(x => x.author === unref($$user).id)
+    }
+
     return {
       fetchComment,
       openLoginModal,
       replyComment,
+
+      handleActionLike,
+      pushLike,
+      removeLike,
+      isCurrentUserLike,
 
       comments,
       totalComment,
@@ -208,41 +246,6 @@ export default {
 
   },
   methods: {
-    pushLike({ comment, like }) {
-      comment.likes.push({
-        id: like.id,
-        author: like.author.id,
-      })
-    },
-    removeLike({ comment, like }) {
-      comment.likes = comment.likes.filter((i) => i.id !== like.id)
-    },
-
-    async handleActionLike(comment) {
-      try {
-        const found = comment.likes.find(
-          (i) => i.author === this.$strapi.user.id
-        )
-        if (found === undefined) {
-          const likeRes = await this.$strapi.create('likes', {
-            author: this.$strapi.user.id,
-            comment: comment.id,
-          })
-          this.pushLike({
-            comment,
-            like: likeRes,
-          })
-        } else {
-          await this.$strapi.delete('likes', found.id)
-          this.removeLike({
-            comment,
-            like: found,
-          })
-        }
-      } catch (error) {
-        console.log(error)
-      }
-    },
     pushCommentChild(data) {
       const commentParent = this.comments.find(
         (i) => i.id === data.commentParentId
@@ -252,10 +255,7 @@ export default {
     pushComment(comment) {
       this.comments.unshift(comment)
     },
-    isCurrentUserLike(comment) {
-      if (!this.$$user) return false
-      return !!comment.likes.find(x => x.author === this.$$user.id)
-    },
+
   },
 }
 </script>
