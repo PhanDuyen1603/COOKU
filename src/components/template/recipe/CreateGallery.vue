@@ -148,7 +148,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .img-wrap .input-file {
   opacity: 0;
   height: 100%;
@@ -164,5 +164,48 @@ export default {
   margin-right: 10px;
   width: 110px;
   height: 110px;
+}
+.add-image {
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 27px;
+  color: #b0b0b0;
+  text-align: left;
+
+  label {
+    span {
+      color: #df8c26;
+    }
+  }
+
+  .img-wrap {
+    width: 110px;
+    height: 110px;
+    background: #f1f1f1;
+    border: 1px dashed #b0b0b0;
+    border-radius: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    position: relative;
+
+    img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .file-hidden {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 1.25rem;
+    cursor: pointer;
+    opacity: 0;
+  }
 }
 </style>

@@ -4,7 +4,7 @@
       <h5>bạn đã thử công thức này chưa?</h5>
       <p>Hãy chia sẽ suy nghĩ của bạn trong phần bình luận bên dưới!</p>
       <p class="text__highlight">{{ totalComment > 0 ? totalComment + ' bình luận' : 'Hãy là người đầu tiên bình luận' }} </p>
-      <p v-if="!$isSigned" class="clicked">
+      <p v-if="!$$isSigned" class="clicked">
         Bạn cần <span class="text__highlight text__highlight--underline cursor-pointer" @click="openLoginModal()">Đăng nhập</span> để bình luận</p>
     </div>
     <CommonCommentForm
@@ -56,7 +56,7 @@
                     {{ comment.likes?.length }}
                   </span>
                 </div>
-                <span class="title-reply" @click.prevent="replyComment(comment.id)">
+                <span class="title-reply cursor-pointer" @click.prevent="replyComment(comment.id)">
                   Trả lời
                 </span>
               </div>
@@ -140,7 +140,7 @@ export default {
   data() {
     return {
       fetchingFirst: 1,
-      commentIdReply: 0,
+      // commentIdReply: 0,
       totalComment: 0,
     }
   },
@@ -157,8 +157,11 @@ export default {
       parent_comment_null: true,
       _sort: 'created_at:DESC',
     })
+
+    // comment
     const totalComment = ref(0)
     const comments = reactive([])
+    const commentIdReply = ref(0)
 
     const fetchComment = async() => {
       try {
@@ -177,6 +180,10 @@ export default {
       }
     }
 
+    const replyComment = (commentId) => {
+      commentIdReply.value = commentId
+    }
+
     const openLoginModal = async () => {
       await $modal.show({
         component: 'TemplateAuthModalAuth',
@@ -192,16 +199,15 @@ export default {
     return {
       fetchComment,
       openLoginModal,
+      replyComment,
+
       comments,
       totalComment,
-
+      commentIdReply
     }
 
   },
   methods: {
-    replyComment(commentId) {
-      this.commentIdReply = commentId
-    },
     pushLike({ comment, like }) {
       comment.likes.push({
         id: like.id,

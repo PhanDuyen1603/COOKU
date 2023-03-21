@@ -2,7 +2,7 @@
   <div class="comment__form align-items-center mb-3 mb-md-5 border-30px">
     <div class="comment__form--body">
       <div class="comment__form--input d-flex justify-content-between align-items-center mp-5 w-full">
-        <!-- v-autogrow -->
+        <!--TODO: v-autogrow -->
         <textarea
           v-model="form.content"
           :readonly="!$$isSigned"
@@ -20,7 +20,7 @@
           </button>
           <button
             class="btn btn-browse py-2 px-6 mx-1 position-relative"
-            @click="handleBrowseFiles"
+            @click="showUpload = true"
           >
             <img src="/icons/camera.svg" alt="camera" class="position-absolute">
           </button>
@@ -35,13 +35,13 @@
     </div>
     <!--begin::Compose-->
 
-    <!-- <MoleculesUploadFile
-      :remove-image="removeImage"
-      :process-files="processFiles"
-      :browse-files="browseFiles"
-      :await-upload="awaitUpload"
-      @setImageId="setImageId"
-    ></MoleculesUploadFile> -->
+    <LazyTemplateRecipeCreateGallery
+      v-if="showUpload"
+      ref="gallery"
+      :gallery="images"
+      @addGallery="addGalleryImage"
+      @removeGalleryImage="removeImage"
+    />
 
     <!--begin::Compose-->
   </div>
@@ -130,13 +130,27 @@ export default {
       // removeImage = Math.random()
     }
 
+    // upload
+    const showUpload = ref(false)
+    const addGalleryImage = (e, data) => {
+      form.images.push(e.id)
+      images.push(e.image)
+    }
+
+    const removeImage = (e) => {
+      images.splice(e.imageIndex, 1)
+    }
+
     return {
       form,
       processFiles,
       images,
+      showUpload,
 
       submitComment,
-      clearForm
+      clearForm,
+      addGalleryImage,
+      removeImage
     }
   },
 
