@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
+.header .router-link-active {
+  border-bottom: 2px solid #fff;
+  color: #fff;
+}
+
 .__nuxt--wr {
   margin: 0 auto;
   display: grid;

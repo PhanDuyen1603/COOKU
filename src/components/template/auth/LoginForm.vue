@@ -131,12 +131,14 @@ export default {
       const result = await observe.validate()
       if (result.valid) {
         try {
-          await login({ identifier: dataLogin.name, password: dataLogin.password })
+          const { user } = await login({ identifier: dataLogin.name, password: dataLogin.password })
+          emit('close')
           $toast.show({
             message: 'đăng nhập thành công'
           })
-          emit('close')
-          router.push('/')
+          await $wait(1000)
+          await router.push({ name: 'profile-slug', params: { slug: unref(user).username } })
+          window?.location.reload(true)
         } catch (error) {
           await $toast.show({
             message: error

@@ -1,37 +1,28 @@
 <template>
-  <!-- <AtomsSection> -->
-    <div>
-      <div class="section__head--center">
-        <div class="list-cirlce">
-          <div class="item"></div>
-          <div class="item"></div>
-          <div class="item"></div>
-          <div class="item"></div>
-        </div>
-        <div class="section__head--title">
-          <h3>Món ăn hôm nay</h3>
-        </div>
+  <div>
+    <div class="section__head--center">
+      <div class="section__head--title my-5">
+        <h3>Món ăn hôm nay</h3>
       </div>
-
-      <CommonListView
-        item-component="CommonCardHorizonal"
-        :dataList="dataList"
-        view-mode="slide"
-        :items-to-show="2"
-        to-page-name="recipe"
-        :load-more="false"
-        :extraWrapperOptions="{
-          elementShow: ['avatar', 'cookingTime'],
-          height: '210px',
-        }"
-        :itemProps="{
-          class:
-            'widget__grid--sm-content widget__grid--reverse widget__border-none',
-
-        }"
-      />
     </div>
-  <!-- </AtomsSection> -->
+
+    <CommonListView
+      item-component="CommonCardHorizonal"
+      :dataList="dataList"
+      view-mode="slide"
+      :items-to-show="2"
+      to-page-name="recipe"
+      :load-more="false"
+      :extraWrapperOptions="{
+        elementShow: ['avatar', 'cookingTime'],
+        height: '210px',
+      }"
+      :itemProps="{
+        class:
+          'widget__grid--sm-content widget__grid--reverse widget__border-none',
+      }"
+    />
+  </div>
 </template>
 
 <script>
@@ -45,3 +36,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.section__head--title {
+  text-transform: uppercase;
+  font-size: var(--fs-xl);
+}
+</style>

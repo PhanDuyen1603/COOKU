@@ -143,7 +143,6 @@
 </template>
 
 <script>
-// import { mapGetters } from 'vuex';
 import { Field, Form, ErrorMessage } from 'vee-validate'
 import { categories } from '~/constants/recipe'
 

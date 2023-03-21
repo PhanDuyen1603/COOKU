@@ -78,6 +78,9 @@
   font-size: var(--fs-lg);
   font-weight: 600;
   line-height: 25px;
+  &:hover {
+    border: 1px solid var(--clr-red-primary);
+  }
 }
 .forget-pass {
   text-align: right;

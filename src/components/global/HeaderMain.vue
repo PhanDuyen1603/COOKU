@@ -114,7 +114,6 @@ const Menus = [
 ]
 
 const handleSearch = () => {
-  console.log(searchString)
   if(searchString.value.length > 0) router.push('/search?tab=recipe&_q=' + searchString.value)
 }
 
@@ -125,7 +124,7 @@ const logOut = async () => {
     $toast.show({
       message: 'logout success'
     })
-    router.push('/')
+    window?.location.reload(true)
   } catch (error) {
     console.log('logout', error)
   }

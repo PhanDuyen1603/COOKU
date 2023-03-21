@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="home-section home-section__head">
-      <div class="section-title">
+      <div class="section-title mb-3 mt-5">
         <img alt="Cooku" src="/images/diet-group.svg" class="icon">
         <div>
           <h3>Nhiều người thực hành</h3>
