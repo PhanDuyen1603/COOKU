@@ -41,15 +41,31 @@ npm run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
+
+## using modal
+
 ###
 
 ### todo
 
+### improve UI
+
 #### common
 - middleware
--
+- custom directive
+- seperate logic and UI
+- replace hardcode content
+- toast improve
+- build pinia first
+- UX from first swriper element
 
 #### create recipe:
 - unit search dropdown
 - create tags
+
+#### medium piority
+- remove image upload
+- create nuxt server for upload image
+- auto compile scss file
+- img src svg to svg ``https://github.com/iconfu/svg-inject``
 
