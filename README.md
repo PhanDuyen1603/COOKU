@@ -60,9 +60,13 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - replace hardcode content
 - toast improve
 - build pinia first
-- UX from first swriper element
+- swriper: fix first element
 - handle loading
 - dayjs local vn
+- route param ``error`` return to error page
+- error page
+- modal disable scroll when open
+- fetch data hook -> loadmore
 
 #### recipe
 - handle like
@@ -81,3 +85,5 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - create nuxt server for upload image
 - auto compile scss file
 - img src svg to svg ``https://github.com/iconfu/svg-inject``
+- animation
+
