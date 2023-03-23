@@ -1,6 +1,6 @@
 <template>
   <div class="card__image">
-    <NuxtLink :to="{ name: pageType + '-slug', params: { slug: data.slug } }">
+    <NuxtLink :to="navigateTo">
       <div
         :style="wrapperStyles"
         class="card__image--bg rounded-20px bg-shadow"
@@ -108,6 +108,10 @@ export default {
     return {}
   },
   computed: {
+    navigateTo() {
+      if(!this.pageType) return '#'
+      return { name: this.pageType + '-slug', params: { slug: this.data.slug || 'error' } }
+    },
     getListShowElements() {
       if (Array.isArray(this.elementShow)) {
         const list = Object.keys(showList)

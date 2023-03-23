@@ -4,7 +4,7 @@ export const categories = [
     title: 'Thay đổi vóc dáng',
     slug: 'thay-doi-voc-dang',
     featured_media: {
-      url: '/images/news/thay-doi-voc-dang.jpg'
+      url: '/images/thay-doi-voc-dang.jpg'
     }
   },
   {
@@ -12,7 +12,7 @@ export const categories = [
     title: 'Cải thiện sức khỏe',
     slug: 'cai-thien-suc-khoe',
     featured_media: {
-      url: '/images/news/cai-thien-suc-khoe.jpg'
+      url: '/images/cai-thien-suc-khoe.jpg'
     }
   },
   {
@@ -20,7 +20,7 @@ export const categories = [
     title: 'Dinh dưỡng bệnh lý',
     slug: 'dinh-duong-benh-ly',
     featured_media: {
-      url: '/images/news/dinh-duong-benh-ly.jpg'
+      url: '/images/dinh-duong-benh-ly.jpg'
     }
   }
 ]

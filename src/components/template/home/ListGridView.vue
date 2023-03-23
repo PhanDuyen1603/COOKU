@@ -1,13 +1,13 @@
 <template>
   <div class="widget__grid">
     <div v-for="(item, i) in dataList" :key="i" class="widget__grid__card clicked">
-      <nuxt-link to="/" class="card card--image h-100" :style="getItemStyle(item)">
+      <nuxt-link :to="buildNavigate(item)" class="card card--image h-100" :style="getItemStyle(item)">
       </nuxt-link>
       <div class="widget__grid__card--content">
-        <NuxtLink v-if="!isStatic" to="/" >
+        <NuxtLink v-if="!isStatic" :to="buildNavigate(item)" >
           <span class="badge rounded-pill">#{{ item.diet_category?.title }}</span>
         </NuxtLink>
-        <nuxt-link to="/">
+        <nuxt-link :to="buildNavigate(item)">
           <h5>
             {{ item.title }}
           </h5>
@@ -32,6 +32,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    pageType: {
+      type: String,
+      default: 'diet'
+    }
   },
   methods: {
     getItemStyle(item) {
@@ -47,9 +51,8 @@ export default {
       return this.$$strapi.getMediaLink(item.featured_media, 'small')
     },
     buildNavigate(item) {
-      if (this.isNavigate)
-        return { name: 'diet-slug', params: { slug: item.slug } }
-      return { path: '#' }
+      if (!this.pageType || !this.isNavigate) return { path: '#' }
+      return { name: this.pageType + '-slug', params: { slug: item.slug || 'error' } }
     },
   },
 }
@@ -100,6 +103,7 @@ export default {
         margin: 0;
         font-size: var(--fs-lg);
       }
+
     }
   }
 
@@ -185,6 +189,10 @@ export default {
         padding: 3px 15px 3px 10px;
         font-size: var(--fs-sm);
         font-weight: var(--font-weight-6);
+      }
+
+      .badge {
+        background-color: var(--section-main-clr);
       }
 
       h5 {

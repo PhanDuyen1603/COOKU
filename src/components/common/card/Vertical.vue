@@ -2,7 +2,7 @@
   <div v-if="data" class="card__vertical">
     <div class="card__vertical--image position-relative">
       <NuxtLink
-        :to="{ name: pageType + '-slug', params: { slug: data.slug || 'error' } }"
+        :to="navigateTo"
       >
         <div class="img-blog">
           <img
@@ -112,6 +112,12 @@ export default {
         comments: 0,
         shares: 0
       }
+    }
+  },
+  computed: {
+    navigateTo() {
+      if(!this.pageType) return '#'
+      return { name: this.pageType + '-slug', params: { slug: this.data.slug || 'error' } }
     }
   },
   // async mounted() {

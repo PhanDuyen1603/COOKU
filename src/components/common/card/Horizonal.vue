@@ -95,6 +95,7 @@ export default {
   },
   computed: {
     navigateTo() {
+      if(!this.pageType) return '#'
       return { name: this.pageType + '-slug', params: { slug: this.data.slug || 'error' } }
     },
     getListShowElements() {
@@ -237,6 +238,10 @@ export default {
           padding: 3px 15px 3px 10px;
           font-size: var(--fs-sm);
           font-weight: var(--font-weight-6);
+        }
+
+        .badge {
+          background-color: var(--section-main-clr);
         }
 
         h5 {
