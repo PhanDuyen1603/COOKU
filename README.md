@@ -62,11 +62,19 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - build pinia first
 - UX from first swriper element
 - handle loading
+- dayjs local vn
 
+### recipe
+- handle like
+- follow user
+- related posts
 #### create recipe:
 - unit search dropdown
 - create tags
 - update recipe
+### update recipe
+- vee-validate set image
+- middleware
 
 #### medium piority
 - remove image upload
