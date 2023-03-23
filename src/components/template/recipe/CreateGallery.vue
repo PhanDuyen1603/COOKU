@@ -17,16 +17,16 @@
     <div v-if="gallery.length" :ref="'gallery-image' + (index)" class="d-flex flex-wrap" :class="'gallery-image' + (index)">
 
       <div class="item-image hidden">
-        <span class="close"></span><img src="" width="104px" />
+        <span class="close"></span><img src="" class="m-0" width="104px" />
       </div>
       <div class="item-image hidden">
-        <span class="close"></span><img src="" width="104px" />
+        <span class="close"></span><img src="" class="m-0" width="104px" />
       </div>
       <div class="item-image hidden">
-        <span class="close"></span><img src="" width="104px" />
+        <span class="close"></span><img src="" class="m-0" width="104px" />
       </div>
       <div class="item-image hidden">
-        <span class="close"></span><img src="" width="104px" />
+        <span class="close"></span><img src="" class="m-0" width="104px" />
       </div>
     </div>
 
@@ -59,6 +59,7 @@ export default {
   mounted() {
     const self = this;
     const gallery = document.querySelectorAll(`.gallery-image${this.index} .item-image .close`)
+    if(this.gallery.length) this.renderGallery()
     gallery.forEach((element, i) => {
       element.addEventListener('click', function() {
         const pos = Array.from(gallery).indexOf(this)
@@ -129,7 +130,7 @@ export default {
         pos: this.index,
         imageIndex
       })
-      const image = document.querySelector(`.gallery-${key} .gallery-image${this.index} .item-image:nth-child(${imageIndex})`)
+      const image = document.querySelector(`.gallery-${this.key} .gallery-image${this.index} .item-image:nth-child(${imageIndex})`)
       image.remove()
       document.querySelector(`.gallery-image${this.index}`).innerHTML +=
       `<div class="item-image hidden">
@@ -137,11 +138,12 @@ export default {
       </div>`
     },
 
-    renderGallery(galery) {
+    renderGallery(galery = this.gallery) {
       galery.forEach((url, index) => {
-        const image = document.querySelector(`.gallery-${key} .gallery-image${this.index} .item-image:nth-child(${index}) img`)
-        document.querySelector(`.gallery-${key} .gallery-image${this.index} .item-image:nth-child(${index})`).classList.remove('hidden')
-        image.src = url
+        const imageWrapElement = document.querySelector(`.gallery-image${this.index} .item-image:nth-child(${index + 1})`)
+        const imageElement = document.querySelector(`.gallery-image${this.index} .item-image:nth-child(${index + 1}) img`)
+        imageWrapElement.classList.remove('hidden')
+        imageElement.src = url
       })
     }
   }
@@ -149,27 +151,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.img-wrap .input-file {
-  opacity: 0;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  z-index: 99;
-  right: 0;
-  cursor: pointer;
-}
-.add-image .img-wrap {
-  border: 1px dashed #b0b0b0;
-  border-radius: 10px;
-  margin-right: 10px;
-  width: 110px;
-  height: 110px;
-}
 .add-image {
+  --elm-width: 110px;
+  --elm-height: 110px;
+  --elm-rounded: 10px;
+  --elm-space: 10px;
+
   font-weight: 300;
   font-size: 20px;
   line-height: 27px;
-  color: #b0b0b0;
+  color: var(--clr-gray-dark);
   text-align: left;
 
   label {
@@ -178,21 +169,39 @@ export default {
     }
   }
 
+  .item-image,
   .img-wrap {
-    width: 110px;
-    height: 110px;
+    width: var(--elm-width);
+    height: var(--elm-width);
     background: #f1f1f1;
-    border: 1px dashed #b0b0b0;
-    border-radius: 10px;
+    border-radius: var(--elm-rounded);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .img-wrap {
+    margin-right: var(--elm-space);
     margin-top: 15px;
     cursor: pointer;
-    position: relative;
-
+    border: 1px dashed #b0b0b0;
     img {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+    }
+  }
+
+  .item-image {
+    margin-right: var(--elm-space);
+    padding-top: var(--elm-height);
+    img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      object-fit: cover;
     }
   }
   .file-hidden {

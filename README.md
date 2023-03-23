@@ -44,9 +44,12 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 ## using modal
 
-###
+## warning
 
-### todo
+### vee-validate
+- ``setValues`` ``setFieldValue`` can only set with String
+
+## todo
 
 ### improve UI
 
@@ -58,14 +61,15 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - toast improve
 - build pinia first
 - UX from first swriper element
+- handle loading
 
 #### create recipe:
 - unit search dropdown
 - create tags
+- update recipe
 
 #### medium piority
 - remove image upload
 - create nuxt server for upload image
 - auto compile scss file
 - img src svg to svg ``https://github.com/iconfu/svg-inject``
-

@@ -5,7 +5,7 @@
       <div class="title-sub">Tạo công thức nấu ăn của riêng bạn</div>
     </div>
     <CommonSectionWrapperType1>
-      <TemplateRecipeSectionCreate />
+      <TemplateRecipeSectionCreate actionType="create" />
     </CommonSectionWrapperType1>
   </div>
 </template>

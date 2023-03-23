@@ -6,44 +6,38 @@ export default defineStore({
     mainCook: {},
     recipeMeal: {},
     cooking_time: {
-        time: 0,
-        humanReadable: '',
+      time: 0,
+      humanReadable: '',
     },
     processing: {
-        name: '',
-        id: 0
+      name: '',
+      id: 0
     },
     regional: {
-        name: '',
-        id: 0
+      name: '',
+      id: 0
     },
     data: {
-        title: "",
-        slug: "",
-        content: "",
-        regional: 0,
-        processing: 0,
-        serving: 0,
-        cooking_time: 0,
-        level: "",
-        ingredients: [],
-        steps: [],
-        featured_media: '',
-        recipe_categories: [],
-        tags: []
+      title: "",
+      slug: "",
+      content: "",
+      regional: 0,
+      processing: 0,
+      serving: 0,
+      cooking_time: 0,
+      level: "",
+      ingredients: [],
+      steps: [],
+      featured_media: '',
+      recipe_categories: [],
+      tags: []
     },
-    ingredients: [],
   }),
 
   getters: {
     changeCook: (state) => state.mainCook,
     changeMeal: (state) => state.recipeMeal,
-    cooking_time: (state) => state.cooking_time,
     recipeData: (state) => state.data,
-    // processing: (state) => state.processing,
-    // regional: (state) => state.regional,
-    ingredients: (state) => state.data.ingredients,
-    steps: (state) => state.data.steps,
   },
 
   actions: {
@@ -60,15 +54,16 @@ export default defineStore({
       this.data[entity] = value
     },
     setProcessing({ id = 0, title = '' }) {
-      this.processing = { id, title }
+      this.processing = { id, name: title }
     },
-    setProcessing({ id = 0, title = '' }) {
-      this.regional = { id, title }
+    setRegional({ id = 0, title = '' }) {
+      this.regional = { id, name: title }
     },
     setCookingTime({ isHumanReadable = true, hours, minutes }) {
       const readableHours = isHumanReadable ? hours : Math.floor(+minutes / 60)
       const readableMinutes = isHumanReadable ? +minutes : +minutes % 60
       const humanReadable = readableHours === 0 ? `${readableMinutes} phút` : `${readableHours} giờ ${readableMinutes} phút`
+      console.log({ isHumanReadable , hours, minutes, readableHours })
       const time = readableHours * 60 + minutes
       // this.cooking_time = ( time, humanReadable )
       // this.cooking_time = {

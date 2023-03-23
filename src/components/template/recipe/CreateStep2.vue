@@ -15,7 +15,6 @@
           <div class="validation-input__wrapper">
             <Field
               :name="`ingredient-${ index }`"
-              rules="required"
               v-slot="{ field }"
             >
               <div class=" d-flex justify-content-between align-items-center position-relative">
@@ -52,16 +51,15 @@
               <Field
                 :name="`quantity-${index}`"
                 v-slot="{ field }"
-                rules="required"
               >
                 <div class="right-in">
                   <input
                     v-model="item.number"
+                    v-bind="field"
                     :name="`quantity-${index}`"
                     width="130" type="number"
                     class="wrap-item fix-wrap-item w-130"
                     placeholder="Số lượng*" min="0"
-                    v-bind="field"
                   />
                 </div>
               </Field>
@@ -145,6 +143,7 @@
 <script>
 import { Field, Form, ErrorMessage } from 'vee-validate'
 import { categories } from '~/constants/recipe'
+import useCookStore from '~/stores/cook.store'
 
 const ingredientCategory = categories.find(x => x.slug === 'nguyen-lieu')
 
@@ -163,36 +162,13 @@ export default {
   components: {
     Field, Form, ErrorMessage
   },
-  // async fetch() {
-  //   this.units = await this.$strapi.$http.$get('units')
-  // },
-  computed: {
-    // ...mapGetters({
-    //   ingredients: 'modules/cook/ingredients',
-    // }),
-    // ingredientCategory() {
-    //   return categories.find(x => x.slug === 'nguyen-lieu')
-    // }
-  },
-  // mounted() {
-  //   if (this.ingredients?.length > 0) {
-  //     const ingredients = this.ingredients
-  //     ingredients.forEach((element, index) => {
-  //       if (index > 0) this.addField()
-  //       this.data[index].title = element.ingredient.title  // nguyên liệu
-  //       this.data[index].number = element.quantity   // số lượng
-  //       this.data[index].unit = element.unit.title  // Đơn vị
-  //       this.data[index].unitId = element.unit.id
-  //       this.data[index].type = element.type  // loại nguyên liệu
-  //       this.data[index].id = element.ingredient.id
-  //       this.data[index].materialImage = this.$$strapi.getMediaLink(element.ingredient.featured_media, 'small')
-  //     });
-  //   }
-  // },
+
   async setup(props) {
     const { find } = useStrapi()
-    const { $modal , $cloneDeep} = useNuxtApp()
+    const { $modal , $cloneDeep, $$strapi } = useNuxtApp()
+    const $store = useCookStore()
 
+    const createStep2 = ref(null)
     const formData = reactive([{
       id: '',
       title: '',
@@ -250,9 +226,54 @@ export default {
       formData[index].unit = null
     }
 
+    const addField = () => {
+      formData.push({
+        id: '',
+        title: '',
+        number: '',
+        unit: '',
+        unitId: '',
+        type: 'main',
+        materialImage: '',
+      })
+    }
+
+    const addSchema = (index) => {
+      validationSchema[`ingredient-${index}`] = 'required'
+      validationSchema[`quantity-${index}`] = 'required'
+      validationSchema[`unit-${index}`] = 'required'
+    }
+
+    onMounted(async () => {
+      const recipe = $store.data
+      if (recipe.id) {
+        const ingredients = recipe.ingredients
+        ingredients.forEach((element, index) => {
+          if (index > 0) {
+            addField()
+            addSchema(index)
+          }
+          formData[index].title = element.ingredient.title  // nguyên liệu
+          formData[index].number = element.quantity   // số lượng
+          formData[index].unit = element.unit?.title  // Đơn vị
+          formData[index].unitId = element.unit?.id
+          formData[index].type = element.type  // loại nguyên liệu
+          formData[index].id = element.ingredient.id
+          formData[index].materialImage = $$strapi.getMediaLink(element.ingredient.featured_media, 'small')
+
+          createStep2.value.setFieldValue(`ingredient-${index}`, element.ingredient.title)
+          createStep2.value.setFieldValue(`quantity-${index}`, element.quantity + '')
+          createStep2.value.setFieldValue(`unit-${index}`, element.unit?.title)
+        });
+      }
+      const res = await createStep2.value.validate()
+    })
+
     return {
       changeIngredient,
+      addField,
 
+      createStep2,
       ingredient,
       formData,
       validationSchema
@@ -280,17 +301,6 @@ export default {
     },
     openModel(modalName) {
       this.$emit('open-modal', modalName)
-    },
-    addField() {
-      this.formData.push({
-        id: '',
-        title: '',
-        number: '',
-        unit: '',
-        unitId: '',
-        type: 'main',
-        materialImage: '',
-      })
     },
     removeField(index, item) {
       if (this.formData?.length === 1) {

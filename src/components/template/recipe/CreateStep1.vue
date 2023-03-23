@@ -40,13 +40,12 @@
           </Field>
           <ErrorMessage name="cooktime" class="error-red" />
 
-          <Field v-slot="{ field }" name="servings" rules="required">
+          <Field v-slot="{ field }" name="servings">
+            <input type="hidden" v-bind="field" v-model="formData.serving">
             <div class="input-text-wrap d-flex">
               <select
-                id="ration"
-                v-bind="field"
                 class="input-texts"
-                @change="changeServing(observe, $event)"
+                :value="formData.serving"
               >
                 <option value="" disabled selected >Số khẩu phần *</option>
                 <option v-for="(item, index) in numbers" :key="index" :value="item">{{item}}</option>
@@ -163,13 +162,13 @@ export default {
   components: {
     Form, Field, ErrorMessage
   },
-
+// TODO: serving and image with vee-validate
   data() {
     this.validationSchema = {
       recipeName: 'required',
       cooktime: 'required',
       servings: 'required',
-      files: 'required|image'
+      // files: 'required|image'
     }
     return {
       numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -182,6 +181,7 @@ export default {
     const { $modal, $config, $axios, $$strapi } = useNuxtApp()
     const $store = useCookStore()
     const files = ref(null)
+    const basicInfo = ref(null)
 
     const strapiBaseUri = unref($config).public.strapi.url
 
@@ -307,11 +307,43 @@ export default {
       observe.setFieldValue('servings', $event.target.value)
     }
 
+    onMounted(async () => {
+      const recipe = $store.data
+      if(recipe.id) {
+        formData.title = recipe.title
+        formData.content = recipe.content
+        formData.featured_media = recipe.featured_media
+        formData.serving = recipe.serving + ''
+        formData.level = recipe.level
+        // tags: null,
+        formData.cooking_time = recipe.cooking_time
+        cooking_time.humanReadable = readableTime({minutes: recipe.cooking_time})
+        cooking_time.time = recipe.cooking_time
+
+        formData.recipe_categories = recipe.recipe_categories
+        formData.regional = recipe.regional
+        formData.processing = recipe.processing
+
+        extraData.processing = {...$store.processing}
+        extraData.regional = {...$store.regional}
+        extraData.meal.name = recipe.recipe_categories?.length ? recipe.recipe_categories[0].title : ''
+
+        image.value = $$strapi.getMediaLink(recipe.featured_media)
+
+        basicInfo.value.setFieldValue('recipeName', recipe.title)
+        basicInfo.value.setFieldValue('cooktime', readableTime({minutes: recipe.cooking_time}))
+        basicInfo.value.setFieldValue('servings', recipe.serving + '')
+        // basicInfo.value.setFieldValue('files', $$strapi.getMediaLink(recipe.featured_media))
+      }
+    })
+
     return {
       openModal,
       onFileChange,
       openTimePickerModal,
       changeServing,
+      // ref
+      basicInfo,
 
       loadingImage,
       createCategories,
@@ -335,32 +367,6 @@ export default {
       return true
     }
   }
-  // computed: {
-  //   cookStore() { return useCookStore() },
-  //   recipeData() { return this.cookStore.recipeData },
-  //   cooking_time() { return this.cookStore.cooking_time },
-  //   meal() { return this.cookStore.meal },
-  //   processing() { return this.cookStore.processing },
-  //   regional() { return this.cookStore.regional },
-  // },
-
-  // mounted() {
-  //   if (this.recipeData && this.recipeData.id) {
-  //     this.data.cooking_time = this.recipeData.cookingTime
-  //     this.data.processing = this.recipeData.processing
-  //     this.data.serving = this.recipeData.serving
-  //     this.data.level = this.recipeData.level
-  //     this.data.serving = this.recipeData.serving % 10
-  //     this.data.tags = this.recipeData.tags.map(tag => tag.title).join(', ')
-  //     this.data.title = this.recipeData.title
-  //     this.data.content = this.recipeData.content
-  //     this.data.featured_media = this.recipeData.featured_media.id
-  //     this.image = this.$$strapi.getMediaLink(this.recipeData.featured_media, 'small')
-  //     const tags = document.querySelector('input[name="tag"]')
-  //     tags.setAttribute("disabled","true")
-  //     tags.style.opacity = 0.5
-  //   }
-  // },
 }
 
 </script>

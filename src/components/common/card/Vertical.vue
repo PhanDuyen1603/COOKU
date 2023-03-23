@@ -65,9 +65,9 @@
         {{ data.excerpt }}
       </p>
       <div class="social-share">
-        <div class="comment">{{ count.comments }}</div>
-        <div class="like">{{ count.likes }}</div>
-        <div class="share">{{ count.shares }}</div>
+        <div class="icon-comment">{{ count.comments }}</div>
+        <div class="icon-like">{{ count.likes }}</div>
+        <div class="icon-share">{{ count.shares }}</div>
       </div>
     </div>
   </div>
@@ -219,15 +219,15 @@ export default {
   font-size: var(--fs-sm);
   gap: 5px;
 
-  .comment,
-  .like,
-  .share {
+  .icon-comment,
+  .icon-like,
+  .icon-share {
     position: relative;
   }
 
-  .comment:before,
-  .like:before,
-  .share:before {
+  .icon-comment:before,
+  .licon-ike:before,
+  .icon-share:before {
     content: '';
     background: url('/icons/comment-green.png') center center;
     background-size: cover;
@@ -239,20 +239,20 @@ export default {
     top: 3px;
   }
 
-  .like:before {
+  .icon-like:before {
     background: url('/icons/like-green.png') center center;
     background-size: cover;
   }
 
-  .share:before {
+  .icon-share:before {
     background: url('/icons/share-2.png') center center;
     background-size: cover;
     width: 14px;
   }
 
-  .comment,
-  .like,
-  .share {
+  .icon-comment,
+  .icon-like,
+  .icon-share {
     margin-right: 10px;
     margin-left: 23px;
     text-align: right;

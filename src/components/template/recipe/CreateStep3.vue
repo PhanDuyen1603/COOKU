@@ -40,8 +40,8 @@
           </Field>
           <ErrorMessage :name="`methodDesc-${index}`" class="error-red"/>
 
-          <LazyTemplateRecipeCreateGallery
-            ref="gallery"
+          <TemplateRecipeCreateGallery
+            ref="refGallery"
             :gallery="formData[index]?.gallery"
             :index="index"
             :key="index"
@@ -91,6 +91,7 @@
 
 <script>
 import { Form, Field, ErrorMessage } from 'vee-validate'
+import useCookStore from '~/stores/cook.store'
 
 const initFormData = {
   id: 0,
@@ -108,11 +109,15 @@ export default {
   data() {
     return {
       activeItem: 0,
-      showUpload: true,
-      loading: false,
     }
   },
   setup(props) {
+    const $store = useCookStore()
+    const { $$strapi } = useNuxtApp()
+    // refs
+    const createStep3 = ref(null)
+    // const refGallery = ref(null)
+
     const formData = reactive([{
       id: 0,
       title: '',
@@ -121,6 +126,8 @@ export default {
       gallery: [],
       galleryId: [],
     }])
+
+    const pending = ref(false)
 
     const validationSchema = reactive({
       [`methodTitle-0`]: 'required',
@@ -171,8 +178,28 @@ export default {
       galery.galleryId.splice(e.imageIndex, 1)
     }
 
+    onMounted(() => {
+      const recipe = $store.data
+      if (recipe.id) {
+        const steps = recipe.steps
+        steps.forEach((element, index) => {
+          if (index > 0) addForm()
+          formData[index].id = element.id
+          formData[index].title = element.title
+          formData[index].desc = element.content
+          formData[index].type = element.type
+          formData[index].galleryId = element.galleries?.map(media => media.id) || []
+          formData[index].gallery = element.galleries?.map(media => $$strapi.getStrapiMedia(media.url)) || []
+
+          createStep3.value.setFieldValue(`methodTitle-${index}`, element.title)
+          createStep3.value.setFieldValue(`methodDesc-${index}`, element.content)
+        });
+      }
+    })
+
     return {
       formData,
+      createStep3,
 
       addForm,
       removeForm,
@@ -180,33 +207,10 @@ export default {
       removeI
     }
   },
-  // computed: {
-  //   ...mapGetters({ steps: 'modules/cook/steps' }),
-  // },
-  // mounted() {
-  //   if (this.steps?.length > 0) {
-  //     this.steps.forEach((element, index) => {
-  //       if (index > 0) this.addField()
-  //       this.data[index].id = element.id
-  //       this.data[index].title = element.title
-  //       this.data[index].desc = element.content
-  //       this.data[index].type = element.type
-  //       // this.data[index].gallery = element.galleries.map(media => this.getStrapiMedia(media.url))
-  //       this.data[index].galleryId = element.galleries.map(media => media.id)
-  //       this.$refs.gallery[0].renderGallery(this.data[index].gallery)
-  //     });
-  //   }
-
-  // },
   methods: {
 
     openModel(modalName) {
       this.$emit('open-modal', modalName)
-    },
-
-    addField() {
-      this.showUpload = true
-      this.data.push(initFormData)
     },
 
     removeField(index, item) {

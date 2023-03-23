@@ -76,17 +76,25 @@
 </template>
 
 <script>
+import useCookStore from '~/stores/cook.store'
 export default {
+  props: {
+    actionType: {
+      type: String,
+      default: 'create'
+    },
+  },
   setup(props) {
+    const $store = useCookStore()
     const activeItem = ref('info')
 
     const setActive = (name) => activeItem.value = name
 
-    const { create } = useStrapi()
+    const { create, update } = useStrapi()
 
     const prev = () => {
       if (activeItem.value === 'material') {
-        activeItem.value.value = 'info'
+        activeItem.value = 'info'
       } else if (activeItem.value === 'cooking') {
         activeItem.value = 'material'
       }
@@ -104,8 +112,10 @@ export default {
       prev,
       next,
       strapiCreate: create,
+      strapiUpdate: update,
 
-      activeItem
+      activeItem,
+      recipeData: $store.data
     }
   },
   methods: {
@@ -170,7 +180,7 @@ export default {
           await this.postCreateRecipes(formData)
         } else {
           // formData.tags = info.data.tags.split(',').map(e => e.trim())
-          // await this.postUpdate(formData)
+          await this.postUpdate(formData)
           console.log('update')
         }
 
@@ -191,6 +201,20 @@ export default {
         await this.$toast.show({
           message: 'Tạo mới món ăn thất bại, vui lòng thử lại'
         })
+      }
+    },
+    async postUpdate(formData) {
+      try {
+        await this.strapiUpdate('recipes', this.recipeData.id, formData)
+        this.$toast.show({
+          message: 'Cập nhật thành công'
+        })
+        this.$router.push({
+          name: 'recipe-slug',
+          params: { slug: this.recipeData.slug },
+        })
+      } catch (error) {
+        console.log(error);
       }
     },
   }
