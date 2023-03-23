@@ -1,7 +1,7 @@
 <template>
   <div class="widget">
     <div class="d-flex wrap widget__item--wrap">
-      <nuxt-link to="/"
+      <nuxt-link :to="navigateTo"
         class="widget__item--image clicked shadow-sm" :style="getItemStyle(data)">
         <div>
           <span v-if="getListShowElements.member" class="member-total">{{ data.hit || 0 }} thành viên</span>
@@ -18,9 +18,9 @@
             <span>{{ $get(data, 'cooking_time', 0) }}p</span>
           </div>
           <!-- <nuxt-link v-if="showList.category" :to="{ name: 'tag-slug', params: { slug: getCategory.slug } }"> -->
-          <nuxt-link v-if="showList.category">
+          <div v-if="showList.category">
             <span class="badge rounded-pill bg-primary">#{{ getCategory.title }}</span>
-          </nuxt-link>
+          </div>
           <h5 v-if="!getListShowElements.descTitle" class="line-clamp-2">
             {{ data.title }}
           </h5>
@@ -28,22 +28,21 @@
       </nuxt-link>
       <div class="widget__item--desc w-100">
         <div class="widget__item--head">
-          <nuxt-link>
-          <!-- <nuxt-link :to="{
+          <nuxt-link :to="{
             name: 'profile-slug',
-            params: { slug: $get(data, 'author.username', '') },
-          }"> -->
+            params: { slug: data.author?.username || 'error' },
+          }">
             <CommonAvatar v-if="showAvatar || getListShowElements.avatar" :author="data.author" />
           </nuxt-link>
           <CommonListColorCircle/>
         </div>
-        <nuxt-link v-if="!getListShowElements.descTitle"
+        <nuxt-link v-if="!getListShowElements.descTitle"  :to="navigateTo"
           class="line-clamp-4">
           {{ getItemContent(data) }}
         </nuxt-link>
         <div v-else class="widget__item--content line-clamp-4">
           <h4>
-            <nuxt-link>
+            <nuxt-link  :to="navigateTo">
               {{ $get(item, 'title', '') }}</nuxt-link>
           </h4>
           <p>{{ getItemContent(data) }}</p>
@@ -71,7 +70,7 @@ const showList = {
 
 export default {
   props: {
-    toPageName: {
+    pageType: {
       type: String,
       default: 'recipe',
       validator: (value) => Object.values(postTypes).includes(value),
@@ -95,6 +94,9 @@ export default {
     }
   },
   computed: {
+    navigateTo() {
+      return { name: this.pageType + '-slug', params: { slug: this.data.slug || 'error' } }
+    },
     getListShowElements() {
       if (Array.isArray(this.elementShow)) {
         const list = Object.keys(showList)
@@ -115,14 +117,6 @@ export default {
         slug: category.slug || '',
       }
     },
-    navigate() {
-      const navigate = {
-        class: this.toPageName === 'null' ? "nuxt-link-disabled" : '',
-        to: { name: this.toPageName + '-slug', params: { slug: this.data.slug } },
-      }
-      if(this.toPageName === 'null') navigate.event = "disabled"
-      return navigate
-    }
   },
   methods: {
     getItemStyle(item) {
@@ -134,7 +128,7 @@ export default {
       }
     },
     buiImageFlex() {
-      switch (this.toPageName) {
+      switch (this.pageType) {
         case 'diet':
           return 40
         case 'post':

@@ -45,7 +45,7 @@
             :items-to-show="2"
             item-component="CommonCardHorizonal"
             :dataList="topDiets"
-            to-page-name="grid"
+            page-type="diet"
             :load-more="false"
             :extra-item-options="{
               elementShow: ['member'],

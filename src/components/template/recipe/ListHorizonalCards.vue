@@ -11,7 +11,7 @@
       :dataList="dataList"
       view-mode="slide"
       :items-to-show="2"
-      to-page-name="recipe"
+      page-type="recipe"
       :load-more="false"
       :extraWrapperOptions="{
         elementShow: ['avatar', 'cookingTime'],

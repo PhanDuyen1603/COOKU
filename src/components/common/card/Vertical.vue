@@ -2,7 +2,7 @@
   <div v-if="data" class="card__vertical">
     <div class="card__vertical--image position-relative">
       <NuxtLink
-        :to="{ name: 'post-slug', params: { slug: data.slug || 'error' } }"
+        :to="{ name: pageType + '-slug', params: { slug: data.slug || 'error' } }"
       >
         <div class="img-blog">
           <img
@@ -45,7 +45,7 @@
           <CommonAvatar :author="data.author" />
         </div>
         <div v-if="data.post_categories?.length" class="mt-2">
-          <NuxtLink :to="{ name: 'post-category-slug', params: { slug: data.post_categories[0].slug }}"
+          <NuxtLink :to="{ name: pageType + '-category-slug', params: { slug: data.post_categories[0].slug }}"
             class="tag line-clamp-1"
           >
             # {{ data.post_categories?.[0]?.title }}
@@ -57,7 +57,7 @@
     <span v-if="isTop" class="top-number font-mitr">{{ Index }}</span>
     <div class="bottom-blog">
       <NuxtLink
-        :to="{ name: 'post-slug', params: { slug: data.slug || 'error' } }"
+        :to="{ name: pageType + '-slug', params: { slug: data.slug || 'error' } }"
       >
         <h3 class="card__vertical--title line-clamp-2">{{ data.title }}</h3>
       </NuxtLink>
@@ -100,6 +100,10 @@ export default {
       type: Boolean,
       default: false
     },
+    pageType: {
+      type: String,
+      default: 'recipe'
+    }
   },
   data() {
     return {

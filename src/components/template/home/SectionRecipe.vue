@@ -36,7 +36,7 @@
           :item-space="20"
           item-component="CommonCardFullImage"
           :dataList="recipes"
-          to-page-name="recipe"
+          page-type="recipe"
           :load-more="false"
           :itemProps="{
             itemStyles:{

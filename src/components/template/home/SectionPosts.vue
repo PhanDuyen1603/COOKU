@@ -36,7 +36,7 @@
           :item-space="20"
           item-component="CommonCardVertical"
           :dataList="posts"
-          to-page-name="recipe"
+          page-type="post"
           :load-more="false"
         />
       </div>

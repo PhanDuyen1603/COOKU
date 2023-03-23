@@ -51,7 +51,7 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 ## todo
 
-### improve UI
+### improve UI/UX
 
 #### common
 - middleware
@@ -64,7 +64,7 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - handle loading
 - dayjs local vn
 
-### recipe
+#### recipe
 - handle like
 - follow user
 - related posts
@@ -72,7 +72,7 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - unit search dropdown
 - create tags
 - update recipe
-### update recipe
+#### update recipe
 - vee-validate set image
 - middleware
 

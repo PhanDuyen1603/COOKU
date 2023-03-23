@@ -13,7 +13,7 @@
             <component
               :is="getComponent(itemComponent)"
               :data="data"
-              :to-page-name="toPageName"
+              :pageType="pageType"
               :route-info="buildRoute(data)"
               :card-index="index + 1"
               v-bind="itemProps"
@@ -35,7 +35,7 @@
               :key="index"
               :data="item"
               :index="index"
-              :to-page-name="toPageName"
+              :pageType="pageType"
               v-bind="itemProps"
               @click="handleItemAction"
             />
@@ -55,7 +55,7 @@
           :key="index"
           :item="item"
           :card-index="index + 1"
-          :to-page-name="toPageName"
+          :pageType="pageType"
           v-bind="itemProps"
           @click="handleItemAction"
         />
@@ -108,7 +108,7 @@ export default {
       required: true,
     },
 
-    toPageName: {
+    pageType: {
       type: String,
       default: 'recipe',
       validator: (value) => Object.values(postTypes).includes(value),
@@ -194,7 +194,7 @@ export default {
     },
     buildRoute(item) {
       return {
-        name: this.toPageName + '-slug',
+        name: this.pageType + '-slug',
         param: {
           slug: item.slug,
         },

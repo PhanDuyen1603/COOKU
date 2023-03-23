@@ -1,6 +1,6 @@
 <template>
   <div class="card__image">
-    <NuxtLink :to="{ name: 'recipe-slug', params: { slug: data.slug } }">
+    <NuxtLink :to="{ name: pageType + '-slug', params: { slug: data.slug } }">
       <div
         :style="wrapperStyles"
         class="card__image--bg rounded-20px bg-shadow"
@@ -78,7 +78,7 @@ export default {
       type: Boolean,
       default: true,
     },
-    toPageName: {
+    pageType: {
       type: String,
       default: '',
     },

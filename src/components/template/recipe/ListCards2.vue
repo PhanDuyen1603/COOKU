@@ -17,7 +17,7 @@
         :item-space="20"
         item-component="CommonCardFullImage"
         :dataList="dataList"
-        to-page-name="recipe"
+        page-type="recipe"
         :load-more="false"
         :itemProps="{
           imageRatioPercent: $$isMobile ? 100 : 120,

@@ -18,7 +18,7 @@
           :item-space="20"
           item-component="CommonCardFullImage"
           :dataList="recipes"
-          to-page-name="recipe"
+          page-type="recipe"
           :itemProps="{
             itemStyles:{
               height: '240px'
@@ -32,7 +32,7 @@
           :item-space="20"
           item-component="CommonCardVertical"
           :dataList="posts"
-          to-page-name="post"
+          page-type="post"
           :itemProps="{
             itemStyles:{
               height: '240px'

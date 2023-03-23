@@ -5,7 +5,7 @@
       </nuxt-link>
       <div class="widget__grid__card--content">
         <NuxtLink v-if="!isStatic" to="/" >
-          <span class="badge rounded-pill">#{{ item.diet_category.title }}</span>
+          <span class="badge rounded-pill">#{{ item.diet_category?.title }}</span>
         </NuxtLink>
         <nuxt-link to="/">
           <h5>

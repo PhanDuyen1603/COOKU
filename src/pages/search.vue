@@ -60,7 +60,7 @@
           :type="tabActive"
           :dataList="searchResult"
           :item-space="20"
-          to-page-name="grid"
+          :page-type="tabActive"
           :load-more="false"
         />
 
