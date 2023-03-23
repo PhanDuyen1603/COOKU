@@ -45,7 +45,7 @@
           <CommonAvatar :author="data.author" />
         </div>
         <div v-if="data.post_categories?.length" class="mt-2">
-          <NuxtLink :to="{ name: pageType + '-category-slug', params: { slug: data.post_categories[0].slug }}"
+          <NuxtLink :to="{ name: 'tag-slug', params: { slug: data.post_categories[0].slug }}"
             class="tag line-clamp-1"
           >
             # {{ data.post_categories?.[0]?.title }}

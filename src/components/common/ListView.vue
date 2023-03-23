@@ -126,7 +126,7 @@ export default {
 
     loadMore: {
       type: Boolean,
-      default: true,
+      default: false,
     },
 
     loadingState: {
