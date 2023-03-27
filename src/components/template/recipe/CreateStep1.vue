@@ -372,76 +372,37 @@ export default {
 </script>
 
 <style lang="scss">
-  #ration {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-  }
+#ration {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
 
-  .add-image .img-wrap img {
-    border-radius: 10px;
-  }
+.add-image .img-wrap img {
+  border-radius: 10px;
+}
 
-  .error-red {
-    color: red;
-    margin-top: -10px;
-    margin-left: 20px;
-    font-size: var(--fs-sm);
-    display: block;
-  }
+.error-red {
+  color: red;
+  margin-top: -10px;
+  margin-left: 20px;
+  font-size: var(--fs-sm);
+  display: block;
+}
 
-  .select-input {
-    background: #fbfbfb;
-    border-radius: 30px;
-    padding: 5px 10px;
-    border: none;
-    font-size: 20px;
-    line-height: 27px;
-    color: #4f4f4f;
-    outline: none;
-    width: 100%;
-  }
-
-  .color {
-    color: #757575 !important;
-  }
-  .input-text-wrap {
-  background: #ffffff;
-  border: 2px solid #fbe4c8;
-  box-sizing: border-box;
+.select-input {
+  background: #fbfbfb;
   border-radius: 30px;
-  padding: 5px 8px 5px 10px;
-  // margin-bottom: 20px;
-  margin: 10px;
-  align-items: center;
+  padding: 5px 10px;
+  border: none;
+  font-size: 20px;
+  line-height: 27px;
+  color: #4f4f4f;
+  outline: none;
+  width: 100%;
+}
 
-  .input-texts {
-    background: #fbfbfb;
-    border-radius: 30px;
-    padding: 5px 10px;
-    border: none;
-    font-size: 20px;
-    line-height: 27px;
-    color: #4f4f4f;
-    outline: none;
-    width: 90%;
-  }
-
-  .wrap-icon {
-    width: 30px;
-    height: 30px;
-    padding: 5px 10px;
-    background: #df8c26;
-    border-radius: 100px;
-    margin-left: 10px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    img {
-      width: 10px;
-      height: 5px;
-    }
-  }
+.color {
+  color: #757575 !important;
 }
 .select-button {
   background: #fbfbfb;

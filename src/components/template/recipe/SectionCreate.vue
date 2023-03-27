@@ -225,28 +225,4 @@ export default {
 .nav-tabs {
   border: unset;
 }
-.recipe-create {
-  &__tabs-link {
-    border: unset!important;
-    font-weight: 600;
-    font-size: 1.8rem;
-    margin-top: 10px;
-    color: #b0b0b0;
-    &.active {
-      color: #525f7f;
-    }
-  }
-  &__submit-btn {
-    border-radius: 30px;
-    color: #fff;
-    font-weight: 700;
-    font-size: 20px;
-    text-transform: uppercase;
-    height: 57px;
-    line-height: 46px;
-    padding: 0 30px;
-    background-color: var(--clr-orange-primary);
-    border-color: var(--clr-orange-primary);
-  }
-}
 </style>

@@ -62,7 +62,7 @@
             <div>
               <h3 class="name-user author">
                 <NuxtLink :to="{name: 'profile-slug', params: { slug : modelValue.author.username }}">
-                  {{ modelValue.author.fullname }}
+                  {{ authorName }}
                 </NuxtLink>
               </h3>
               <div class="date-post-cmt left">
@@ -80,7 +80,7 @@
           <div class="date-post-cmt">{{ previousDate(modelValue.updated_at) }}</div>
           </div>
         </div>
-        <div class="d-flex mt-3 mt-md-4">
+        <div v-if="isShowProcess" class="d-flex mt-3 mt-md-4">
           <div class="measure-cook border-yellow me-3" style="--elm-clr: var(--clr-orange-primary)">
             <div class="icon-recipe-detail icon-recipe-detail-1">
               <img src="/icons/recipe-detail-1.svg" class="comment-avatar mb1" />
@@ -109,7 +109,7 @@
             </div>
           </div>
         </div>
-        <div class="content color-title left mt-3 mt-md-5 text-overflow">
+        <div v-if="isShowContent" class="content color-title left mt-3 mt-md-5 text-overflow">
           {{ modelValue.content }}
         </div>
       </div>
@@ -126,12 +126,26 @@ export default {
     modelValue: {
       type: [Object, Array],
     },
+    isShowProcess: {
+      type: Boolean,
+      default: true
+    },
+    isShowContent: {
+      type: Boolean,
+      default: true
+    }
   },
   data() {
     return {
       activeModal: false,
       isLiked: false,
       likeCount: 0
+    }
+  },
+  computed: {
+    authorName() {
+      if (this.modelValue.author.fullname) return this.modelValue.author.fullname;
+      return this.modelValue.author.username;
     }
   },
   methods: {

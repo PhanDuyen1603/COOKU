@@ -72,10 +72,12 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - handle like
 - follow user
 - related posts
+
 #### create recipe:
 - unit search dropdown
 - create tags
 - update recipe
+
 #### update recipe
 - vee-validate set image
 - middleware
@@ -86,4 +88,3 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 - auto compile scss file
 - img src svg to svg ``https://github.com/iconfu/svg-inject``
 - animation
-

@@ -4,12 +4,12 @@
       <div class="section__head section__head--vertical">
         <div class="section__head--title section__head--title-between">
           <h3>BÀI VIẾT</h3>
-          <button class="section__head--action-btn">
+          <NuxtLink :to="{ name: 'post-create' }" class="section__head--action-btn">
             <div class="icon icon-wrap-circle icon__circle">
               <img src="/icons/plus.svg" />
             </div>
             <span>Tạo bài viết</span>
-          </button>
+          </NuxtLink>
         </div>
         <div class="section__head--desc">
           <p>
@@ -88,7 +88,7 @@
             :data-list="randoms.data"
             :load-more="false"
             :item-space="30"
-            to-page-name="post"
+            page-type="post"
           />
         </div>
       </div>
