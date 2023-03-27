@@ -40,6 +40,7 @@
 
 <script setup>
 import { colorVariables } from '~/constants/theme'
+const {$showLoading} = useNuxtApp()
 const { find } = useStrapi()
 const route = useRoute()
 
@@ -48,7 +49,9 @@ const getDefaultStyles = {
   '--section-horizonal-spacing': '70px',
 }
 
+$showLoading(true)
 const categories = await find('diet-categories', { slug: route.params.slug })
 const category = categories?.[0]
 const diets = await find('diets', { diet_category: category.id }) || []
+$showLoading(false)
 </script>

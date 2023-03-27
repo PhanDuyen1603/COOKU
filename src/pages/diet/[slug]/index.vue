@@ -102,7 +102,7 @@
 <script setup>
 const { find } = useStrapi()
 const route = useRoute()
-const { $modal } = useNuxtApp()
+const { $modal, $showLoading } = useNuxtApp()
 
 const content = [
   {
@@ -130,9 +130,9 @@ const transformArrayByRecipe = (arr) => {
 const developing = () => {
   $modal.show({ component: modalComponents.DEVELOP })
 }
-
+$showLoading(true)
 const diets = await find('diets', { slug: route.params.slug })
 const diet = diets?.[0] || {}
 const relative = diet.id ? await find('diet-recipes', { diet: diet.id }) : []
-
+$showLoading(false)
 </script>

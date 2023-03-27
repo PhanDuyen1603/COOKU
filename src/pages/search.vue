@@ -83,6 +83,7 @@
 const route = useRoute()
 const router = useRouter()
 const { find } = useStrapi()
+const { $showLoading } = useNuxtApp()
 
 const tabActive = ref(route.query.tab || 'recipe')
 const searchString = ref(route.query._q || '')
@@ -130,6 +131,11 @@ const getExtraData = async () => {
 const { data: searchResult, pending } = await useAsyncData('entityResults', () => getSearchData(), {
   watch: [searchString, tabActive, currentPage]
 })
+
+watch(pending, (newValue, oldValue) => {
+  if(newValue) $showLoading(true)
+  else $showLoading(false)
+});
 
 // methods
 const handleChangeTab = (tab) => {

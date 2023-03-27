@@ -72,6 +72,7 @@
 <script setup>
 import { colorVariables } from '@/constants/theme'
 const { find } = useStrapi()
+const { $showLoading } = useNuxtApp()
 
 const filter = reactive({
   _limit: 5,
@@ -91,12 +92,13 @@ const navigateTag = (tag) => {
     },
   })
 }
-
+$showLoading(true)
 const [ randomDiets, diets ] = await Promise.allSettled([
   find('diets/random', { _limit: 10 }),
   find('diets', filter),
   // find('diets/top-by/join_users')
 ])
+$showLoading(false)
 const hintItems = randomDiets.status === 'fulfilled'
   ? randomDiets.value.data
   .filter((item) => item.featured_media && item.featured_media.url)

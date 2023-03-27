@@ -27,27 +27,16 @@
 <script setup>
 import { categories } from '~/constants/recipe'
 const { find } = useStrapi()
+const { $showLoading } = useNuxtApp()
 const $router = useRouter()
 
-const listData = {
-  RANDOM: 'random',
-  TOPPRACTICE: 'top-practice',
-  NEWSEST: 'newsest',
-  TODAY: 'today',
-}
-
-const listDataTitle = {
-  [listData.RANDOM]: 'Gợi ý cho bạn',
-  [listData.TOPPRACTICE]: 'Nhiều người thực hành',
-  [listData.NEWSEST]: 'Công thức mới',
-  [listData.TODAY]: 'Món ăn hôm nay',
-}
-
+$showLoading(true)
 const [ { data: random }, topByComt, recipes ] = await Promise.all([
   find('recipes/random', { pageSize: 4, page: 1 }),
   find('recipes/top-by/comment', { _limit: 5 }),
   find('recipes', { _sort :'created_at:desc' , _limit :10 } )
 ])
+$showLoading(false)
 
 const navigateTo = (option) => $router.push(option)
 </script>

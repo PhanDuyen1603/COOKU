@@ -44,6 +44,14 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 ## using modal
 
+## using loading page
+```javascript
+const { $showLoading } = useNuxtApp()
+$showLoading(true)
+// some asynchronous function
+$showLoading(false)
+```
+
 ## warning
 
 ### vee-validate
@@ -81,6 +89,9 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 #### update recipe
 - vee-validate set image
 - middleware
+
+#### search
+- debounce search input
 
 #### medium piority
 - remove image upload

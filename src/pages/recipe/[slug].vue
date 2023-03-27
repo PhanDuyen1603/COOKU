@@ -24,13 +24,14 @@
 </template>
 
 <script setup>
-const { $modal } = useNuxtApp()
+const { $modal, $showLoading } = useNuxtApp()
 const { find } = useStrapi()
 const route = useRoute()
 
 const slug = route.params.slug
-
+$showLoading(true)
 const { data: recipes, pending } = await useAsyncData('recipes', () => find('recipes', { slug }))
+$showLoading(false)
 
 </script>
 

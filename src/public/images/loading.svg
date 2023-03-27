@@ -1,0 +1,25 @@
+<svg width="405" height="392" viewBox="0 0 405 392" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="197" cy="196" r="196" fill="#F9DBD2"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M68 196C68 267.245 125.755 325 197 325C268.245 325 326 267.245 326 196C326 124.755 268.245 67 197 67V116C241.183 116 277 151.817 277 196C277 240.183 241.183 276 197 276C152.817 276 117 240.183 117 196H68Z" fill="#78A0CF"/>
+<mask id="path-3-outside-1_683_7434" maskUnits="userSpaceOnUse" x="66" y="65" width="133" height="133" fill="black">
+<rect fill="white" x="66" y="65" width="133" height="133"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M197 67C125.755 67 68 124.755 68 196H117C117 151.817 152.817 116 197 116V67Z"/>
+</mask>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M197 67C125.755 67 68 124.755 68 196H117C117 151.817 152.817 116 197 116V67Z" fill="#FDFCEF"/>
+<path d="M197 67H199V65H197V67ZM68 196H66V198H68V196ZM117 196V198H119V196H117ZM197 116V118H199V116H197ZM197 65C124.651 65 66 123.651 66 196H70C70 125.86 126.86 69 197 69V65ZM117 194H68V198H117V194ZM197 114C151.713 114 115 150.713 115 196H119C119 152.922 153.922 118 197 118V114ZM195 67V116H199V67H195Z" fill="black" mask="url(#path-3-outside-1_683_7434)"/>
+<circle cx="197" cy="196" r="77.5" stroke="black" stroke-width="5"/>
+<circle cx="197" cy="196" r="129.5" stroke="black" stroke-width="5"/>
+<path d="M300.199 227.843C294.497 246.322 283.938 262.931 269.625 275.935C255.311 288.94 237.769 297.862 218.829 301.771C199.889 305.68 180.248 304.431 161.955 298.156C143.663 291.881 127.391 280.809 114.84 266.098C102.288 251.386 93.9164 233.573 90.6 214.521C87.2835 195.469 89.1436 175.876 95.9859 157.788C102.828 139.7 114.402 123.782 129.498 111.694C144.594 99.6073 162.658 91.7953 181.804 89.0744" stroke="black" stroke-width="4" stroke-linecap="round"/>
+<path d="M227.095 92.2778C248.537 98.4993 267.525 111.213 281.444 128.671" stroke="black" stroke-width="4" stroke-linecap="round"/>
+<path d="M294.191 148.906C303.091 167.273 306.604 187.784 304.324 208.065" stroke="black" stroke-width="4" stroke-linecap="round"/>
+<circle cx="9" cy="64" r="9" fill="#EE3E54"/>
+<circle cx="326" cy="6" r="6" fill="#F1BC19"/>
+<circle cx="399" cy="110" r="6" fill="#F1BC19"/>
+<circle cx="31" cy="177" r="6" fill="white"/>
+<circle cx="357" cy="264" r="6" fill="white"/>
+<circle cx="314" cy="309" r="12" fill="white"/>
+<circle cx="360" cy="309" r="9" fill="#F1BC19"/>
+<circle cx="363" cy="22" r="22" fill="#F1BC19"/>
+<circle cx="31" cy="357" r="22" fill="#F1BC19"/>
+<circle cx="76" cy="381" r="11" fill="#EE3E54"/>
+</svg>

@@ -99,6 +99,7 @@
 <script setup>
 import { colorVariables } from '@/constants/theme'
 const { find } = useStrapi()
+const { $showLoading } = useNuxtApp()
 
 const getDefaultStyles = {
   '--section-main-clr': `var(${colorVariables.GREEN})`,
@@ -110,11 +111,14 @@ const filters = reactive({
   _sort: 'created_at:desc',
 })
 
+$showLoading(true)
 const [ posts, randoms, top ] = await Promise.all([
   find('posts', filters),
   find('posts/random', { _limit: 4 }),
   find('posts/top-by/like', { _limit: 10 })
 ])
+$showLoading(false)
+
 
 </script>
 
