@@ -24,21 +24,21 @@
       </div>
     </NuxtLink>
     <div class="action-icon-right">
-      <div v-if="$$isSigned" class="icon icon-wrap-circle" @click="editItem()">
+      <div v-if="$$isSigned && isEditable" class="icon icon-wrap-circle" @click="editItem()">
         <img
           class="btn p-0"
           src="/icons/edit.svg"
         />
       </div>
 
-      <div v-if="$$isSigned" class="icon icon-wrap-circle" @click="removeItem()">
+      <div v-if="$$isSigned && isEditable" class="icon icon-wrap-circle" @click="removeItem()">
         <img
           class="btn p-0 trash-icon"
           src="/icons/trash-bin.svg"
         />
       </div>
 
-      <div class="icon icon-bookmark cursor-pointer" @onClick="openAddRecipeModal()">
+      <div class="icon icon-bookmark cursor-pointer" @click="bookMark()">
         <img src="/icons/bookmark-yellow.svg" alt="bookmark-yellow" />
       </div>
       <!-- TODO: show material list -->

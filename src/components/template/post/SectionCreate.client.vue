@@ -223,7 +223,6 @@ export default {
     },
 
     changeValue(observe, $event) {
-      console.log('event', $event.target.value)
       observe.setFieldValue('postcategory', $event.target.value)
       this.category = $event.target.value
     }

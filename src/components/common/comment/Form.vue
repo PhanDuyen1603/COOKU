@@ -87,29 +87,24 @@ export default {
     const submitComment = async (e) => {
       const isValid = form.content?.length < 100
       if(!isValid) return false
-      console.log(1, e)
       e.preventDefault()
       processFiles.value = Math.random()
       set(form, prop.entity, prop.entityID)
       set(form, 'author', $$user.id)
       if (prop.commentParent) {
-        console.log(2)
         set(form, 'parent_comment', prop.commentParent.id)
       }
       // this.loading = true
       try {
-        console.log(3)
         const comment = await create('comments', form)
         if (images.length) {
           set(comment, 'images', images)
         }
-        console.log(4)
         if (prop.commentParent) {
           emit('pushCommentChild', {
             commentParentId: prop.commentParent.id,
             commentChild: comment,
           })
-          console.log(5)
         } else {
           emit('pushComment', comment)
         }

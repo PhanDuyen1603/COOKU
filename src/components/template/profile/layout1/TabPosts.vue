@@ -19,6 +19,7 @@
           item-component="CommonCardFullImage"
           :dataList="recipes"
           page-type="recipe"
+          :isEditable="isEditable"
           :itemProps="{
             itemStyles:{
               height: '240px'
@@ -32,6 +33,7 @@
           :item-space="20"
           item-component="CommonCardVertical"
           :dataList="posts"
+          :isEditable="isEditable"
           page-type="post"
           :itemProps="{
             itemStyles:{
@@ -48,6 +50,7 @@
 </template>
 
 <script>
+import useProfileStore from '~/stores/profile.store'
   export default {
     props: {
       recipes: {
@@ -73,11 +76,19 @@
       }
     },
 
-    // computed: {
-    //   ...mapGetters({
-    //     isLoggedUser: 'modules/profile/isLoggedUser',
-    //   })
-    // },
+    setup(props) {
+      const profileStore = useProfileStore()
+      const { $$user } = useNuxtApp()
+
+      const isEditable = computed(() => {
+        return unref($$user) && profileStore.profileInfo?.username && profileStore.profileInfo?.username === unref($$user).username
+      })
+
+      return {
+        isEditable
+      }
+    },
+
     methods: {
       handleChangeTab(entity) {
         window.scrollTo(0, 0);

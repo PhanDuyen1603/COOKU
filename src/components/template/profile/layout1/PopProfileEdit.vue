@@ -105,7 +105,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.data)
     const user = this.data
     this.userDetail.fullName.input = user.fullname
       ? user.fullname
@@ -167,7 +166,6 @@ export default {
       const formData = new FormData()
       formData.append('files', file)
       const response = await this.strapiClient('/upload', { method: 'POST', body: formData })
-      console.log('response', response)
       const url = this.$$strapi.getStrapiMedia(response[0].url)
       this.avatar = response[0]
       this.avatarUrl = url

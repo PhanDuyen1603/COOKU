@@ -14,14 +14,14 @@
         </div>
       </NuxtLink>
       <div class="action-icon-right">
-         <div v-if="$$isSigned" class="icon icon-wrap-circle" @click="editItem()">
+         <div v-if="$$isSigned && isEditable" class="icon icon-wrap-circle" @click="editItem()">
           <img
             class="btn p-0"
             src="/icons/edit.svg"
           />
         </div>
 
-         <div v-if="$$isSigned" class="icon icon-wrap-circle" @click="removeItem()">
+         <div v-if="$$isSigned && isEditable" class="icon icon-wrap-circle" @click="removeItem()">
           <img
             class="btn p-0 ml-2 trash-icon"
             src="/icons/trash-bin.svg"

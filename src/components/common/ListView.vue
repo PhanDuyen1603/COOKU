@@ -17,6 +17,7 @@
               :route-info="buildRoute(data)"
               :card-index="index + 1"
               v-bind="itemProps"
+              :isEditable="isEditable"
               @click="handleItemAction"
             />
           </slot>
@@ -36,6 +37,7 @@
               :data="item"
               :index="index"
               :pageType="pageType"
+              :isEditable="isEditable"
               v-bind="itemProps"
               @click="handleItemAction"
             />
@@ -56,6 +58,7 @@
           :item="item"
           :card-index="index + 1"
           :pageType="pageType"
+          :isEditable="isEditable"
           v-bind="itemProps"
           @click="handleItemAction"
         />
@@ -157,6 +160,10 @@ export default {
     total: {
       type: Number,
       default: null
+    },
+    isEditable: {
+      type: Boolean,
+      default: false
     }
   },
   data() {

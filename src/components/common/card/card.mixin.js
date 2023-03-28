@@ -22,24 +22,15 @@ export default {
   },
 
   setup(props) {
-    const { delete: _delete } = useStrapi()
+    const { delete: _delete, find } = useStrapi()
 
     return {
-      _delete
+      _delete,
+      find
     }
   },
 
   methods: {
-    openAddRecipeModal() {
-      if(this.$strapi.user) {
-        this.$emit('open-modal', this.item, 'recipe', "Món ăn")
-      } else {
-        this.$toast.error('Bạn phải đăng nhập trước khi tạo bộ sưu tập')
-        this.$store.dispatch('modules/app/changeModeForm', 'login')
-        this.$store.dispatch('modules/app/changeFormStatus', true)
-      }
-    },
-
     editItem() {
       this.$router.push({ name: `${this.pageType}-create`, params: { slug: this.data.slug }})
     },
@@ -63,10 +54,28 @@ export default {
       }
     },
     async bookMark() {
+      if(!this.$$user.id) {
+        await this.$toast.show({
+          message: 'vui lòng đăng nhập để tạo bst'
+        })
+        return this.$modal.show({
+          component: 'TemplateAuthModalAuth',
+          wrapper: 'ModalWrapperAuthForm',
+          wrapperProps: {
+            style: {
+              width: '900px'
+            },
+          }
+        })
+      }
       await this.$modal.show({
-        component: 'add',
+        component: 'TemplateCollectionPopAddCollection',
         props: {
-          data: this.data
+          item: this.data,
+          type: this.pageType
+        },
+        wrapperProps: {
+          maxWidth: '750px'
         }
       })
     }
