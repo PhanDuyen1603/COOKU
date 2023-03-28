@@ -4,7 +4,7 @@
     class="avatar rounded-circle object-image" :class="['avatar--'+ size, circle ? 'avatar__circle' : '']"
   >
     <img
-      :src="$$strapi.getMediaLink(data.avatar)"
+      :src="$$strapi.getMediaLink(data.avatar ? data.avatar : data)"
       :alt="data.username"
     >
   </div>

@@ -1,17 +1,17 @@
 <template>
-  <div class="padding-tab">
+  <div class="form-profile padding-tab">
     <CommonListColorCircle/>
-    <div class="mt-2">
-      <label title="Thay đổi ảnh đại diện" class="rounded-circle fit-image-wrapper avatar--large margin-center">
-        <div class="object-fit avatar-overlay">
+    <div class="my-3 d-flex justify-center">
+      <label title="Thay đổi ảnh đại diện" class="margin-center position-relative">
+        <div class="avatar-overlay">
           <input type="file" name="profileImage" accept="image/png,image/jpeg" class="hidden" @change="handleUploadImage(item, $event)">
           <img src="/icons/icon-camera.svg" width="32px" height="32px" class="filter-white">
         </div>
-        <CommonAvatar size="large" :data="data" />
+        <CommonAvatar size="large" :data="avatarObj" />
       </label>
     </div>
 
-    <div class="mt-3 text-gray text-uppercase fw-bold info-name">
+    <div class="mt-3 text-gray text-uppercase fw-bold text-center">
       THÔNG TIN CÁ NHÂN
     </div>
 
@@ -27,7 +27,6 @@
       <div class="row pr-0 align-items-center">
         <div class="col-11" :class="{ 'active-input': !value.readonly }">
           <input
-            :ref="key"
             v-model="value.input"
             class="mt-1 p-0 border-0 text-custom-small text-gray fw-bold input-custom w-100"
             :disabled="value.readonly"
@@ -46,14 +45,15 @@
           <date-picker
             v-model:value="birthday.input"
             placeholder="Chưa có thông tin"
-            format="DD-MM-YYYY"
+            format="YYYY-MM-DD"
+            value-type="YYYY-MM-DD"
             class="profile-date-picker"
           ></date-picker>
         </div>
       </div>
     </div>
     <div
-      class="btn w-100 mt-3 text-white fw-bold border-radius-20 bg-yelow text-custom btn-success-custom"
+      class="btn-success-custom text-center my-4 cursor-pointer"
       @click="changeProfile()"
     >
       Lưu
@@ -64,7 +64,7 @@
 <script>
 import DatePicker from 'vue-datepicker-next';
 import 'vue-datepicker-next/index.css';
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 
 export default {
   components: {
@@ -98,13 +98,14 @@ export default {
       birthday: {
         label: 'Sinh nhật',
         readonly: true,
-        input: '',
+        input: null,
       },
-      avatar: null,
+      avatar: {},
       isupdateImage: false
     }
   },
   mounted() {
+    console.log(this.data)
     const user = this.data
     this.userDetail.fullName.input = user.fullname
       ? user.fullname
@@ -113,12 +114,21 @@ export default {
     this.userDetail.email.input = user.email
     this.birthday.input = user.birthday
   },
+  computed: {
+    avatarObj() {
+      if (this.avatar?.id) return { avatar: this.avatar}
+      return this.data
+    }
+  },
   setup() {
     const { update } = useStrapi()
     const client = useStrapiClient()
+    const { $$user } = useNuxtApp()
+
     return {
       strapiUpdate: update,
-      strapiClient: client
+      strapiClient: client,
+      user: unref($$user)
     }
   },
   methods: {
@@ -136,7 +146,7 @@ export default {
         })
         await this.strapiUpdate(
           'users',
-          this.$$user.id,
+          this.user.id,
           newProfileDetail
         )
         this.$emit('refetch-user')
@@ -144,6 +154,7 @@ export default {
           message: 'Cập nhật thông tin thành công'
         })
         this.$emit('close')
+        window?.location.reload(true)
       } catch (error) {
         this.$toast.show({
           message: error
@@ -156,9 +167,11 @@ export default {
       const formData = new FormData()
       formData.append('files', file)
       const response = await this.strapiClient('/upload', { method: 'POST', body: formData })
+      console.log('response', response)
       const url = this.$$strapi.getStrapiMedia(response[0].url)
       this.avatar = response[0]
       this.avatarUrl = url
+      this.isupdateImage = true
     },
     choseDate($event) {
       this.birthday.input = dayjs($event).format('DD-MM-YYYY')
@@ -168,7 +181,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .active-input {
   position: relative;
 
@@ -193,9 +206,15 @@ export default {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 10;
     transition: all .2s ease;
+    justify-content: center;
+    position: absolute;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
     img {
-      margin-top: 22px;
       cursor: pointer;
+      width: 32px;
+      height: 32px;
     }
   }
   &:hover {
@@ -204,5 +223,28 @@ export default {
       visibility: visible;
     }
   }
+}
+.form-profile input {
+  border: none;
+  padding-left: 0;
+  box-shadow: unset;
+  color: #525f7f;
+  font-size: var(--fs-lg);
+  line-height: 27px;
+  font-weight: 600;
+  outline: unset;
+}
+
+.profile-date-picker {
+  width: 100%;
+}
+.btn-success-custom {
+  padding: 10px 20px;
+  color: #fff;
+  background-color: var(--clr-orange-primary);
+  border-radius: 20px;
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  line-height: 2rem;
 }
 </style>

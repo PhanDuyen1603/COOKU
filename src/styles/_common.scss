@@ -139,10 +139,21 @@
 // color
 .bg-yelow {
   background-color: var(--clr-orange-primary);
+  border: 1px solid var(--clr-orange-primary);
+  :hover {
+    background-color: var(--clr-white);
+    color: var(--clr-orange-primary);
+  }
 }
 
 .bg-gray {
   background-color: #F1F1F1;
+}
+
+// icon
+.icon-bookmark {
+  width: 25px;
+  height: 25px;
 }
 
 // font

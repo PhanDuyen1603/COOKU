@@ -44,7 +44,7 @@
           >
             <div class="col-7">
               <div class="d-flex align-items-center cursor-pointer" @click="changeProfile(following.username)">
-                <CommonAvatar :author="following" />
+                <CommonAvatar :data="following" />
                 <div class="single-col-list__item--title">{{ following.fullname ? following.fullname : following.username }}</div>
               </div>
             </div>
@@ -76,7 +76,7 @@
                 class="d-flex align-items-center cursor-pointer"
                 @click="changeProfile(follower.username)"
               >
-                <CommonAvatar :author="follower" />
+                <CommonAvatar :data="follower" />
                 <div class="single-col-list__item--title">
                   {{ follower.fullname ? follower.fullname : follower.username }}
                 </div>

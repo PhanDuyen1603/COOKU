@@ -10,7 +10,7 @@
         <h3 :class="titleClass" class="card__image--title">{{ data.title }}</h3>
         <div class="card__image--author">
           <div class="symbol me-2">
-            <CommonAvatar v-if="data.author" :author="data.author" :avatar-size="$$isMobile ? 'small' : 'normal'" />
+            <CommonAvatar v-if="data.author" :data="data.author" :avatar-size="$$isMobile ? 'small' : 'normal'" />
           </div>
           <div class="cal">
             <div class="p">
@@ -24,14 +24,14 @@
       </div>
     </NuxtLink>
     <div class="action-icon-right">
-      <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @onClick="$emit('edit-item', data)">
+      <div v-if="$$isSigned" class="icon icon-wrap-circle" @click="editItem()">
         <img
           class="btn p-0"
           src="/icons/edit.svg"
         />
       </div>
 
-      <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @onClick="$emit('remove-item', data)">
+      <div v-if="$$isSigned" class="icon icon-wrap-circle" @click="removeItem()">
         <img
           class="btn p-0 trash-icon"
           src="/icons/trash-bin.svg"
@@ -41,7 +41,8 @@
       <div class="icon icon-bookmark cursor-pointer" @onClick="openAddRecipeModal()">
         <img src="/icons/bookmark-yellow.svg" alt="bookmark-yellow" />
       </div>
-      <div v-if="hasMaterialIcon" class="icon ms-1 icon-bookmark cursor-pointer">
+      <!-- TODO: show material list -->
+      <div v-if="getListShowElements.icon_material" class="icon ms-1 icon-bookmark cursor-pointer">
         <img src="/icons/material.svg" alt="bookmark-yellow" />
       </div>
       <!-- <div class="icon__circle" @onClick="shareUrl('/recipe/' + item.slug)"> -->
@@ -54,21 +55,21 @@
 </template>
 
 <script>
+import card from './card.mixin';
+
 const showList = {
   avatar: true,
   number_top: false,
+  icon_material: false
 }
 const intersection = (xs, ys) => xs.filter((x) => ys.includes(x))
 const toObject = (array) => array.reduce((ac, a) => ({ ...ac, [a]: true }), {})
 export default {
+  mixins: [card],
   props: {
     data: {
       type: Object,
       required: true,
-    },
-    hasMaterialIcon: {
-      type: Boolean,
-      default: true,
     },
     imageRatioPercent: {
       type: Number,
@@ -90,7 +91,7 @@ export default {
       type: String,
       default: 'text-yellow text-shadow h4 text-overfl-3'
     },
-    isLogin: {
+    isLoginEditable: {
       type: Boolean,
       default: false
     },
@@ -145,15 +146,6 @@ export default {
     }
   },
   methods: {
-    openAddRecipeModal() {
-      if(this.$strapi.user) {
-        this.$emit('open-modal', this.item, 'recipe', "Món ăn")
-      } else {
-        this.$toast.error('Bạn phải đăng nhập trước khi tạo bộ sưu tập')
-        this.$store.dispatch('modules/app/changeModeForm', 'login')
-        this.$store.dispatch('modules/app/changeFormStatus', true)
-      }
-    },
     getAspectRatio() {
       if(+this.imageRatioPercent > 0) {
         return this.imageRatioPercent

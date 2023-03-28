@@ -14,21 +14,21 @@
         </div>
       </NuxtLink>
       <div class="action-icon-right">
-         <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @click="$emit('edit-item', data)">
+         <div v-if="$$isSigned" class="icon icon-wrap-circle" @click="editItem()">
           <img
             class="btn p-0"
             src="/icons/edit.svg"
           />
         </div>
 
-         <div v-if="$$isSigned" class="icon icon-wrap-circle me-2" @click="$emit('remove-item', data)">
+         <div v-if="$$isSigned" class="icon icon-wrap-circle" @click="removeItem()">
           <img
             class="btn p-0 ml-2 trash-icon"
             src="/icons/trash-bin.svg"
           />
         </div>
 
-        <div class="icon icon-bookmark"  @click="openAddModal()">
+        <div class="icon icon-bookmark"  @click="bookMark()">
           <img
             class="btn p-0"
             src="/icons/bookmark-yellow.svg"
@@ -74,7 +74,10 @@
 </template>
 
 <script>
+import card from './card.mixin';
+
 export default {
+  mixins: [card],
   props: {
     data: {
       type: Object,
@@ -114,12 +117,6 @@ export default {
       }
     }
   },
-  computed: {
-    navigateTo() {
-      if(!this.pageType) return '#'
-      return { name: this.pageType + '-slug', params: { slug: this.data.slug || 'error' } }
-    }
-  },
   // async mounted() {
   //   const self = this
 
@@ -139,17 +136,6 @@ export default {
     // });
 
   // },
-  methods: {
-    openAddModal() {
-      if(this.$strapi.user) {
-        this.$emit('open-modal', this.data, 'post', "Bài viết")
-      } else {
-        this.$toast.error('Bạn phải đăng nhập trước khi tạo bộ sưu tập')
-        this.$store.dispatch('modules/app/changeModeForm', 'login')
-        this.$store.dispatch('modules/app/changeFormStatus', true)
-      }
-    },
-  },
 }
 </script>
 

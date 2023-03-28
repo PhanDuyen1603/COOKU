@@ -99,3 +99,4 @@ $showLoading(false)
 - auto compile scss file
 - img src svg to svg ``https://github.com/iconfu/svg-inject``
 - animation
+- confirm message dialog improve UI
