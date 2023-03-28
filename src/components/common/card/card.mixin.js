@@ -54,7 +54,7 @@ export default {
       }
     },
     async bookMark() {
-      if(!this.$$user.id) {
+      if(!this.$$isSigned) {
         await this.$toast.show({
           message: 'vui lòng đăng nhập để tạo bst'
         })
