@@ -70,7 +70,6 @@
 
             <Field v-slot="{ field }" name="files" rules="required">
               <input type="hidden" v-bind="field" v-model="images[0]" >
-              {{ images }}
               <TemplateRecipeCreateGallery
                 ref="gallery"
                 :gallery="images"

@@ -124,11 +124,11 @@ export default {
       try {
         this.$showLoading(true)
         const step1 = await this.$refs.infoTab.validate()
-        if(!step1) return his.$showLoading(false)
+        if(!step1) return this.$showLoading(false)
         const step2 = await this.$refs.material.validate()
-        if(!step2) return his.$showLoading(false)
+        if(!step2) return this.$showLoading(false)
         const step3 = await this.$refs.cooking.validate()
-        if(!step3) return his.$showLoading(false)
+        if(!step3) return this.$showLoading(false)
         const itemIngredients = []
         const step1Data = this.$refs.infoTab.formData
         const material = this.$refs.material.formData
