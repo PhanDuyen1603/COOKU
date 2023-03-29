@@ -12,7 +12,7 @@
           <div class="symbol me-2">
             <CommonAvatar v-if="data.author" :data="data.author" :avatar-size="$$isMobile ? 'small' : 'normal'" />
           </div>
-          <div class="cal">
+          <div v-if="getListShowElements.cooking_time" class="cal">
             <div class="p">
               <span class="p-wrap">
                 <img width="12" src="/icons/cooking-time.svg" alt />
@@ -38,7 +38,7 @@
         />
       </div>
 
-      <div class="icon icon-bookmark cursor-pointer" @click="bookMark()">
+      <div v-if="getListShowElements.bookMark" class="icon icon-bookmark cursor-pointer" @click="bookMark()">
         <img src="/icons/bookmark-yellow.svg" alt="bookmark-yellow" />
       </div>
       <!-- TODO: show material list -->
@@ -60,7 +60,9 @@ import card from './card.mixin';
 const showList = {
   avatar: true,
   number_top: false,
-  icon_material: false
+  icon_material: false,
+  bookMark: true,
+  cooking_time: false
 }
 const intersection = (xs, ys) => xs.filter((x) => ys.includes(x))
 const toObject = (array) => array.reduce((ac, a) => ({ ...ac, [a]: true }), {})
@@ -119,10 +121,10 @@ export default {
         const matchList = list.filter((x) => this.elementShow.includes(x))
         return { ...showList, ...toObject(matchList) }
       }
-      const list = Object.keys(this.elementShow)
-      const defaultList = Object.keys(showList)
-      const matchList = intersection(list, defaultList)
-      return { ...showList, ...toObject(matchList) }
+      // const list = Object.keys(this.elementShow)
+      // const defaultList = Object.keys(showList)
+      // const matchList = intersection(list, defaultList)
+      return { ...showList, ...this.elementShow }
     },
     wrapperStyles() {
       return {

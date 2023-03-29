@@ -44,7 +44,7 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
-    object-fit: contain;
+    object-fit: cover;
     transform: translate(-50%, -50%);
   }
   &--normal {

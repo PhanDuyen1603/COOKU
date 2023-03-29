@@ -32,7 +32,7 @@
             <div class="content__block--title">
               {{ item.title }}
             </div>
-            <div class="content__block--text" v-html="diet[item.content]">
+            <div class="content__block--text" v-html="convertContent(diet[item.content])">
             </div>
           </div>
         </div>
@@ -50,12 +50,7 @@
         <div class="social__right">
           <div class="diet__detail--card-content">
             <div>
-              <div class="list-cirlce">
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-                <div class="item"></div>
-              </div>
+              <CommonListColorCircle />
               <h4>Cộng đồng ăn uống</h4>
               <p>Cùng tham gia vào cộng đồng ăn uống để chia sẻ những bữa ăn thú vị,
                 những chế độ ăn lành mạnh cho sức khoẻ và học hỏi kinh nghiệm từ những người bạn đồng hành nhé
@@ -84,7 +79,7 @@
             :total="4"
             :item-space="30"
             item-component="CommonCardVertical"
-            :data-list="relative"
+            :data-list="matchRelative"
             page-type="recipe"
             :load-more="false"
             :itemProps="{
@@ -100,6 +95,7 @@
 </template>
 
 <script setup>
+import { marked } from 'marked'
 const { find } = useStrapi()
 const route = useRoute()
 const { $modal, $showLoading } = useNuxtApp()
@@ -130,9 +126,14 @@ const transformArrayByRecipe = (arr) => {
 const developing = () => {
   $modal.show({ component: modalComponents.DEVELOP })
 }
+
+const convertContent = (content) => {
+  return marked.parse(content)
+}
 $showLoading(true)
 const diets = await find('diets', { slug: route.params.slug })
 const diet = diets?.[0] || {}
 const relative = diet.id ? await find('diet-recipes', { diet: diet.id }) : []
+const matchRelative = relative.length ? relative.map(x => x.recipe) : []
 $showLoading(false)
 </script>

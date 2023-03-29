@@ -27,7 +27,7 @@
     <CommonListView
       key-event="random"
       item-component="CommonCardVertical"
-      :data-list="recipes"
+      :data-list="matchRecipes"
       :loading-state="loading"
       :items-to-show="isMobile ? 2 : 4"
       :item-space="30"
@@ -55,5 +55,6 @@ const recipes = await find('diet-recipes', {
   is_official: isOfficial.value,
   diet: diet?.id,
 })
+const matchRecipes = recipes.length ? recipes.map(x => x.recipe) : []
 
 </script>

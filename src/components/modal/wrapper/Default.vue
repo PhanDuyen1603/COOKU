@@ -1,6 +1,6 @@
 <template>
   <div class="modal__wrapper">
-    <div class="modal__content" :style="{ maxWidth: maxWidth }">
+    <div class="modal__content" :styles="{ maxWidth: maxWidth }">
       <slot/>
     </div>
   </div>

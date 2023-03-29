@@ -29,6 +29,9 @@
             :itemProps="{
               itemStyles:{
                 height: '200px'
+              },
+              elementShow: {
+                bookMark: false
               }
             }"
           />

@@ -6,7 +6,7 @@ export default defineNuxtPlugin(() => ({
   provide: {
     toast: {
       show({
-        title, message, timeout = 5000, vertical = 'top', horizonal = 'center', type = 'default', props = {}
+        title, message, timeout = 2000, vertical = 'top', horizonal = 'center', type = 'default', props = {}
       }) {
         return new Promise(resolve => {
           const $store = useToastStore()

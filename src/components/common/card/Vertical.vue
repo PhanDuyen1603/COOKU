@@ -41,9 +41,9 @@
         </div>
       </div>
       <div class="card__vertical--author">
-        <div class="img-author">
-          <CommonAvatar :author="data.author" />
-        </div>
+        <NuxtLink :to="{ name: 'profile-slug', params: { slug: data.author?.username || 'error' } }" class="img-author">
+          <CommonAvatar :data="data.author" />
+        </NuxtLink>
         <div v-if="data.post_categories?.length" class="mt-2">
           <NuxtLink :to="{ name: 'tag-slug', params: { slug: data.post_categories[0].slug }}"
             class="tag line-clamp-1"
@@ -51,7 +51,7 @@
             # {{ data.post_categories?.[0]?.title }}
           </NuxtLink>
         </div>
-        <div v-else class="tag line-clamp-1">#</div>
+        <div v-else class="tag line-clamp-1 mt-2">#</div>
       </div>
     </div>
     <span v-if="isTop" class="top-number font-mitr">{{ Index }}</span>
