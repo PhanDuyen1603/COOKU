@@ -14,19 +14,19 @@
       <span class="visually-hidden">Loading...</span>
     </span>
 
-    <div v-if="gallery.length" :ref="'gallery-image' + (index)" class="d-flex flex-wrap" :class="'gallery-image' + (index)">
+    <div v-if="gallery.length" :ref="'gallery-image gallery-image' + (index)" class="d-flex flex-wrap" :class="'gallery-image' + (index)">
 
       <div class="item-image hidden">
-        <span class="close"></span><img src="" class="m-0" width="104px" />
+        <span class="close"></span><img src="/images/image_loading.svg" class="m-0" width="104px" />
       </div>
       <div class="item-image hidden">
-        <span class="close"></span><img src="" class="m-0" width="104px" />
+        <span class="close"></span><img src="/images/image_loading.svg" class="m-0" width="104px" />
       </div>
       <div class="item-image hidden">
-        <span class="close"></span><img src="" class="m-0" width="104px" />
+        <span class="close"></span><img src="/images/image_loading.svg" class="m-0" width="104px" />
       </div>
       <div class="item-image hidden">
-        <span class="close"></span><img src="" class="m-0" width="104px" />
+        <span class="close"></span><img src="/images/image_loading.svg" class="m-0" width="104px" />
       </div>
     </div>
 
@@ -67,6 +67,13 @@ export default {
       })
     })
   },
+
+  watch: {
+    gallery(val, oldVal) {
+      this.renderGallery(val)
+    },
+  },
+
   setup(props) {
     const { $config } = useNuxtApp()
     const strapiBaseUri = unref($config).public.strapi.url
@@ -114,8 +121,9 @@ export default {
 
           const imageWrapElement = document.querySelector(`.gallery-image${this.index} .item-image:nth-child(${i + lengthGalley + 1})`)
           const imageElement = document.querySelector(`.gallery-image${this.index} .item-image:nth-child(${i + lengthGalley + 1}) img`)
-          imageWrapElement.classList.remove('hidden')
-          imageElement.src = imageUrl
+          const hasHiddenClass = imageWrapElement?.classList.contains('hidden')
+          hasHiddenClass && imageWrapElement.classList.remove('hidden')
+          if(imageElement) imageElement.src =  imageUrl
         }
       }
       if (this.gallery.length === 4) {
@@ -142,8 +150,9 @@ export default {
       galery.forEach((url, index) => {
         const imageWrapElement = document.querySelector(`.gallery-image${this.index} .item-image:nth-child(${index + 1})`)
         const imageElement = document.querySelector(`.gallery-image${this.index} .item-image:nth-child(${index + 1}) img`)
-        imageWrapElement.classList.remove('hidden')
-        imageElement.src = url
+        const hasHiddenClass = imageWrapElement?.classList.contains('hidden')
+        hasHiddenClass && imageWrapElement.classList.remove('hidden')
+        if(imageElement) imageElement.src = url
       })
     }
   }

@@ -38,7 +38,7 @@ export default defineNuxtPlugin(() => {
       return testValue(value);
     })()
 
-    return isValid || $t('validate.message.numeric');
+    return isValid || 'chi duoc nhap so';
   })
 
   defineRule('max', (value, [limit]) => {
@@ -89,7 +89,7 @@ export default defineNuxtPlugin(() => {
       return re.test(value)
     })()
 
-    return isValid || $t('validate.message.email');;
+    return isValid || 'sai dinh dang email';
   });
 
   // defineRule('telephone', (telephone, _, { field: fieldName }) => {
@@ -140,6 +140,6 @@ export default defineNuxtPlugin(() => {
       return birthdayRegex.test(value)
     })()
 
-    return isValid || $t('validate.message.birthday')
+    return isValid || 'vui long nhap dung dinh dang ngay thang nam'
   })
 })

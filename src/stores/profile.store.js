@@ -142,19 +142,19 @@ export default defineStore({
       if(!$$user) return false
       try {
         if(isFollowed) {
-          await $toast.show({ message: 'Đang huỷ theo dõi...' })
+          $toast.show({ message: 'Đang huỷ theo dõi...' })
           await _delete('followings', id)
-          await $toast.show({ message: 'Bạn đã hủy theo dõi người dùng này' })
+          $toast.show({ message: 'Bạn đã hủy theo dõi người dùng này' })
 
           const list = actionType === 'following' ? this.followings : this.followers
           const target = list.findIndex(x => x.username === username)
           list[target].isFollowed = false
           list[target].accept_notification = false
         } else {
-          await $toast.show({ message: 'Đang theo dõi...' })
+          $toast.show({ message: 'Đang theo dõi...' })
           const followerDetail = await find('users', { username })
           const res = await create('followings', { user_id: id , follower_id: followerDetail[0].id })
-          await $toast.show({ message: 'Bạn đã theo dõi người dùng này' })
+          $toast.show({ message: 'Bạn đã theo dõi người dùng này' })
 
           const list = actionType === 'following' ? this.followings : this.followers
           const target = list.findIndex(x => x.username === username)

@@ -107,7 +107,7 @@ export default {
           emit('close')
           window?.location.reload(true)
         } catch (error) {
-          await $toast.show({
+          $toast.show({
             message: error
           })
           console.log(error)

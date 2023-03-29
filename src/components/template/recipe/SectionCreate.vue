@@ -115,18 +115,20 @@ export default {
       strapiUpdate: update,
 
       activeItem,
-      recipeData: $store.data
+      recipeData: $store.data,
+      cookStore: $store
     }
   },
   methods: {
     async submit() {
       try {
+        this.$showLoading(true)
         const step1 = await this.$refs.infoTab.validate()
-        if(!step1) return
+        if(!step1) return his.$showLoading(false)
         const step2 = await this.$refs.material.validate()
-        if(!step2) return
+        if(!step2) return his.$showLoading(false)
         const step3 = await this.$refs.cooking.validate()
-        if(!step3) return
+        if(!step3) return his.$showLoading(false)
         const itemIngredients = []
         const step1Data = this.$refs.infoTab.formData
         const material = this.$refs.material.formData
@@ -184,21 +186,25 @@ export default {
           console.log('update')
         }
 
+        this.cookStore.clearCook()
+        this.clearAllForm()
+        this.$showLoading(false)
       } catch (error) {
         console.log(error)
+        this.$showLoading(false)
       }
     },
     async postCreateRecipes(formData) {
       this.loadingInsert = true
       try {
         const res = await this.strapiCreate('recipes', formData)
-        await this.$toast.show({
+        this.$toast.show({
           message: 'Tạo mới món ăn thành công'
         })
-
+        this.$router.push({ name: 'recipe-slug', params: { slug: res.slug || 'error' } })
 
       } catch (error) {
-        await this.$toast.show({
+        this.$toast.show({
           message: 'Tạo mới món ăn thất bại, vui lòng thử lại'
         })
       }
@@ -217,6 +223,11 @@ export default {
         console.log(error);
       }
     },
+    clearAllForm() {
+      this.$refs.infoTab.clear()
+      this.$refs.material.clear()
+      // this.$refs.cooking.clear()
+    }
   }
 }
 </script>

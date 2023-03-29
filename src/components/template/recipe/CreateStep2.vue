@@ -29,6 +29,7 @@
                 <input
                   v-model="item.title"
                   v-bind="field"
+                  autocomplete="off"
                   :name="`ingredient-${ index }`"
                   :placeholder="'Nguyên liệu ' + (index + 1) + ' *'"
                   class="select-input-wrap ms-2 me-2"
@@ -219,11 +220,13 @@ export default {
           tags: ingredientCategory.tags
         }
       })
-      observe.setFieldValue(`ingredient-${index}`, data.title)
       formData[index].title = data.title || ''
       formData[index].ingredient = data.id
       // TODO: unit
       formData[index].unit = null
+
+      observe.setFieldValue(`ingredient-${index}`, data.title)
+      observe.validateField(`ingredient-${index}`)
     }
 
     const addField = () => {
@@ -242,6 +245,23 @@ export default {
       validationSchema[`ingredient-${index}`] = 'required'
       validationSchema[`quantity-${index}`] = 'required'
       validationSchema[`unit-${index}`] = 'required'
+    }
+
+    const clear = () => {
+      formData = [{
+        id: '',
+        title: '',
+        number: '',
+        unit: '',
+        unitId: '',
+        type: 'main',
+        materialImage: '',
+      }]
+      validationSchema = {
+        [`ingredient-0`]: 'required',
+        [`quantity-0`]: 'required',
+        [`unit-0`]: 'required',
+      }
     }
 
     onMounted(async () => {
@@ -266,12 +286,13 @@ export default {
           createStep2.value.setFieldValue(`unit-${index}`, element.unit?.title)
         });
       }
-      const res = await createStep2.value.validate()
+      // const res = await createStep2.value.validate()
     })
 
     return {
       changeIngredient,
       addField,
+      clear,
 
       createStep2,
       ingredient,

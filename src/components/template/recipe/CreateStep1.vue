@@ -46,6 +46,7 @@
               <select
                 class="input-texts"
                 :value="formData.serving"
+                @change="e => handleChangeServing(observe, e)"
               >
                 <option value="" disabled selected >Số khẩu phần *</option>
                 <option v-for="(item, index) in numbers" :key="index" :value="item">{{item}}</option>
@@ -68,25 +69,14 @@
             </label>
 
             <Field v-slot="{ field }" name="files" rules="required">
-              <div class="d-flex mt-3 mt-3">
-                <div v-if="image" class="img-wrap mr-2 mt-0">
-                  <img class="img-response" :src="image" />
-                </div>
-                <input v-bind="field" v-model="image" type="hidden" name="Hình đại diện">
-                <span v-if="loadingImage" role="status" class="spinner-border spinner-border-sm">
-                  <span class="visually-hidden">Loading...</span>
-                </span>
-                <div class="img-wrap position-relative mt-0 mb-3">
-                  <img src="/images/plus-big.png" />
-                  <input
-                    accept="image/*"
-                    type="file"
-                    required
-                    class="upload file-hidden"
-                    @change="onFileChange($event, observe)"
-                  />
-                </div>
-              </div>
+              <input type="hidden" v-bind="field" v-model="images[0]" >
+              {{ images }}
+              <TemplateRecipeCreateGallery
+                ref="gallery"
+                :gallery="images"
+                @addGallery="addGalleryImage"
+                @removeGalleryImage="removeImage"
+              />
             </Field>
             <ErrorMessage name="files" class="error-red" />
           </div>
@@ -177,18 +167,17 @@ export default {
 
   async setup(props) {
     const { find } = useStrapi()
-    const token = useStrapiToken()
-    const { $modal, $config, $axios, $$strapi } = useNuxtApp()
+    const { $modal, $config, $wait , $$strapi } = useNuxtApp()
     const $store = useCookStore()
     const files = ref(null)
     const basicInfo = ref(null)
-
-    const strapiBaseUri = unref($config).public.strapi.url
 
     const createCategories = computed(() => categories.filter(i => i.slug !== 'nguyen-lieu'))
 
     const cooking_time = reactive({
       time: 0,
+      hours: 1,
+      minutes: 5,
       humanReadable: '',
     })
 
@@ -224,43 +213,10 @@ export default {
 
     const image = ref('')
 
+    const images = reactive([])
+    // const files = reactive([])
+
     // methods
-    const createImage = async (file, observe) => {
-      loadingImage.value = true
-      const fileData = new FormData()
-      fileData.append('files', file)
-
-      const { data } = await $axios.post(
-        strapiBaseUri + '/upload',
-        fileData, {
-          headers: {
-            Authorization: 'Bearer ' + unref(token),
-          },
-        }
-      )
-      image.value = $$strapi.getStrapiMedia(data[0].url)
-      observe.setFieldValue('files', $$strapi.getStrapiMedia(data[0].url))
-      formData.featured_media = data[0].id
-      loadingImage.value = false
-    }
-
-    const onFileChange = async (e, observe) => {
-      const files = e.target.files || e.dataTransfer.files
-      if (!files.length) return
-      const imgPath = files[0].name
-      const extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase()
-      if (
-        extn === 'gif' ||
-        extn === 'png' ||
-        extn === 'jpg' ||
-        extn === 'jpeg'
-      ) {
-        await createImage(files[0], observe)
-        // console.log(files[0])
-      } else {
-        alert('Chưa đúng định dạng gif, png, jpg, jpeg')
-      }
-    }
 
     const openModal = async (category) => {
       let res = await find(category.service.api)
@@ -293,13 +249,19 @@ export default {
 
     const openTimePickerModal = async (observe) => {
       const time = await $modal.show({
-        component: 'ModalRecipeTimePicker'
+        component: 'ModalRecipeTimePicker',
+        props: {
+          hour: cooking_time.hours,
+          minute: cooking_time.minutes
+        }
       })
-      // console.log(time)
       cooking_time.humanReadable = readableTime(time)
       cooking_time.time = time.hours * 60 + time.minutes
+      cooking_time.hours = time.hours
+      cooking_time.minutes = time.minutes
       formData.cooking_time = time.hours * 60 + time.minutes
       observe.setFieldValue('cooktime', cooking_time.humanReadable)
+      observe.validateField(`cooktime`)
     }
 
     const changeServing = (observe, $event) => {
@@ -307,29 +269,77 @@ export default {
       observe.setFieldValue('servings', $event.target.value)
     }
 
+    const addGalleryImage = (e, data) => {
+      formData.featured_media = e.id
+      images[0] = e.image
+    }
+
+    const removeImage = (e) => {
+      images[0] = ''
+    }
+
+    const handleChangeServing = (observe, $event) => {
+      const value = $event.target.value
+      formData.serving = value
+      observe.setFieldValue('servings', value)
+      observe.validateField(`servings`)
+    }
+
+    const clear = () => {
+      formData.title = ''
+      formData.content = null,
+      formData.featured_media = null
+      formData.serving = null
+      formData.level = 'normal'
+      formData.tags = null
+      formData.cooking_time = null
+      formData.recipe_categories = []
+      formData.regional = null
+      formData.processing = null
+
+      cooking_time.time = 0
+      cooking_time.hours = 1
+      cooking_time.minutes = 5
+      cooking_time.humanReadable = ''
+
+      extraData.processing = null
+      extraData.regional = null
+      extraData.meal.name = null
+    }
+
     onMounted(async () => {
       const recipe = $store.data
+      console.log(recipe)
       if(recipe.id) {
         formData.title = recipe.title
         formData.content = recipe.content
         formData.featured_media = recipe.featured_media
         formData.serving = recipe.serving + ''
         formData.level = recipe.level
+        await $wait(100)
         // tags: null,
-        formData.cooking_time = recipe.cooking_time
-        cooking_time.humanReadable = readableTime({minutes: recipe.cooking_time})
-        cooking_time.time = recipe.cooking_time
+        const cookingTime = $store.cooking_time
+        formData.cooking_time = cookingTime.time || 0
+        cooking_time.humanReadable = cookingTime.humanReadable
+        cooking_time.time = cookingTime.time
+        cooking_time.hours = cookingTime.hours
+        cooking_time.minutes = cookingTime.minutes
+        await $wait(100)
 
+        // console.log({ minutes :cooking_time.minutes, hours: cooking_time.hours, time: recipe.cooking_time })
         formData.recipe_categories = recipe.recipe_categories
         formData.regional = recipe.regional
         formData.processing = recipe.processing
+        await $wait(100)
 
         extraData.processing = {...$store.processing}
         extraData.regional = {...$store.regional}
         extraData.meal.name = recipe.recipe_categories?.length ? recipe.recipe_categories[0].title : ''
 
         image.value = $$strapi.getMediaLink(recipe.featured_media)
+        images[0] = $$strapi.getMediaLink(recipe.featured_media)
 
+        await $wait(100)
         basicInfo.value.setFieldValue('recipeName', recipe.title)
         basicInfo.value.setFieldValue('cooktime', readableTime({minutes: recipe.cooking_time}))
         basicInfo.value.setFieldValue('servings', recipe.serving + '')
@@ -339,9 +349,12 @@ export default {
 
     return {
       openModal,
-      onFileChange,
       openTimePickerModal,
       changeServing,
+      addGalleryImage,
+      removeImage,
+      handleChangeServing,
+      clear,
       // ref
       basicInfo,
 
@@ -351,6 +364,7 @@ export default {
       extraData,
       formData,
       image,
+      images,
       files
     }
 

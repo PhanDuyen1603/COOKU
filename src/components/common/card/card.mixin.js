@@ -21,18 +21,9 @@ export default {
     },
   },
 
-  setup(props) {
-    const { delete: _delete, find } = useStrapi()
-
-    return {
-      _delete,
-      find
-    }
-  },
-
   methods: {
     editItem() {
-      this.$router.push({ name: `${this.pageType}-create`, params: { slug: this.data.slug }})
+      this.$router.push({ name: `${this.pageType}-update-slug`, params: { slug: this.data.slug }})
     },
     async removeItem() {
       const res = await this.$modal.confirm({
@@ -40,11 +31,11 @@ export default {
       })
       if(res) {
         try {
-          await this.$toast.show({
+          this.$toast.show({
             message: 'đang xoá ....'
           })
-          this._delete(this.pageType + 's', this.data.id)
-          await this.$toast.show({
+          await this.$$strapi._delete(this.pageType + 's', this.data.id)
+          this.$toast.show({
             message: 'Xoá thành công'
           })
           this.$emit('refetch')
@@ -55,7 +46,7 @@ export default {
     },
     async bookMark() {
       if(!this.$$isSigned) {
-        await this.$toast.show({
+        this.$toast.show({
           message: 'vui lòng đăng nhập để tạo bst'
         })
         return this.$modal.show({

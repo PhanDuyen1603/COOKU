@@ -84,7 +84,7 @@
               >
                 <p class="underline">
                   <img
-                    v-if="ingredient.ingredient.featured_media"
+                    v-if="ingredient.ingredient?.featured_media"
                     class="icon ic-right ingredients-img"
                     :src="
                       $$strapi.getMediaLink(ingredient.ingredient?.featured_media)

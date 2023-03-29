@@ -8,6 +8,8 @@ export default defineStore({
     cooking_time: {
       time: 0,
       humanReadable: '',
+      minutes: 0,
+      hours: 0
     },
     processing: {
       name: '',
@@ -62,17 +64,16 @@ export default defineStore({
     setCookingTime({ isHumanReadable = true, hours, minutes }) {
       const readableHours = isHumanReadable ? hours : Math.floor(+minutes / 60)
       const readableMinutes = isHumanReadable ? +minutes : +minutes % 60
-      const humanReadable = readableHours === 0 ? `${readableMinutes} phút` : `${readableHours} giờ ${readableMinutes} phút`
-      console.log({ isHumanReadable , hours, minutes, readableHours })
+      const humanReadable = +readableHours === 0 ? `${readableMinutes} phút` : `${readableHours} giờ ${readableMinutes} phút`
+      // console.log({ isHumanReadable , hours, minutes, readableHours })
       const time = readableHours * 60 + minutes
-      // this.cooking_time = ( time, humanReadable )
-      // this.cooking_time = {
-      //   ...this.cooking_time,
-      //   time,
-      //   humanReadable
-      // }
+
       this.cooking_time.time = time
       this.cooking_time.humanReadable = humanReadable
+      this.cooking_time.hours = hours
+      this.cooking_time.minutes = minutes
+
+      console.log('data', this.cooking_time)
     },
     clearCook() {
       this.cooking_time = {time: 60, humanReadable: '1 giờ'}

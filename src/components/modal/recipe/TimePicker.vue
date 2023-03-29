@@ -2,9 +2,9 @@
 <template>
   <div class="time-picker">
     <div class="picker-group d-flex">
-    <VueScrollPicker :modelValue="currentHours" :options="hours" />
+    <VueScrollPicker :modelValue="currentHours" @update:modelValue="updateHours" :options="hours" />
     <VueScrollPicker :modelValue="textHours" :options="['Giờ']" />
-    <VueScrollPicker :modelValue="currentMinutes" :options="minutes" />
+    <VueScrollPicker :modelValue="currentMinutes" @update:modelValue="updateMinutes" :options="minutes" />
     <VueScrollPicker :modelValue="textMinutes" :options="['Phút']" />
     </div>
     <div class="d-flex justify-content-center">
@@ -43,8 +43,6 @@ export default {
       textHours: "Giờ",
       textMinutes: "Phút",
       showPicker: true,
-      currentHours: this.hour,
-      currentMinutes: this.minute,
     }
   },
   computed: {
@@ -67,7 +65,14 @@ export default {
     const currentHours = ref(props.hour)
     const currentMinutes = ref(props.minute)
 
+    const updateHours = ($event) => {
+      currentHours.value = $event
+    }
+    const updateMinutes = ($event) => {
+      currentMinutes.value = $event
+    }
     const confirm = () => {
+      console.log(currentHours, currentMinutes, 1212)
       emit('close', { hours: currentHours.value, minutes: currentMinutes.value })
     }
 
@@ -75,7 +80,9 @@ export default {
       currentHours,
       currentMinutes,
 
-      confirm
+      confirm,
+      updateHours,
+      updateMinutes
     }
   },
 }

@@ -1,4 +1,5 @@
 export default defineNuxtPlugin((nuxt) => {
+  const { find, update, delete: _delete, create } = useStrapi()
   const user = useStrapiUser()
   const { logout } = useStrapiAuth()
   const { $config } = useNuxtApp()
@@ -43,7 +44,12 @@ export default defineNuxtPlugin((nuxt) => {
       $strapi: {
         getMediaLink,
         getStrapiMedia,
-        logout
+        logout,
+        //
+        find,
+        update,
+        _delete,
+        create
       }
     }
   }

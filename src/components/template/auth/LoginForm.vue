@@ -140,7 +140,7 @@ export default {
           await router.push({ name: 'profile-slug', params: { slug: unref(user).username } })
           window?.location.reload(true)
         } catch (error) {
-          await $toast.show({
+          $toast.show({
             message: error
           })
           console.log(error)

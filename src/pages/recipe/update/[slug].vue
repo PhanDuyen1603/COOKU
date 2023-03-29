@@ -17,6 +17,11 @@ const { find } = useStrapi()
 const route = useRoute()
 
 const $store = useCookStore()
+
+definePageMeta({
+  middleware: ["auth"]
+})
+
 try {
   const recipes = await find('recipes', {slug: route.params.slug})
   const recipe = recipes?.[0]

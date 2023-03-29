@@ -51,12 +51,12 @@ export default {
       if (result.valid) {
         try {
           await login({ identifier: dataLogin.name, password: dataLogin.password })
-          await $toast.show({
+          $toast.show({
             message: 'đăng nhập thành công'
           })
           emit('close')
         } catch (error) {
-          await $toast.show({
+          $toast.show({
             message: error
           })
           console.log(error)
@@ -70,12 +70,12 @@ export default {
       if(result.valid) {
         try {
           await register({ username: dataSignup.name, email: dataSignup.email, password: dataSignup.password })
-          await $toast.show({
+          $toast.show({
             message: 'đăng ký thành công'
           })
           emit('close')
         } catch (error) {
-          await $toast.show({
+          $toast.show({
             message: error
           })
           console.log(error)
