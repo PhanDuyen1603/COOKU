@@ -17,12 +17,17 @@
         <ErrorMessage class="error-message" name="password" />
       </div>
       <div class="login-form-group mb-3">
-        <label for="password_repeat">Nhập lại Mật khẩu *</label>
-        <Field name="password_repeat" v-model="dataSignup.passwordRepeat"/>
-        <ErrorMessage class="error-message" name="password_repeat" />
+        <label for="passwordRepeat">Nhập lại Mật khẩu *</label>
+        <Field name="passwordRepeat" v-model="dataSignup.passwordRepeat"/>
+        <ErrorMessage class="error-message" name="passwordRepeat" />
       </div>
 
-      <button type="button" @click="handleSignup(observe)" class="btn btn-login">Đăng Ký</button>
+      <button
+        type="button"
+        @click="handleSignup(observe)"
+        class="btn btn-login"
+        :class="pending ? 'button-loading' : ''"
+      >Đăng Ký</button>
     </Form>
     <div class="navigate-sign-in mt-2">
       <span>
@@ -56,6 +61,7 @@ export default {
     const { $modal, $wait, $toast } = useNuxtApp()
     const { register } = useStrapiAuth()
     const router = useRouter()
+    const pending = ref(false)
 
 
     const SignupValidationSchema = {
@@ -90,15 +96,16 @@ export default {
     }
 
     const handleSignup = async (observe) => {
+      pending.value = true
       const result = await observe.validate()
       if(result.valid) {
         try {
           await register({ username: dataSignup.name, email: dataSignup.email, password: dataSignup.password })
-          await $toast.show({
+          $toast.show({
             message: 'đăng ký thành công'
           })
           emit('close')
-          router.push('/')
+          window?.location.reload(true)
         } catch (error) {
           await $toast.show({
             message: error
@@ -111,6 +118,7 @@ export default {
 
     return {
       SignupValidationSchema,
+      pending,
 
       openLoginModal,
 
@@ -121,3 +129,22 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.button-loading {
+  position: relative;
+  pointer-events: none;
+  &::after {
+    content: '';
+    position: absolute;
+    background-color: #000;
+    opacity: .3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+}
+</style>
