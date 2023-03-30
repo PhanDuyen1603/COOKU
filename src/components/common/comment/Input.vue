@@ -13,9 +13,9 @@
             {{ comment.author.fullname || comment.author.username }}
           </h6>
         </NuxtLink>
-        <span class="text-muted font-size-sm text-decoration-underline">{{
-          comment.created_at | formatDate
-        }}</span>
+        <span class="comment__date text-decoration-underline">
+          {{ formatDate(comment) }}
+        </span>
       </div>
     </div>
     <div class="comment__content">
@@ -37,14 +37,20 @@
     </div>
   </div>
 </template>
-<script>
 
+<script>
+import dayjs from 'dayjs';
 export default {
   props: {
     comment: {
       require: true,
     },
   },
+  methods: {
+    formatDate(value) {
+      return dayjs(value.created_at, 'YYYY-MM-DD').format('DD-MM-YYYY hh:mm')
+    }
+  }
 }
 </script>
 <style lang="scss">
@@ -56,6 +62,10 @@ export default {
   p {
     font-size: var(--fs-lg);
   }
+}
+.comment__date {
+  font-size: var(--fs-sm);
+  color: var(--clr-gray-dark);
 }
 .name-user {
   font-weight: 600;

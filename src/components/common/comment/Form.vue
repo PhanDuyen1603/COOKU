@@ -13,14 +13,14 @@
           @keyup.enter="submitComment"
         />
         <div class="d-flex">
-          <button
+          <!-- <button
             class="btn btn-browse py-2 px-6 mx-1 position-relative"
           >
             <img src="/icons/plus.svg" alt="gửi" class="position-absolute"/>
-          </button>
+          </button> -->
           <button
             class="btn btn-browse py-2 px-6 mx-1 position-relative"
-            @click="showUpload = true"
+            @click="showUpload = !showUpload"
           >
             <img src="/icons/camera.svg" alt="camera" class="position-absolute">
           </button>
@@ -34,14 +34,15 @@
       </div>
     </div>
     <!--begin::Compose-->
-
-    <LazyTemplateRecipeCreateGallery
-      v-if="showUpload"
-      ref="gallery"
-      :gallery="images"
-      @addGallery="addGalleryImage"
-      @removeGalleryImage="removeImage"
-    />
+    <div class="mt-2">
+      <LazyTemplateRecipeCreateGallery
+        v-if="showUpload"
+        ref="gallery"
+        :gallery="images"
+        @addGallery="addGalleryImage"
+        @removeGalleryImage="removeImage"
+      />
+    </div>
 
     <!--begin::Compose-->
   </div>

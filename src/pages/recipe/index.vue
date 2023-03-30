@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <div class="recipe recipe__wrap">
-      <div class="recipe__title">
+      <CommonHeadSection
+        title="Công thức nấu ăn"
+        subtitle="Khám phá các món ăn ngon, bổ, rẻ do cộng đồng cùng đóng góp."
+      />
+      <!-- <div class="recipe__title">
         <div class="title d-flex justify-content-between">
           <h2>Công thức nấu ăn</h2>
           <p class="content">Khám phá các món ăn ngon, bổ, rẻ do cộng đồng cùng đóng góp.</p>
@@ -14,7 +18,7 @@
             <span>Tạo công thức</span>
           </div>
         </div>
-      </div>
+      </div> -->
       <CommonSectionWrapperType1>
         <TemplateRecipeListCategories />
         <TemplateRecipeListHorizonalCards :dataList="random" />

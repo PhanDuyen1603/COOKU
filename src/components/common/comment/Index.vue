@@ -29,7 +29,7 @@
         <rect x="0" y="88" rx="3" ry="3" width="178" height="6" />
         <circle cx="20" cy="20" r="20" />
       </content-loader> -->
-      <div v-for="comment in comments" :key="comment.id" class="comment-list">
+      <div v-for="comment in limitComments" :key="comment.id" class="comment-list">
         <div class="comment__item">
           <div class="comment">
             <CommonCommentInput
@@ -107,16 +107,16 @@
           </div>
         </div>
       </div>
-      <!-- <div class="view-more-cmt">
-          <a href="/" class="view-more-cmt-item"
-            >Xem tất cả bình luận
-            <img
-              class="icon ic-left"
-              src="~/assets/images/arrow_back4.png"
-              alt=""
-            />
-          </a>
-        </div> -->
+      <div v-if="showLoadAll" class="view-more-cmt">
+        <button class="view-more-cmt-item" @click="toggleShowAll">
+          <span>Xem tất cả bình luận</span>
+          <!-- <img
+            class="icon ic-left"
+            src="/icons/arrow-down.svg"
+            alt=""
+          /> -->
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -143,8 +143,10 @@ export default {
       fetchingFirst: 1,
       // commentIdReply: 0,
       totalComment: 0,
+      limit: true
     }
   },
+
   mounted() {
     this.fetchingFirst = 1
     setTimeout(() => {
@@ -165,6 +167,11 @@ export default {
     const totalComment = ref(0)
     const comments = reactive([])
     const commentIdReply = ref(0)
+    const limitedComment = ref(true)
+
+    const limitComments = computed(() => comments.length && limitedComment.value && comments.length > 5 ? comments.filter((e, i) => i < 5) : comments)
+    const showLoadAll = computed(() => totalComment.value < 5 || (comments.length > 5 && limitedComment.value))
+    const toggleShowAll = () => limitedComment.value = !limitedComment.value
 
     const fetchComment = async() => {
       try {
@@ -240,9 +247,12 @@ export default {
       pushLike,
       removeLike,
       isCurrentUserLike,
+      toggleShowAll,
 
       comments,
       totalComment,
+      limitComments,
+      showLoadAll,
       commentIdReply
     }
 
@@ -265,6 +275,7 @@ export default {
 <style lang="scss">
 .like__group--action {
   display: flex;
+  align-items: center;
   gap: 15px;
 }
 .comment__child {
@@ -311,6 +322,7 @@ export default {
   .count-like {
     color: #df8c26;
     font-size: 15px;
+    margin-left: 10px;
     cursor: pointer;
   }
 
@@ -384,5 +396,21 @@ export default {
       color: var(--clr-orange-primary);
     }
   }
+}
+.view-more-cmt {
+  display: flex;
+  justify-content: center;
+  .ic-left {
+    width: 18px;
+  }
+}
+.view-more-cmt-item {
+  border-radius: 20px;
+  border-color: var(--clr-orange-primary);
+  background: var(--clr-orange-primary);
+  box-shadow: unset;
+  border: unset;
+  padding: 5px 20px;
+  color: #fff;
 }
 </style>

@@ -12,11 +12,11 @@
               <h3 class="recipe-cook-sub-title">Nguyên liệu</h3>
             </div>
           </div>
-          <div class="right-diet right-diet-item">
+          <!-- <div class="right-diet right-diet-item">
             <a href="/" class="link-now right-diet-note a-hover-white text-center"
               >&emsp;{{ data.serving ? data.serving : 1 }} phần ăn
             </a>
-          </div>
+          </div> -->
         </div>
         <div class="ingredients-detail">
           <div v-if="ingredientsMain.length" class="ingredients-main">
