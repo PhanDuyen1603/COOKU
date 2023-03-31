@@ -10,7 +10,7 @@
       item-component="CommonCardHorizonal"
       :dataList="dataList"
       view-mode="slide"
-      :items-to-show="2"
+      :items-to-show="$$isMobile ? 1 : 2"
       page-type="recipe"
       :load-more="false"
       :extraWrapperOptions="{

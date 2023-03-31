@@ -4,21 +4,8 @@
       <CommonHeadSection
         title="Công thức nấu ăn"
         subtitle="Khám phá các món ăn ngon, bổ, rẻ do cộng đồng cùng đóng góp."
+        :btn="{ text: 'Thêm món ăn', show: $$isSigned }"
       />
-      <!-- <div class="recipe__title">
-        <div class="title d-flex justify-content-between">
-          <h2>Công thức nấu ăn</h2>
-          <p class="content">Khám phá các món ăn ngon, bổ, rẻ do cộng đồng cùng đóng góp.</p>
-        </div>
-        <div>
-          <div @click="navigateTo({ name: 'recipe-create' })" class="btn btn__add-new">
-            <div class="icon-wrapper circle me-2">
-              <img src="/icons/plus.svg" alt="">
-            </div>
-            <span>Tạo công thức</span>
-          </div>
-        </div>
-      </div> -->
       <CommonSectionWrapperType1>
         <TemplateRecipeListCategories />
         <TemplateRecipeListHorizonalCards :dataList="random" />

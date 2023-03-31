@@ -18,7 +18,7 @@
         item-component="CommonCardVertical"
         page-type="recipe"
         :load-more="false"
-        :items-to-show="5"
+        :items-to-show="$$isMobile ? 2 : 5"
       />
     </div>
   </div>

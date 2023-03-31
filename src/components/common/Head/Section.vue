@@ -1,16 +1,16 @@
 <template>
   <div class="section-heading section-heading-custom1">
-    <div class="heading-bg"></div>
+    <div class="heading-bg" :style="getBackgroundImage"></div>
     <div class="heading-content">
       <div class="content-wrapper">
         <h3>{{ title }}</h3>
         <p>{{ subtitle }}</p>
-        <button class="heading-action">
+        <button v-if="!!btn.show" class="heading-action" @click="$emit('handleAction')">
           <div class="di-icon">
             <img src="/icons/plus.svg" />
           </div>
           <div class="di-text">
-            them mon an
+          {{ btn.text }}
           </div>
         </button>
       </div>
@@ -29,6 +29,18 @@ export default {
       type: String,
       default: 'Subtitle'
     },
+    btn: {
+      type: Object,
+      default:() => ({
+        text: '',
+        value: true,
+        show: true
+      })
+    },
+    bgImage: {
+      type: String,
+      default: '/images/head-banner-1.png'
+    }
     // title: {
     //   type: Object,
     //   default: () => ({
@@ -44,7 +56,16 @@ export default {
     //   })
     // }
   },
-
+  computed: {
+    getBackgroundImage() {
+      return {
+        'background-image': `url(${this.bgImage})`,
+        'background-repeat': 'no-repeat',
+        'background-position': 'center',
+        'background-size': 'cover',
+      }
+    }
+  },
 }
 </script>
 
@@ -59,11 +80,6 @@ export default {
     width: var(--elm-width);
     height: calc(var(--elm-height) - var(--menu-height));
     .heading-bg {
-      // background-color: antiquewhite;
-      background-image: url('/images/head-banner-1.png');
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
       position: absolute;
       top: 0;
       left: 0;
@@ -105,14 +121,14 @@ export default {
   border-radius: 60px;
   height: 32px;
   width: 32px;
-  // display: inline-flex;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: none;
   background-color: var(--elm-main-clr);
+  overflow: hidden;
   &:hover {
-    width: 120px;
+    width: 130px;
     .di-text {
       display: block;
       visibility: visible;
@@ -132,7 +148,7 @@ export default {
     white-space: nowrap;
     font-size: var(--fs-sm);
     color: #fff;
-    transition: all .5s ease-in;
+    transition: opacity .5s ease-in;
   }
 }
 </style>

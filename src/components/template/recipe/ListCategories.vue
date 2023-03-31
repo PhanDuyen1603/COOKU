@@ -4,7 +4,7 @@
       <img alt="Cooku" src="/images/diet-group.svg" class="icon">
       <h3>CHẾ ĐỘ ĂN HOT</h3>
     </div> -->
-    <CommonListView :dataList="categories" :itemsToShow="4" :itemSpace="20" :loadMore="false">
+    <CommonListView :dataList="categories" :itemsToShow="$$isMobile ? 2 : 4" :itemSpace="20" :loadMore="false">
       <template #item="{ data, index, handleClick }">
         <div :class="`recipe-category__image object-image recipe-category__image-${index + 1} cursor-pointer`" @click="openModal(data)">
           <img :src="data.featured_media.url" alt="">

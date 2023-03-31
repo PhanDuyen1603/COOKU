@@ -190,7 +190,10 @@ export default {
     &--sm-content {
       --elm-content-padding: 0;
       --elm-image-height: 150px;
-      --elm-image-width: 340px;
+      --elm-image-width: 300px;
+      @media (max-width: 768px) {
+        --elm-image-width: 200px;
+      }
 
       .wrap {
         padding: 30px;
@@ -203,6 +206,8 @@ export default {
         height: 15px;
       }
     }
+
+
   }
 
   &__item {

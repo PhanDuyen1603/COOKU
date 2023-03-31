@@ -12,7 +12,7 @@
     <div class="">
       <CommonListView
         view-mode="grid"
-        :items-to-show="5"
+        :items-to-show="$$isMobile ? 2 : 5"
         :total="5"
         :item-space="20"
         item-component="CommonCardFullImage"
