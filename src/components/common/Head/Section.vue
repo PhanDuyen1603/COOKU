@@ -5,7 +5,7 @@
       <div class="content-wrapper">
         <h3>{{ title }}</h3>
         <p>{{ subtitle }}</p>
-        <button v-if="!!btn.show" class="heading-action" @click="$emit('handleAction')">
+        <button class="heading-action" @click="$emit('handleAction')">
           <div class="di-icon">
             <img src="/icons/plus.svg" />
           </div>
