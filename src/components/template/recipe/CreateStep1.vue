@@ -373,7 +373,10 @@ export default {
     async validate() {
       const result = await this.$refs.basicInfo.validate()
       if(!result.valid) {
-        this.$toast.show({ message: 'Vui lòng kiểm tra thông tin bước 1' })
+        this.$toast.show({
+          message: 'Vui lòng kiểm tra thông tin bước 1',
+          type: 'warning'
+        })
         this.$emit('swtich-step', 1)
         return false
       }

@@ -325,7 +325,10 @@ export default {
     },
     removeField(index, item) {
       if (this.formData?.length === 1) {
-        return this.$toast.error('Món ăn cần ít nhất 1 nguyên liệu');
+        return this.$toast.show({
+          message: 'Món ăn cần ít nhất 1 nguyên liệu',
+          type: 'warning'
+        });
       }
       this.formData.splice(index, 1)
     },
@@ -335,7 +338,10 @@ export default {
     async validate() {
       const result = await this.$refs.createStep2.validate()
       if (!result.valid) {
-        this.$toast.show({ message: 'Vui lòng kiểm tra thông tin bước 2' })
+        this.$toast.show({
+          message: 'Vui lòng kiểm tra thông tin bước 2',
+          type: 'warning'
+        })
         this.$emit('swtich-step', 1)
         return false
       }

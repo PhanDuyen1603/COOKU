@@ -7,7 +7,7 @@
         <p>{{ subtitle }}</p>
         <button class="heading-action" @click="$emit('handleAction')">
           <div class="di-icon">
-            <img src="/icons/plus.svg" />
+            <img src="/icons/plus.svg" class="filter-white" />
           </div>
           <div class="di-text">
           {{ btn.text }}

@@ -91,7 +91,10 @@ export default {
       const lengthGalley = this.gallery.length
       if (files.length > 4 || lengthGalley === 4) {
         this.loading = false
-        return this.$toast.error('Bạn không được tải lên quá 4 hình ảnh')
+        return this.$toast.show({
+          message: 'Bạn không được tải lên quá 4 hình ảnh',
+          type: 'error'
+        })
       }
 
       for (let i = 0; i < files.length; i++) {

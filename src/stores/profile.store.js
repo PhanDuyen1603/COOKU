@@ -144,7 +144,10 @@ export default defineStore({
         if(isFollowed) {
           $toast.show({ message: 'Đang huỷ theo dõi...' })
           await _delete('followings', id)
-          $toast.show({ message: 'Bạn đã hủy theo dõi người dùng này' })
+          $toast.show({
+            message: 'Bạn đã hủy theo dõi người dùng này',
+            type: 'success'
+          })
 
           const list = actionType === 'following' ? this.followings : this.followers
           const target = list.findIndex(x => x.username === username)
@@ -154,7 +157,10 @@ export default defineStore({
           $toast.show({ message: 'Đang theo dõi...' })
           const followerDetail = await find('users', { username })
           const res = await create('followings', { user_id: id , follower_id: followerDetail[0].id })
-          $toast.show({ message: 'Bạn đã theo dõi người dùng này' })
+          $toast.show({
+            message: 'Bạn đã theo dõi người dùng này',
+            type: 'success'
+          })
 
           const list = actionType === 'following' ? this.followings : this.followers
           const target = list.findIndex(x => x.username === username)

@@ -122,7 +122,8 @@ const logOut = async () => {
     const { logout } = useStrapiAuth()
     await logout()
     $toast.show({
-      message: 'logout success'
+      message: 'logout success',
+      type: 'success'
     })
     window?.location.reload(true)
   } catch (error) {

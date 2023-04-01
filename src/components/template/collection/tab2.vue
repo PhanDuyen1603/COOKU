@@ -130,7 +130,8 @@ export default {
         })
         const res = await create('collections', formData)
         $toast.show({
-          message: 'tao bst thanh cong'
+          message: 'tao bst thanh cong',
+          type: 'success'
         })
         return res
 

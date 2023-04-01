@@ -36,7 +36,8 @@ export default {
           })
           await this.$$strapi._delete(this.pageType + 's', this.data.id)
           this.$toast.show({
-            message: 'Xoá thành công'
+            message: 'Xoá thành công',
+            type: 'success'
           })
           this.$emit('refetch')
         } catch (error) {

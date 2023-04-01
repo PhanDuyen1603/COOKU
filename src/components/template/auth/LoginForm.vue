@@ -134,14 +134,16 @@ export default {
           const { user } = await login({ identifier: dataLogin.name, password: dataLogin.password })
           emit('close')
           $toast.show({
-            message: 'đăng nhập thành công'
+            message: 'đăng nhập thành công',
+            type: 'success'
           })
           await $wait(1000)
           await router.push({ name: 'profile-slug', params: { slug: unref(user).username } })
           window?.location.reload(true)
         } catch (error) {
           $toast.show({
-            message: error
+            message: 'Đã có lỗi xảy ra',
+            type: 'error'
           })
           console.log(error)
         }

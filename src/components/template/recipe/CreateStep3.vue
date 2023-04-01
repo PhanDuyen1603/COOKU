@@ -160,7 +160,10 @@ export default {
 
     const removeForm = (index, item) => {
       if (formData.length === 1) {
-        return this.$toast.error('Món ăn cần ít nhất cách nấu')
+        return this.$toast.show({
+          message: 'Món ăn cần ít nhất cách nấu',
+          type: 'warning'
+        })
       }
       formData.splice(index, 1)
     }
@@ -215,7 +218,10 @@ export default {
 
     removeField(index, item) {
       if (this.data?.length === 1) {
-        return this.$toast.error('Món ăn cần ít nhất cách nấu')
+        return this.$toast.show({
+          message: 'Món ăn cần ít nhất cách nấu',
+          type: 'warning'
+        })
       }
       this.data.splice(index, 1)
     },
@@ -223,7 +229,10 @@ export default {
     async validate() {
       const result = await this.$refs.createStep3.validate()
       if (!result.valid) {
-        this.$toast.show({ message: 'Vui lòng kiểm tra thông tin bước 3' })
+        this.$toast.show({
+          message: 'Vui lòng kiểm tra thông tin bước 3',
+          type: 'warning'
+        })
         this.$emit('swtich-step', 3)
         return false
       }

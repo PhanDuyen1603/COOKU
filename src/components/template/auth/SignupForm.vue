@@ -102,13 +102,15 @@ export default {
         try {
           await register({ username: dataSignup.name, email: dataSignup.email, password: dataSignup.password })
           $toast.show({
-            message: 'đăng ký thành công'
+            message: 'đăng ký thành công',
+            type: 'success'
           })
           emit('close')
           window?.location.reload(true)
         } catch (error) {
           $toast.show({
-            message: error
+            message: 'Đã có lỗi xảy ra',
+            type: 'error'
           })
           console.log(error)
         }

@@ -199,13 +199,15 @@ export default {
       try {
         const res = await this.strapiCreate('recipes', formData)
         this.$toast.show({
-          message: 'Tạo mới món ăn thành công'
+          message: 'Tạo mới món ăn thành công',
+          type: 'success'
         })
         this.$router.push({ name: 'recipe-slug', params: { slug: res.slug || 'error' } })
 
       } catch (error) {
         this.$toast.show({
-          message: 'Tạo mới món ăn thất bại, vui lòng thử lại'
+          message: 'Tạo mới món ăn thất bại, vui lòng thử lại',
+          type: 'error'
         })
       }
     },
