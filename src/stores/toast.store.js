@@ -7,6 +7,7 @@ export default defineStore({
   }),
   actions: {
     addToast(data) {
+      if(this.list.length >= 5) this.list = this.list.filter((x, i) => i < 5)
       this.list = [...this.list, data]
     },
     removeToast(id) {

@@ -2,11 +2,12 @@ import useToastStore from '~/stores/toast.store'
 
 const verticals = ['top', 'bottom'];
 const horizontals = ['center', 'left', 'right']
+const types = ['success', 'error', 'show', 'warning']
 export default defineNuxtPlugin(() => ({
   provide: {
     toast: {
       show({
-        title, message, timeout = 2000, vertical = 'top', horizonal = 'center', type = 'default', props = {}
+        title, message, type = 'show', timeout = 2000, vertical = 'top', horizonal = 'center', props = {}
       }) {
         return new Promise(resolve => {
           const $store = useToastStore()
@@ -16,6 +17,7 @@ export default defineNuxtPlugin(() => ({
             id,
             vertical,
             horizonal,
+            type: types.includes(type) ? type : 'show',
             props: {
               title,
               message,
