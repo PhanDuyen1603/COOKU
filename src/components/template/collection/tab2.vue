@@ -4,7 +4,7 @@ s<template>
       <CommonListColorCircle :validation-schema="validationSchema" />
       <div class>
         <div class="fw-bold mt-2 text-center text-custom-title">
-          TẠO BỘ SƯU TẬP
+          {{ $t('action.create') }} {{ $t('collection') }}
         </div>
         <div class="mt-2 mb-2 text-gray">{{ title }}</div>
       </div>
@@ -17,7 +17,7 @@ s<template>
               v-model="name"
               name="collectionName"
               type="text"
-              placeholder="Tên bộ sưu tập *"
+              :placeholder="`${$t('common.name')} ${$t('collection')} *`"
               class="input-texts"
             />
           </div>
@@ -27,16 +27,16 @@ s<template>
           <textarea
             v-model="desc"
             class="input-texts"
-            placeholder="Mô tả"
+            :placeholder="$t('common.description')"
             cols="4"
             rows="4"
           ></textarea>
         </div>
 
         <div class="mt-4">
-          <div class="fw-light text-start">Chế độ hiển thị</div>
+          <div class="fw-light text-start">{{ $t('collection.show_type') }}</div>
           <div class="d-flex justify-content-between">
-            <div class="fw-bold text-mid">Giữ bộ sưu tập cho riêng bạn</div>
+            <div class="fw-bold text-mid">{{ $t('collection.personal_keep') }}</div>
 
            <div class="btn-toggle border-radius-40"
             :class="{'btn-toggle-check': is_public}"
@@ -45,7 +45,7 @@ s<template>
             <div class="icon-private">
               <img src="/icons/lock.png" />
             </div>
-            <span>{{ is_public ? 'Công khai' : 'Cá nhân' }}</span>
+            <span>{{ is_public ? $t('collection.public') : $t('collection.personal') }}</span>
           </div>
 
 
@@ -53,8 +53,7 @@ s<template>
           <div
             class="mt-2 text-start fw-lighter text-dark-gray sub-title-custom"
           >
-            Nếu bạn không muốn người khác thấy bộ sưu tập này, hãy chuyển sang
-            chế độ “Cá nhân”
+            {{ $t('collection.switch_public_type') }}
           </div>
         </div>
 
@@ -78,7 +77,7 @@ s<template>
             :class="`btn-${type}`"
             @click="submit"
           >
-            TẠO BỘ SƯU TẬP MỚI
+            {{ $t('collection.action.create_new') }}
           </div>
         </div>
       </div>

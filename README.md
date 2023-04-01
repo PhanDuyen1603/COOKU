@@ -41,7 +41,8 @@ npm run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
-
+## i18n
+all static text should define in locale file
 ## using modal
 - custom in plugins/modal.js
 ```javascript

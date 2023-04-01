@@ -74,11 +74,6 @@
       }
     },
 
-    // computed: {
-    //   ...mapGetters({
-    //     isLoggedUser: 'modules/profile/isLoggedUser',
-    //   })
-    // },
     methods: {
       handleChangeTab(entity) {
         window.scrollTo(0, 0);

@@ -3,14 +3,14 @@
     <CommonListColorCircle />
     <div class>
       <div class="fw-bold mt-2 fw-light text-gray text-custom-title uppercase">
-        BỘ SƯU TẬP {{ title }}
+        {{ $t('collection') }} {{ title }}
       </div>
       <div class="mt-2 mb-2 text-gray"></div>
     </div>
     <div class="padding-tab content-body hidden-scroll-bar mt-3 " :class="collections.length > 0 ? 'scroll-bar' : ''">
       <div v-if="collections.length > 0" class="">
         <div v-if="$$isSigned" class="text-decoration-underline text-start mb-3 text-custom">
-          Bộ sưu tập cá nhân
+          {{ $t('collection.personal_collection') }}
         </div>
         <span
           v-if="loading"
@@ -48,7 +48,7 @@
                       {{ collection.name }}
                     </p>
                     <p class="text-start text-small">
-                      {{ collection.is_public ? 'Công khai' : 'Cá nhân  ' }}
+                      {{ collection.is_public ? $t('collection.public') : $t('collection.personal') }}
                     </p>
                   </div>
                 </div>
@@ -59,7 +59,7 @@
         </div>
       </div>
       <div v-if="collections.length === 0 && $$user" class="mt-5 mb-5 text-center">
-        Bạn chưa có bộ sưu tâp nào. Hãy tạo mới 1 bộ sưu tập.
+        {{ $t('collection.message.no_collection') }}
       </div>
     </div>
     <div class="content-footer my-3">
@@ -68,7 +68,7 @@
         :class="`btn-${type}`"
         @click="step2"
       >
-        TẠO BỘ SƯU TẬP MỚI
+        {{ $t('collection.action.create_new') }}
       </button>
     </div>
   </div>

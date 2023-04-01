@@ -12,7 +12,7 @@
     </div>
 
     <div class="mt-3 text-gray text-uppercase fw-bold text-center">
-      THÔNG TIN CÁ NHÂN
+      {{ $t('profile.form.title') }}
     </div>
 
     <div
@@ -22,7 +22,7 @@
     >
       <label
         class="fst-italic fw-normal text-start text-gray text-custom-smaller"
-        >{{ value.label }}</label
+        >{{ $t(value.label) }}</label
       >
       <div class="row pr-0 align-items-center">
         <div class="col-11" :class="{ 'active-input': !value.readonly }">
@@ -38,13 +38,13 @@
     <div class="mt-4 input-item row">
       <label
         class="fst-italic fw-normal text-start text-gray text-custom-smaller"
-        >{{ birthday.label }}</label
+        >{{ $t(birthday.label) }}</label
       >
       <div class="row pr-0 align-items-center">
         <div class="col-12">
           <date-picker
             v-model:value="birthday.input"
-            placeholder="Chưa có thông tin"
+            :placeholder="$t('profile.form.no_info')"
             format="YYYY-MM-DD"
             value-type="YYYY-MM-DD"
             class="profile-date-picker"
@@ -56,7 +56,7 @@
       class="btn-success-custom text-center my-4 cursor-pointer"
       @click="changeProfile()"
     >
-      Lưu
+      {{ $t('action.save') }}
     </div>
   </div>
 </template>
@@ -80,23 +80,23 @@ export default {
     return {
       userDetail: {
         fullName: {
-          label: 'Họ tên',
+          label: 'profile.form.label_name',
           readonly: false,
           input: '',
         },
         userName: {
-          label: 'User name',
+          label: 'profile.form.label_username',
           readonly: true,
           input: '',
         },
         email: {
-          label: 'Email',
+          label: 'profile.form.label_email',
           readonly: true,
           input: '',
         },
       },
       birthday: {
-        label: 'Sinh nhật',
+        label: 'profile.form.label_birthday',
         readonly: true,
         input: null,
       },

@@ -2,7 +2,7 @@
   <div>
     <Form class="login__from--wrap" v-slot="observe" ref="loginInfomation" :validation-schema="validationSchema">
       <div class="login-form-group mb-4">
-        <label for="name">email</label>
+        <label for="name">{{ $t('auth.email') }}</label>
         <div class="input-wrap">
           <Field name="email" v-slot="slotField" >
             <input
@@ -16,10 +16,10 @@
         </div>
       </div>
 
-      <button type="button" @click="handleConfirm(observe)" class="btn btn-login">Xác nhận</button>
+      <button type="button" @click="handleConfirm(observe)" class="btn btn-login">{{ $t('common.confirm') }}</button>
     </Form>
     <div class="login__socials">
-      <p>Đăng nhập bằng</p>
+      <p>{{ $t('auth.signin_by') }}</p>
       <ul class="icons-social">
         <li>
           <img src="/images/login-facebook.png" alt="login-facebook">
@@ -34,8 +34,8 @@
     </div>
     <div class="navigate-sign-in">
       <span>
-        Bạn chưa có tài khoản?
-        <span class="auth-action cursor-pointer" @click="openSignupModal">Đăng ký </span>
+        {{ $t('auth.has_no_account') }}
+        <span class="auth-action cursor-pointer" @click="openSignupModal">{{ $t('auth.sign_up') }}</span>
       </span>
     </div>
   </div>

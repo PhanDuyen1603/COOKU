@@ -2,7 +2,7 @@
   <div>
     <Form class="login__from--wrap" v-slot="observe" ref="loginInfomation" :validation-schema="validationSchema">
       <div class="login-form-group mb-2">
-        <label for="name">Tên đăng nhập</label>
+        <label for="name">{{ $t('auth.username') }}</label>
         <div class="input-wrap">
           <Field name="tên đăng nhập" v-slot="slotField" >
             <input
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="login-form-group mb-3">
-        <label for="password">Mật khẩu</label>
+        <label for="password">{{ $t('auth.password') }}</label>
         <div class="input-wrap">
           <Field name="mật khẩu" v-slot="slotField" >
             <input
@@ -33,16 +33,16 @@
       </div>
       <div class="form-check mb-2">
         <input type="checkbox" class="form-check-input" id="status" v-model="dataLogin.loginStatus" >
-        <label class="form-check-label" for="status">Lưu trạng thái đăng nhập</label>
+        <label class="form-check-label" for="status">{{ $t('auth.save_login_status') }}</label>
       </div>
 
-      <button type="button" @click="handleLogin(observe)" class="btn btn-login">Đăng Nhập</button>
+      <button type="button" @click="handleLogin(observe)" class="btn btn-login">{{ $t('auth.sign_in') }}</button>
     </Form>
     <div class="forget-pass cursor-pointer" @click="openModalForgetPassword">
-      <span>Quên mật khẩu ?</span>
+      <span>{{ $t('auth.forget_password') }}</span>
     </div>
     <div class="login__socials">
-      <p>Đăng nhập bằng</p>
+      <p>{{  $t('auth.signin_by') }}</p>
       <ul class="icons-social">
         <li>
           <img src="/images/login-facebook.png" alt="login-facebook">
@@ -57,9 +57,8 @@
     </div>
     <div class="navigate-sign-in">
       <span>
-        Bạn chưa có tài khoản?
-        <span class="auth-action cursor-pointer" @click="openSignupModal">Đăng ký </span>
-
+        {{ $t('auth.has_no_account') }}
+        <span class="auth-action cursor-pointer" @click="openSignupModal">{{ $t('auth.sign_up') }}</span>
       </span>
     </div>
   </div>

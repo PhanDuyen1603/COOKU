@@ -8,7 +8,7 @@
               <input
                 v-model="title"
                 type="text"
-                placeholder="Tên bài viết (*)"
+                :placeholder="`${$t('post.form.name')} (*)`"
                 class="input-texts"
                 v-bind="field"
               />
@@ -26,7 +26,7 @@
                 :value="category"
                 @change="changeValue(observe, $event)"
               >
-                <option value="" disabled selected >Chọn danh mục *</option>
+                <option value="" disabled selected >{{ $t('post.form.chose') }} *</option>
                 <option v-for="(item, index) in categories" :value="item.title">{{item.title}}</option>
               </select>
               <div class="wrap-icon">
@@ -73,7 +73,7 @@
             <div class="col-12">
               <div class="ps-4 d-flex flex-column">
                 <label class="text-normal">
-                  1 hình đại diện (ảnh bài viết của bạn)
+                  {{ $t('post.form.thumb') }}
                   <span>(*)</span>
                 </label>
                 <LazyTemplateRecipeCreateGallery
@@ -100,7 +100,7 @@
             :disabled="loadingInsert"
             @click.prevent="submit"
           >
-              Đăng bài viết
+              {{ $t('post.form.action_create') }}
             <img src="/images/Vector-submit.png" alt="submit" />
           </button>
         </div>

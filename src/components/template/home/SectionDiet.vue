@@ -3,10 +3,10 @@
     <div class="home-section home-section__head">
       <div class="section__head--title">
         <img alt="Cooku" src="/images/diet-group.svg" class="icon">
-        <h3>CHẾ ĐỘ ĂN HOT</h3>
+        <h3>{{ $t('home.section.title1') }}</h3>
       </div>
       <a href="/diet" class="section__head--title">
-        <span>Xem tất cả</span>
+        <span>{{ $t('home.showall') }}</span>
         <div class="section-navigate-icon">
           <span>
             <img src="/icons/arrow-right.svg" alt="">
@@ -25,7 +25,7 @@
     <div class="section__body--group">
       <div class="section__body--title">
         <span>
-          <h4>Đạt được mục tiêu qua chế độ ăn</h4>
+          <h4>{{ $t('home.section.subtitle1') }}</h4>
         </span>
       </div>
       <div class="section__body--content">
@@ -36,7 +36,7 @@
     <div class="section__body--group">
         <div class="section__body--title">
           <span>
-            <h4>Đông thành viên nhất</h4>
+            <h4>{{ $t('home.section.subtitle2') }}</h4>
           </span>
         </div>
         <div class="section__body--content">

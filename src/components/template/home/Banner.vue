@@ -1,6 +1,5 @@
 <template>
   <section class="banner-home">
-    1111
     <slick
       v-if="dataList.gallery"
       ref="slickone"

@@ -2,22 +2,22 @@
   <div>
     <Form v-slot="observe" ref="SignupInfomation" :validation-schema="SignupValidationSchema">
       <div class="login-form-group mb-2">
-        <label for="name">Tên đăng nhập *</label>
+        <label for="name">{{ $t('auth.username') }} *</label>
         <Field name="name" v-model="dataSignup.name" />
         <ErrorMessage class="error-message" name="name" />
       </div>
       <div class="login-form-group mb-2">
-        <label for="email">Email *</label>
+        <label for="email">{{ $t('auth.email') }} *</label>
         <Field name="email" v-model="dataSignup.email"/>
         <ErrorMessage class="error-message" name="email" />
       </div>
       <div class="login-form-group mb-3">
-        <label for="password">Mật khẩu *</label>
+        <label for="password">{{ $t('auth.password') }} *</label>
         <Field name="password" v-model="dataSignup.password" />
         <ErrorMessage class="error-message" name="password" />
       </div>
       <div class="login-form-group mb-3">
-        <label for="passwordRepeat">Nhập lại Mật khẩu *</label>
+        <label for="passwordRepeat">{{ $t('auth.repeat_password') }} *</label>
         <Field name="passwordRepeat" v-model="dataSignup.passwordRepeat"/>
         <ErrorMessage class="error-message" name="passwordRepeat" />
       </div>
@@ -27,12 +27,12 @@
         @click="handleSignup(observe)"
         class="btn btn-login"
         :class="pending ? 'button-loading' : ''"
-      >Đăng Ký</button>
+      >{{ $t('auth.sign_up') }}</button>
     </Form>
     <div class="navigate-sign-in mt-2">
       <span>
-        Bạn đã có tài khoản?
-        <span class="auth-action cursor-pointer" @click="openLoginModal">Đăng nhập </span>
+        {{ $t('auth.has_account') }}
+        <span class="auth-action cursor-pointer" @click="openLoginModal">{{ $t('auth.sign_in') }} </span>
       </span>
     </div>
   </div>

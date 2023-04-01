@@ -22,19 +22,19 @@
             <div class="d-flex fw-bold text-center justify-content-around">
               <div class="text-white text-custom cursor-pointer" @click="openListFollows('follower')">
                     {{ data.followersCount || 0 }}
-                <div class="text-custom-small">Người theo dõi</div>
+                <div class="text-custom-small">{{ $t('profile.follower') }}</div>
               </div>
               <div class="text-white text-custom cursor-pointer" @click="openListFollows('following')">
                     {{ data.followingsCount || 0 }}
-                <div class="text-custom-small">Đang theo dõi</div>
+                <div class="text-custom-small">{{ $t('profile.following') }}</div>
               </div>
               <div class="text-white text-custom">
                     {{ data.totalPosts || 0 }}
-                <div class="text-custom-small">Bài đăng</div>
+                <div class="text-custom-small">{{ $t('profile.posts') }}</div>
               </div>
               <div class="text-white text-custom">
                     {{ data.totalLikes || 0 }}
-                <div class="text-custom-small">Đã thích</div>
+                <div class="text-custom-small">{{ $t('profile.liked') }}</div>
               </div>
               <div class="">
                 {{ isLogginUser }}
@@ -50,7 +50,7 @@
                 @click="toggleFollowing"
                 >
                   <!-- <IconsPlus v-if="!isFollowing"></IconsPlus> -->
-                  {{ isFollowing ? 'Đang theo dõi' : 'Theo dõi' }}
+                  {{ isFollowing ? $t('profile.status.following') : $t('profile.status.un_following') }}
                 </button>
               </div>
             </div>
@@ -66,7 +66,7 @@
                 :href="`#${tab.slug}`"
                 @click.prevent="setActive(tab.slug)"
               >
-                {{ tab.title }}
+                {{ $t(tab.title) }}
               </a>
             </li>
           </ul>
@@ -92,19 +92,19 @@ import useProfileStore from '~/stores/profile.store'
 const listTabs = [
   {
     id: 1,
-    title: 'Bài đã đăng',
+    title: 'profile.tab.posts',
     slug: 'posted',
     isLogged: false
   },
   {
     id: 1,
-    title: 'Bộ sưu tập',
+    title: 'profile.tab.collections',
     slug: 'collection',
     isLogged: false
   },
   {
     id: 1,
-    title: 'Quà của tôi',
+    title: 'profile.tab.gifts',
     slug: 'award',
     isLogged: true
   },

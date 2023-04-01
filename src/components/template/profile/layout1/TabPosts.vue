@@ -11,7 +11,6 @@
       </li>
     </ul>
     <div>
-        <!-- <MoleculesLoadingSearch v-if="loading"></MoleculesLoadingSearch> -->
         <CommonListView
           v-if="tabActive == 'recipes' && recipes.length"
           :items-to-show="$$isMobile ? 2 : 4"
@@ -42,9 +41,6 @@
           }"
         />
 
-        <!-- <div v-if="!entityResults.length && isLoggedUser" class="mt-5 mb-5 text-center">
-          Không có kết quả nào phù hợp
-        </div> -->
       </div>
   </CommonSectionWrapperType1>
 </template>

@@ -2,7 +2,7 @@
   <div>
     <Form class="login__from--wrap" v-slot="observe" ref="loginInfomation" :validation-schema="validationSchema">
       <div class="login-form-group mb-2">
-        <label for="name">Mật khẩu mới</label>
+        <label for="name">{{ $t('auth.new_password') }}</label>
         <div class="input-wrap">
           <Field name="Mật khẩu mới" v-slot="slotField" >
             <input
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="login-form-group mb-2">
-        <label for="name">Xác nhận mật khẩu</label>
+        <label for="name">{{ $t('auth.confirm_password') }}</label>
         <div class="input-wrap">
           <Field name="Xác nhận mật khẩu" v-slot="slotField" >
             <input
@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <button type="button" @click="handleConfirm(observe)" class="btn btn-login">Xác nhận</button>
+      <button type="button" @click="handleConfirm(observe)" class="btn btn-login">{{ $t('common.confirm') }}</button>
     </Form>
   </div>
 </template>

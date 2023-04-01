@@ -6,7 +6,7 @@
         <div
           class="text-center fw-light text-gray text-decoration-underline text-mid mt-20"
         >
-          Đã thêm {{item ? item.title : null}} vào bộ sưu tập
+          {{ $t('collection.added') }} {{item ? item.title : null}} {{ $t('collection.to_collection') }}
           <span class="fw-bold text-gray">{{collection ? collection.name : null}}</span>
         </div>
       </div>

@@ -6,20 +6,20 @@
       </div>
       <div class="profile__name">
           <h3>{{ data.fullname || data.username }}</h3>
-          <p>Cập nhật thông tin</p>
+          <p>{{ $t('profile.action.update_info') }}</p>
       </div>
     </div>
     <div class="profile__bottom">
       <ul>
-        <li>Bài đã đăng</li>
-        <li>Bộ sưu tập</li>
-        <li>Quà của tôi</li>
+        <li>{{ $t('profile.tab.posts') }}</li>
+        <li>{{ $t('profile.tab.collections') }}</li>
+        <li>{{ $t('profile.tab.gifts') }}</li>
       </ul>
       <ul>
         <li v-for="interaction in interactions" :key="interaction.id">
           <div>
             <img :src="interaction.logo" :alt="interaction.title">
-            <span>{{ interaction.title }}</span>
+            <span>{{ $t(interaction.title) }}</span>
           </div>
           <span>{{ interaction.count }}</span>
         </li>
@@ -32,28 +32,28 @@
 const interactions = [
   {
     id: 1,
-    title: 'Người theo dõi',
+    title: 'profile.follower',
     slug: '',
     count: 20,
     logo: ''
   },
   {
     id: 2,
-    title: 'Đang theo dõi',
+    title: 'profile.following',
     slug: '',
     count: 5,
     logo: ''
   },
   {
     id: 3,
-    title: 'Bài đăng',
+    title: 'profile.posts',
     slug: '',
     count: 10,
     logo: ''
   },
   {
     id: 4,
-    title: 'Đã thích',
+    title: 'profile.liked',
     slug: '',
     count: 0,
     logo: ''

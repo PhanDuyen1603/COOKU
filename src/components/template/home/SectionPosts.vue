@@ -3,10 +3,10 @@
     <div class="home-section home-section__head">
       <div class="section__head--title">
         <img alt="Cooku" src="/images/spaghetti.svg" class="icon">
-        <h3>BÀI VIẾT MỚI NHẤT</h3>
+        <h3>{{ $t('home.section.title2') }}</h3>
       </div>
       <a href="/post" class="section__head--title">
-        <span>Xem tất cả</span>
+        <span>{{ home.showall }}</span>
         <div class="section-navigate-icon">
           <span>
             <img src="/icons/arrow-right.svg" alt="" class="filter-green">
@@ -25,7 +25,7 @@
     <div class="section__body--group">
       <div class="section__body--title">
         <span>
-          <h4>Bài viết vừa đăng</h4>
+          <h4>{{ $t('home.section.subtitle3') }}</h4>
         </span>
       </div>
       <div class="section__body--content">

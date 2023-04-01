@@ -8,7 +8,7 @@
     <div class="col-12 col-md-6 auth__form">
       <div class="auth__title">
         <p>COOKU</p>
-        <h2>{{ formContent?.[0].title }}</h2>
+        <h2>{{ $t(formContent?.[0].title) }}</h2>
       </div>
       <div class="line__dash"></div>
       <div class="auth__form--content">
@@ -23,22 +23,22 @@ import { resolveComponent } from 'vue'
 
 const authForms = [
   {
-    title: 'Đăng nhập',
+    title: 'auth.sign_in',
     slug: 'login',
     component: 'TemplateAuthLoginForm',
   },
   {
-    title: 'Tạo tài khoản',
+    title: 'auth.create_account',
     slug: 'signup',
     component: 'TemplateAuthSignupForm',
   },
   {
-    title: 'Quên mật khẩu',
+    title: 'auth.forget_password',
     slug: 'forget_password',
     component: 'TemplateAuthForgetPasswordForm',
   },
   {
-    title: 'Đổi mật khẩu',
+    title: 'auth.change_password',
     slug: 'change_password',
     component: 'TemplateAuthChangePasswordForm',
   },
