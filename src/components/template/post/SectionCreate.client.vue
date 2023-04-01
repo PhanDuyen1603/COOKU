@@ -175,13 +175,15 @@ export default {
       try {
         const res = await create('posts', params)
         $toast.show({
-          message: 'đăng bài viết thành công'
+          message: 'đăng bài viết thành công',
+          type: 'success'
         })
         await $wait(1000)
         router.push({ name: 'post-slug', params: {  slug: res.slug } })
       } catch (error) {
         $toast.show({
-          message: 'đăng bài viết thất bại'
+          message: 'đăng bài viết thất bại',
+          type: 'error'
         })
         console.log(error)
       }

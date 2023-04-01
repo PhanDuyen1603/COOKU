@@ -150,13 +150,15 @@ export default {
         )
         this.$emit('refetch-user')
         this.$toast.show({
-          message: 'Cập nhật thông tin thành công'
+          message: 'Cập nhật thông tin thành công',
+          type: 'success'
         })
         this.$emit('close')
         window?.location.reload(true)
       } catch (error) {
         this.$toast.show({
-          message: error
+          message: error,
+          type: 'error'
         })
       }
     },

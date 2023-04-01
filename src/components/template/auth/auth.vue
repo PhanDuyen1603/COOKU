@@ -52,7 +52,8 @@ export default {
         try {
           await login({ identifier: dataLogin.name, password: dataLogin.password })
           $toast.show({
-            message: 'đăng nhập thành công'
+            message: 'đăng nhập thành công',
+            type: 'success'
           })
           emit('close')
         } catch (error) {
@@ -71,12 +72,14 @@ export default {
         try {
           await register({ username: dataSignup.name, email: dataSignup.email, password: dataSignup.password })
           $toast.show({
-            message: 'đăng ký thành công'
+            message: 'đăng ký thành công',
+            type: 'success'
           })
           emit('close')
         } catch (error) {
           $toast.show({
-            message: error
+            message: 'Đã có lỗi xảy ra',
+            type: 'error'
           })
           console.log(error)
         }

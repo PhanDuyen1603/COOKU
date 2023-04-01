@@ -117,13 +117,15 @@ export default {
       try {
         await update('collections', collection.id , { [props.type + 's']: formData[props.type + 's'] })
         $toast.show({
-          message: 'Thêm món ăn thành công'
+          message: 'Thêm món ăn thành công',
+          type: 'success'
         })
         emit('success-step', collection)
       } catch (error) {
         console.log(error)
         $toast.show({
-          message: 'Đã có lỗi xảy ra'
+          message: 'Đã có lỗi xảy ra',
+          type: 'error'
         })
       }
     }
