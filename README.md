@@ -43,6 +43,16 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 
 ## using modal
+- custom in plugins/modal.js
+```javascript
+const { $modal } = useNuxtApp()
+$modal.show({
+  component: 'name of component that render',
+  wrapper: 'name of wrapper component',
+  props: {}, // component props
+  wrapperProps: {} // wrapper props
+})
+```
 
 ## using loading page
 ```javascript
@@ -52,6 +62,20 @@ $showLoading(true)
 $showLoading(false)
 ```
 
+## using toast
+- toast types: ``success``, ``show``, ``error``, ``warning``
+- default type: ``show``
+
+```javascript
+const { $toast } = useNuxtApp()
+$toast.show({
+  message: 'toast test',
+  type: 'success'
+})
+```
+
+## img src svg fill color
+using filter class in ``svg-filter.scss``
 ## warning
 
 ### vee-validate
@@ -66,11 +90,14 @@ $showLoading(false)
 - custom directive
 - seperate logic and UI
 - replace hardcode content
-- toast improve
+- ~~toast improve~~
 - build pinia first
 - swriper: fix first element
-- handle loading
-- dayjs local vn
+- handle loading global
+- loading component
+- skeleton
+- dayjs locale vn
+- favicon missing some page
 - route param ``error`` return to error page
 - error page
 - modal disable scroll when open
