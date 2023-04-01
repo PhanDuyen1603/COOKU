@@ -46,8 +46,8 @@
         <img src="/icons/material.svg" alt="bookmark-yellow" />
       </div>
       <!-- <div class="icon__circle" @onClick="shareUrl('/recipe/' + item.slug)"> -->
-      <div class="icon-wrap-circle">
-        <img src="/icons/share.svg" alt="bookmark-yellow" class="filter-orange" />
+      <div class="icon-wrap-circle cursor-pointer">
+        <img src="/icons/share.svg" alt="bookmark-yellow" class="filter-orange"  @click="openShareModal()"/>
       </div>
     </div>
     <div v-if="getListShowElements.number_top" class="number-top">{{ index + 1 }}</div>

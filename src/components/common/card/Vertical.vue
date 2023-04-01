@@ -36,8 +36,8 @@
           />
         </div>
 
-        <div class="icon icon-wrap-circle" @click="shareUrl('/post/' + data.slug)">
-          <img src="/icons/share.svg" alt="share" />
+        <div class="icon icon-wrap-circle cursor-pointer" @click="openShareModal()">
+          <img src="/icons/share.svg" alt="share" class="filter-orange" />
         </div>
       </div>
       <div class="card__vertical--author">

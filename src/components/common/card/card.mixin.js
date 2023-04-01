@@ -70,6 +70,15 @@ export default {
           maxWidth: '750px'
         }
       })
+    },
+    openShareModal() {
+      this.$modal.show({
+        component: 'ModalShareSocials',
+        props: {
+          item: this.data,
+          pageType: this.pageType
+        }
+      })
     }
   },
 }
