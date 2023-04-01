@@ -47,7 +47,7 @@
       </div>
       <!-- <div class="icon__circle" @onClick="shareUrl('/recipe/' + item.slug)"> -->
       <div class="icon-wrap-circle">
-        <img src="/icons/share.svg" alt="bookmark-yellow" />
+        <img src="/icons/share.svg" alt="bookmark-yellow" class="filter-orange" />
       </div>
     </div>
     <div v-if="getListShowElements.number_top" class="number-top">{{ index + 1 }}</div>

@@ -1,23 +1,12 @@
 <template>
   <div class="mt-5">
     <div class="container section" :style="getDefaultStyles">
-      <div class="section__head section__head--vertical">
-        <div class="section__head--title section__head--title-between">
-          <h3>BÀI VIẾT</h3>
-          <NuxtLink :to="{ name: 'post-create' }" class="section__head--action-btn">
-            <div class="icon icon-wrap-circle icon__circle">
-              <img src="/icons/plus.svg" />
-            </div>
-            <span>Tạo bài viết</span>
-          </NuxtLink>
-        </div>
-        <div class="section__head--desc">
-          <p>
-            Cùng nhau khám phá và chia sẻ các bài viết thú vị của bạn đến với
-            mọi người nhé
-          </p>
-        </div>
-      </div>
+      <CommonHeadSection
+        title="BÀI VIẾT"
+        subtitle="Cùng nhau khám phá và chia sẻ các bài viết thú vị của bạn đến với mọi người nhé."
+        :btn="{ text: 'Tạo bài viết', show: $$isSigned }"
+        @handle-action="navigateCreate()"
+      />
 
       <div class="section__body--group">
         <div class="section__body--title">
@@ -99,7 +88,7 @@
 <script setup>
 import { colorVariables } from '@/constants/theme'
 const { find } = useStrapi()
-const { $showLoading } = useNuxtApp()
+const { $showLoading, $modal, $toast, $$isSigned, $wait } = useNuxtApp()
 
 const getDefaultStyles = {
   '--section-main-clr': `var(${colorVariables.GREEN})`,
@@ -118,6 +107,27 @@ const [ posts, randoms, top ] = await Promise.all([
   find('posts/top-by/like', { _limit: 10 })
 ])
 $showLoading(false)
+
+const navigateCreate = async () => {
+  if(!$$isSigned) {
+    $toast.show({
+      message: 'Vui lòng đăng nhập trước để tạo công thức',
+      type: 'warning'
+    })
+    await $wait(1000)
+    $modal.show({
+      component: 'TemplateAuthModalAuth',
+      wrapper: 'ModalWrapperAuthForm',
+      wrapperProps: {
+        style: {
+          width: '900px'
+        },
+      }
+    })
+  } else {
+    $router.push({ name: 'post-create' })
+  }
+}
 
 
 </script>

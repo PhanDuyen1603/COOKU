@@ -1,9 +1,5 @@
 <template>
   <div class="recipe-categories my-4">
-    <!-- <div class="section-title">
-      <img alt="Cooku" src="/images/diet-group.svg" class="icon">
-      <h3>CHẾ ĐỘ ĂN HOT</h3>
-    </div> -->
     <CommonListView :dataList="categories" :itemsToShow="$$isMobile ? 2 : 4" :itemSpace="20" :loadMore="false">
       <template #item="{ data, index, handleClick }">
         <div :class="`recipe-category__image object-image recipe-category__image-${index + 1} cursor-pointer`" @click="openModal(data)">
@@ -40,28 +36,6 @@ const openModal = async (category) => {
   })
 }
 </script>
-<!-- <script>
-import { categories } from '~/constants/recipe'
-export default {
-  data() {
-    this.categories = categories
-    return {}
-  },
-  methods: {
-    openModal(data) {
-      console.log(data)
-      this.$modal.show({
-        component: data.component,
-        props: {
-          style: {
-            width: '900px'
-          }
-        }
-      })
-    }
-  },
-}
-</script> -->
 
 <style lang="scss" scoped>
 .recipe-category__image {

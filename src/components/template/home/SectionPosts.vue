@@ -9,7 +9,7 @@
         <span>Xem tất cả</span>
         <div class="section-navigate-icon">
           <span>
-            <img src="/icons/arrow-right.svg" alt="">
+            <img src="/icons/arrow-right.svg" alt="" class="filter-green">
           </span>
         </div>
       </a>

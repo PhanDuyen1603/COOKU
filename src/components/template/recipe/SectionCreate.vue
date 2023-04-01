@@ -58,7 +58,7 @@
         :disabled="loadingInsert"
         @click="submit"
       >
-        {{ submitType === 'create' ? 'Tạo ' : 'Cập nhật ' }} công thức
+        {{ actionType === 'create' ? 'Tạo ' : 'Cập nhật ' }} công thức
         <img src="/images/Vector-submit.png" alt="submit" />
       </button>
       <a href="javascript:void(0)" class="arrow-icon" @click="next">

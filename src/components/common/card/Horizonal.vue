@@ -168,7 +168,7 @@ export default {
   }
 
   &__image--large {
-    --elm-image-width: 800px;
+    --elm-image-width: 60%;
     --elm-image-height: 400px;
     --elm-content-padding: 10px;
   }
