@@ -6,7 +6,7 @@
         <h3>{{ $t('home.section.title2') }}</h3>
       </div>
       <a href="/post" class="section__head--title">
-        <span>{{ home.showall }}</span>
+        <span>{{ $t('home.showall') }}</span>
         <div class="section-navigate-icon">
           <span>
             <img src="/icons/arrow-right.svg" alt="" class="filter-green">
