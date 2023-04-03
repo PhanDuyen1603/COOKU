@@ -170,7 +170,7 @@ export default {
     const limitedComment = ref(true)
 
     const limitComments = computed(() => comments.length && limitedComment.value && comments.length > 5 ? comments.filter((e, i) => i < 5) : comments)
-    const showLoadAll = computed(() => totalComment.value < 5 || (comments.length > 5 && limitedComment.value))
+    const showLoadAll = computed(() => totalComment.value > 0 && totalComment.value < 5 || (comments.length > 5 && limitedComment.value))
     const toggleShowAll = () => limitedComment.value = !limitedComment.value
 
     const fetchComment = async() => {

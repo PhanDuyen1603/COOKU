@@ -2,14 +2,10 @@
   <section class="section mb-40px">
     <div class="flex-view mb-4">
       <div class="flex-view dish" @click="$router.go(-1)">
-        <!-- <img src="~/assets/images/ic-detail3.png" class="icon cursor-pointer" /> -->
       </div>
-      <div @click="activeModal = true" class="right-diet right-diet-item">
+      <div class="right-diet right-diet-item">
         <div>
-          <!-- <img
-            src="~/assets/images/ic-detail2.png"
-            class="icon cursor-pointer"
-          /> -->
+
         </div>
       </div>
     </div>
@@ -33,21 +29,16 @@
               {{ modelValue.title }}
             </h1>
             <div class="right-diet right-diet-item">
-              <button class="like-btn like-button-yellow position-relative justify-content-center like-btn"
-                :class="!isLiked ? 'left-icon' : 'right-icon'" style="width: 80px; padding:.5rem" @click="toggleLikePost"
+              <button
+                class="position-relative like-btn"
+                :class="{ 'btn-liked': isLiked }"
+                style="width: 80px; height: 40px; padding:.5rem"
+                @click="toggleLikePost"
               >
-                <div class="like-wrapper icon position-absolute" :class="!isLiked ? '' : 'right-icon'">
+                <div class="like-wrapper icon position-absolute">
                   <img src="/icons/like.svg" alt="">
                 </div>
-                <span>{{ likeCount }}</span>
-                <span
-                  v-if="swtichLoading"
-                  class="spinner-border spinner-border-sm"
-                  role="status"
-                >
-                  <span class="visually-hidden bg-overlay">Loading...</span>
-                </span>
-                <span v-if="swtichLoading" class="btn-loading"></span>
+                <span class="like-count">{{ likeCount || 0}}</span>
               </button>
             </div>
           </div>
@@ -118,13 +109,16 @@
 </template>
 
 <script>
-// import likePost from '@/mixins/likePost'
+import likePost from '~/mixins/like.mixin'
 
 export default {
-  // mixins: [likePost],
   props: {
     modelValue: {
       type: [Object, Array],
+    },
+    type: {
+      type: String,
+      default: 'recipe'
     },
     isShowProcess: {
       type: Boolean,
@@ -135,26 +129,30 @@ export default {
       default: true
     }
   },
-  data() {
-    return {
-      activeModal: false,
-      isLiked: false,
-      likeCount: 0
-    }
-  },
   computed: {
     authorName() {
       if (this.modelValue.author.fullname) return this.modelValue.author.fullname;
       return this.modelValue.author.username;
     }
   },
+  async setup(props) {
+    const {
+      likeCount,
+      isLiked,
+      pendingLike,
+      infoLike,
+      toggleLikePost
+    } = await likePost({ type: props.type, postData: props.modelValue });
+
+    return {
+      likeCount,
+      isLiked,
+      pendingLike,
+      infoLike,
+      toggleLikePost
+    }
+  },
   methods: {
-    addCollection() {
-      this.activeModal = true
-    },
-    toggleLikePost() {
-      console.log('like')
-    },
     previousDate(date) {
       return this.$dayjs(date).fromNow()
     }
@@ -361,5 +359,20 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.like-count {
+  position: absolute;
+  right: 15px
+}
+.like-btn > * {
+  transition: all .3s ease;
+}
+.btn-liked {
+  .like-count {
+    transform: translateX(-40px);
+  }
+  .like-wrapper {
+    transform: translateX(40px);
+  }
 }
 </style>

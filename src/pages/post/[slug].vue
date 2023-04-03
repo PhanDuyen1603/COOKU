@@ -3,6 +3,7 @@
     <TemplateRecipeDetailMainInfo
       :model-value="post"
       :isShowProcess="false"
+      type="post"
       :isShowContent="false"
     />
     <CommonSectionWrapperType1>
