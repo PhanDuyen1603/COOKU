@@ -13,7 +13,6 @@
       <div>
         <CommonListView
           v-if="tabActive == 'recipes' && recipes.length"
-          view-mode="slide"
           :items-to-show="$$isMobile ? 1 : 2"
           :item-space="20"
           item-component="LazyCommonCardHorizonal2"
@@ -28,7 +27,6 @@
 
         <CommonListView
           v-if="tabActive == 'posts' && posts.length"
-          view-mode="slide"
           :items-to-show="$$isMobile ? 1 : 2"
           :item-space="20"
           item-component="LazyCommonCardHorizonal2"
@@ -40,10 +38,6 @@
             }
           }"
         />
-
-        <!-- <div v-if="!entityResults.length && isLoggedUser" class="mt-5 mb-5 text-center">
-          Không có kết quả nào phù hợp
-        </div> -->
       </div>
   </CommonSectionWrapperType1>
 </template>

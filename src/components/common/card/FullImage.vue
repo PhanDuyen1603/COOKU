@@ -24,7 +24,7 @@
       </div>
     </NuxtLink>
     <div class="action-icon-right">
-      <div v-if="$$isSigned && isEditable" class="icon icon-wrap-circle" @click="editItem()">
+      <div v-if="unref($$isSigned) && isEditable" class="icon icon-wrap-circle" @click="editItem()">
         <img
           class="btn p-0"
           src="/icons/edit.svg"

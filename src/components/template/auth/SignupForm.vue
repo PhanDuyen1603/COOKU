@@ -58,7 +58,7 @@ export default {
     }
   },
   async setup(_, { emit }) {
-    const { $modal, $wait, $toast } = useNuxtApp()
+    const { $modal, $wait, $toast, $get } = useNuxtApp()
     const { register } = useStrapiAuth()
     const router = useRouter()
     const pending = ref(false)
@@ -108,10 +108,12 @@ export default {
           emit('close')
           window?.location.reload(true)
         } catch (error) {
+          const message = $get(error, 'message[0].messages[0].message', 'Đã có lỗi xảy ra')
           $toast.show({
-            message: 'Đã có lỗi xảy ra',
+            message: message,
             type: 'error'
           })
+          pending.value = false
           console.log(error)
         }
       }

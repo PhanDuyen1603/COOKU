@@ -97,17 +97,17 @@ const listTabs = [
     isLogged: false
   },
   {
-    id: 1,
+    id: 2,
     title: 'profile.tab.collections',
     slug: 'collection',
     isLogged: false
   },
-  {
-    id: 1,
-    title: 'profile.tab.gifts',
-    slug: 'award',
-    isLogged: true
-  },
+  // {
+  //   id: 1,
+  //   title: 'profile.tab.gifts',
+  //   slug: 'award',
+  //   isLogged: true
+  // },
 ]
 export default {
   props: {

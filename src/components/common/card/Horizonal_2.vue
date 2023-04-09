@@ -29,8 +29,13 @@
           </p>
         </div>
 
-        <div>
-
+        <div class="btn-remove-collection">
+          <div v-if="unref($$isSigned) && isEditable" class="icon icon-wrap-circle" @click="removeItem()">
+            <img
+              class="btn p-0 trash-icon"
+              src="/icons/trash-bin.svg"
+            />
+          </div>
         </div>
       </div>
       <!---->
@@ -39,7 +44,10 @@
 </template>
 
 <script>
+import card from './card.mixin';
+
 export default {
+  mixins: [card],
   props: {
     data: {
       type: Object,
