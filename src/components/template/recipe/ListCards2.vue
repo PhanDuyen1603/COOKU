@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="home-section home-section__head">
-      <div class="section-title mb-3 mt-5">
+      <div class="section-title mb-3 mt-5 ps-3 text-yellow">
         <img alt="Cooku" src="/images/diet-group.svg" class="icon">
         <div>
           <h3>Nhiều người thực hành</h3>
@@ -38,3 +38,15 @@ export default {
   }
 }
 </script>
+<style>
+.text-yellow h3,p{
+    color: #df8c26;
+}
+.text-yellow h3{
+    font-size: 1.5rem !important;
+    font-weight: bold;
+}
+.ps-3 {
+    padding-left: 1rem!important;
+}
+</style>

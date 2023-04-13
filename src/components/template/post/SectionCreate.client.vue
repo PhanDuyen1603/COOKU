@@ -273,4 +273,8 @@ select {
 .quillWrapper {
   --border-color: #fbe4c8;
 }
+
+.recipe-create__submit-btn{
+  border: none !important;
+}
 </style>

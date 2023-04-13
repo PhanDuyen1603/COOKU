@@ -166,4 +166,8 @@ const openLoginModal = async () => {
     color: #FFFFFF;
   }
 }
+
+#dropdownMenuButton1{
+  color: white ;
+}
 </style>

@@ -28,7 +28,7 @@ export default {
     },
     alt: {
       type: String,
-      default: 'Foodmood'
+      default: 'Cooku'
     },
     fitType: {
       type: String,

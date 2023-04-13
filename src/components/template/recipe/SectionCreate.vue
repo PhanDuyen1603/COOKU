@@ -67,7 +67,7 @@
           class="d-flex align-items-center"
         >
           <span class="pe-2">Tiếp theo</span>
-          <img src="/images/arrow_back_circle_outline.png" />
+          <img src="/images/arrow-step.png" />
         </span>
       </a>
     </div>
@@ -237,5 +237,9 @@ export default {
 <style lang="scss" scoped>
 .nav-tabs {
   border: unset;
+}
+
+.recipe-create__submit-btn{
+  border: none !important;
 }
 </style>

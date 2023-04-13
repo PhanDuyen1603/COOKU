@@ -11,7 +11,7 @@
               <GlobalLogoCircle />
             </NuxtLink>
           </div>
-          <p class="mt-3">Foodmood giúp bạn cải thiện sức khỏe, thực hiện những chế độ ăn lành mạnh</p>
+          <p class="mt-3">Cooku giúp bạn cải thiện sức khỏe, thực hiện những chế độ ăn lành mạnh</p>
         </div>
         <div class="social__list">
           <div class="icon__circle icon__circle--big icon__circle--shadow ">
@@ -49,7 +49,7 @@
           </li>
           <li class="nav__item clicked">
             <NuxtLink to="/">
-              Flix Việt Nam
+              COOKU VIETNAM
             </NuxtLink>
           </li>
         </ul>
@@ -60,7 +60,7 @@
             <h3>Ứng dụng</h3>
           </li>
           <li class="nav__item">
-            <p>Tải ngay app <span class="color-main">Foodmood</span> <br />để có những trải nghiệm <br />tuyệt vời hơn
+            <p>Tải ngay app <span class="color-main">Cooku</span> <br />để có những trải nghiệm <br />tuyệt vời hơn
             </p>
           </li>
           <li class="nav__item color-main underline">
@@ -73,7 +73,7 @@
       </div>
     </div>
     <div class="copy-right">
-      <p>Copyright © 2022 <span class="color-main">Foodmood</span>. All Rights Reserved.</p>
+      <p>Copyright © 2023 <span class="color-main">Cooku</span>. All Rights Reserved.</p>
     </div>
   </footer>
 </template>

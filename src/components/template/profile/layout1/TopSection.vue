@@ -249,4 +249,8 @@ export default {
   }
 }
 
+.border-radius-40{
+  border-radius: 40px;
+}
+
 </style>

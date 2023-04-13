@@ -278,7 +278,7 @@ export default {
   font-weight: 700;
   position: absolute;
   left: 25px;
-  top: -30px;
+  top: -60px;
   z-index: 1;
   text-shadow: 1px 0 0 #fff, 0 1px 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
 }

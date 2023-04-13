@@ -62,7 +62,6 @@ export default {
         'background-image': `url(${this.bgImage})`,
         'background-repeat': 'no-repeat',
         'background-position': 'center',
-        'background-size': 'cover',
       }
     }
   },
