@@ -1,5 +1,5 @@
 @mixin mobile {
-  @media (max-width: #{$mobile -width - 1px}) {
+  @media (max-width: #{$mobile-width - 1px}) {
     @content;
   }
 }
@@ -17,5 +17,25 @@
 @mixin desktop {
   @media (min-width: #{$desktop-width}) {
     @content;
+  }
+}
+
+// flex
+@mixin flex($justify, $align, $direction, $flex, $wrap) {
+  display: flex;
+  @if type-of($justify) == string and $justify {
+    justify-content: $justify;
+  }
+  @if type-of($align) == string and $align {
+    align-items: $align;
+  }
+  @if type-of($direction) == string and $direction {
+    flex-direction: $direction;
+  }
+  @if type-of($wrap) == string and $wrap {
+    flex-wrap: $wrap;
+  }
+  @if $flex {
+    flex: $flex;
   }
 }

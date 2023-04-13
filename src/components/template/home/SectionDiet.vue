@@ -1,37 +1,57 @@
 <template>
   <CommonSectionWrapperType1>
     <div class="home-section home-section__head">
-      <div class="section-title">
-        <img alt="Cooku" src="images/diet-group.svg" class="icon">
-        <h3>CHẾ ĐỘ ĂN HOT</h3>
+      <div class="section__head--title">
+        <img alt="Cooku" src="/images/diet-group.svg" class="icon">
+        <h3>{{ $t('home.section.title1') }}</h3>
       </div>
-      <a href="/diet" class="section-navigate">
-        <span>Xem tất cả</span>
+      <a href="/diet" class="section__head--title">
+        <span>{{ $t('home.showall') }}</span>
         <div class="section-navigate-icon">
           <span>
-            <img src="icons/arrow-right.svg" alt="">
+            <img src="/icons/arrow-right.svg" alt="">
           </span>
         </div>
       </a>
     </div>
-    <ul class="home-section__tags tag-blog">
-      <li> <a href="/tag/keto" class="tag"># keto</a> </li>
-      <li><a href="/tag/eat-clean" class="tag"># eat clean </a></li>
-      <li><a href="/tag/benh-tieu-duong" class="tag"># bệnh tiểu đường </a></li>
-      <li><a href="/tag" class="tag"># dukan </a></li>
-      <li><a href="/tag/low-carb" class="tag"># low carb </a></li>
+    <ul v-if="tags.length" class="home-section__tags tag-blog">
+      <li v-for="(item, index) in tags" :key="index">
+        <NuxtLink :to="{ name: 'tag-slug', params: { slug: item.slug || 'error' }}" class="tag">
+          # {{ item.title }}
+        </NuxtLink>
+      </li>
     </ul>
 
     <div class="section__body--group">
       <div class="section__body--title">
         <span>
-          <h4>Đạt được mục tiêu qua chế độ ăn</h4>
+          <h4>{{ $t('home.section.subtitle1') }}</h4>
         </span>
       </div>
       <div class="section__body--content">
-
-        <!-- <Widget1 v-if="diets.length" :items="diets" :loading="!diets"></Widget1> -->
+        <TemplateHomeListGridView :dataList="diets" />
       </div>
+    </div>
+
+    <div class="section__body--group">
+        <div class="section__body--title">
+          <span>
+            <h4>{{ $t('home.section.subtitle2') }}</h4>
+          </span>
+        </div>
+        <div class="section__body--content">
+          <CommonListView
+            view-mode="slide"
+            :items-to-show="2"
+            item-component="CommonCardHorizonal"
+            :dataList="topDiets"
+            page-type="diet"
+            :load-more="false"
+            :extra-item-options="{
+              elementShow: ['member'],
+            }"
+          />
+        </div>
     </div>
 
   </CommonSectionWrapperType1>
@@ -39,8 +59,24 @@
 
 <script>
 import commonProps from '../../common/commonProps';
+
 export default {
   extends: commonProps,
-
+  computed: {
+    diets() {
+      return this.data.diets
+    },
+    topDiets() {
+      return this.data.topDiets
+    },
+    tags() {
+      const allTags = this.$cloneDeep(this.diets).map(item => item.tags).flat() || []
+      if(allTags.length && allTags.length > 5) {
+        return allTags.slice(0, 5)
+      } else {
+        return allTags
+      }
+    },
+  }
 }
 </script>

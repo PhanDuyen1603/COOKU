@@ -1,5 +1,11 @@
 @import './template/home.scss';
+@import './template/maintheme';
+@import './template/_diet';
 
-@import './components/test.scss';
 @import './components/header.scss';
 @import './components/section.scss';
+@import './components/modal.scss';
+@import './components/auth.scss';
+@import './components/form.scss';
+@import './components/loading-screen.scss';
+@import './components/svg-filter.scss';

@@ -39,8 +39,9 @@ $large-desktop-width: 1200px;
   --clr-orange-primary: #df8c26;
   --clr-violet-primary: #615375;
   --clr-green-primary: #65A06B;
-  --clr-gray: #F1F1F1;
+  --clr-gray: #eaeaea;
   --clr-gray-dark: #B0B0B0;
+  --clr-text-gray: #878787;
   --clr-white: #fff;
   --clr-black: #000;
 
@@ -62,6 +63,7 @@ $large-desktop-width: 1200px;
   --fs-lg: 1.125rem;
   --fs-normal: 1rem;
   --fs-sm: .875rem;
+  --fs-xs: .7rem;
 
   --fs-body: var(--fs-normal);
 

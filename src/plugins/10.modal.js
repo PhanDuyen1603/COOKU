@@ -9,7 +9,7 @@ export default defineNuxtPlugin(( ) => {
             const $store = useModalStore()
             $store.addModal({
               id: Math.random().toString(),
-              component: 'DefaultMessageMOdal',
+              component: 'DefaultMessageModal',
               wrapper: 'DefaultMessageModalWrapper',
               props: {
                 html,
@@ -32,8 +32,8 @@ export default defineNuxtPlugin(( ) => {
 
             $store.addModal({
               id: Math.random().toString(),
-              component: 'DefaultMessageModal',
-              wrapper: 'DefaultMessageModalWrapper',
+              component: 'ModalCommonDefaultMessage',
+              // wrapper: 'ModalWrapperMessageWrapper',
               props: {
                 html, title, message,
                 btns: [
@@ -49,7 +49,7 @@ export default defineNuxtPlugin(( ) => {
           })
         },
         show({
-          component, wrapper, wrapperProps, btns, props: {}, btnYes = 'OK', btnNo = 'NO',
+          component, wrapper, wrapperProps, btns, props = {}, btnYes = 'OK', btnNo = 'NO',
           beforeClose, id = Math.random().toString(),
           ...rest
         }) {

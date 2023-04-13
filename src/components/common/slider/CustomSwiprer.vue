@@ -3,10 +3,10 @@
     v-bind="customOptions"
   >
     <swiper-slide v-for="(image, index) in dataList" :key="index" :class="slideItemClass">
-      <slot name="slider" :data="image">
+      <slot name="slider" :data="image" :index="index">
         <div class="object-image slider__image" :style="defaultStyles">
           <img
-            :src="getMediaLink(image.image, 'small')"
+            :src="$$strapi.getMediaLink(image.image, 'small')"
             @load="onImageLoad($event)"
             @error="onImageError($event)"
             loading="lazy"
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { Autoplay, Navigation, Pagination , Lazy } from 'swiper'
+import { Autoplay, Navigation, Pagination } from 'swiper'
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import commonProps from '../commonProps';
 import 'swiper/css';
@@ -76,7 +76,6 @@ export default {
         slidesPerView: this.itemShow,
         spaceBetween: this.itemsSpace,
         pagination: { clickable: true },
-        class: this.wrapperClass,
         modules,
       }
     },
@@ -95,7 +94,7 @@ export default {
       const el = e.target || e.path[0]
 
       if (el && el.naturalHeight <= 1) {
-        this.errorSrc = 'images/image_loading.svg'
+        this.errorSrc = '/images/image_loading.svg'
       }
 
       if (this.handleThumbImg) {
@@ -108,7 +107,7 @@ export default {
       const el = e.target || e.path[0];
 
       if (el && el.naturalHeight <= 1) {
-        this.errorSrc = 'images/image_loading.svg'
+        this.errorSrc = '/images/image_loading.svg'
       }
 
     },

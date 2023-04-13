@@ -14,5 +14,9 @@ export default {
     modelValue: {
       type: [String, Number, Object, Array],
     },
+    pageType: {
+      type: String,
+      default: 'recipe'
+    }
   },
 };

@@ -3,10 +3,15 @@
     <NuxtLoadingIndicator />
     <NuxtPage />
   </NuxtLayout>
-  <ModalContainer />
+  <GlobalModalContainer />
+  <GlobalToastContainer />
 </template>
 
 <script setup>
+import useAppStateStore from '~/stores/appState.store'
+
+const appState = useAppStateStore()
+
 useHead({
   title: 'Cooku',
   htmlAttrs: {
@@ -19,7 +24,7 @@ useHead({
     { name: 'format-detection', content: 'telephone=no' }
   ],
   link: [
-    { rel: 'icon', type: 'image/x-icon', href: 'favicon.png' },
+    { rel: 'icon', type: 'image/x-icon', href: 'logo.png' },
   ]
 })
 </script>

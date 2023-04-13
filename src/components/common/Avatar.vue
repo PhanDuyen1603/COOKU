@@ -1,15 +1,15 @@
 <template>
   <div
     v-if="data && data.avatar"
-    class="rounded-circle object-image"
+    class="avatar rounded-circle object-image" :class="['avatar--'+ size, circle ? 'avatar__circle' : '']"
   >
     <img
-      :src="getMediaLink(data)"
+      :src="$$strapi.getMediaLink(data.avatar ? data.avatar : data)"
       :alt="data.username"
     >
   </div>
-  <div v-else class="icon__circle avatar" :class="'avatar--'+ size">
-     <img src="icons/avatar.svg" alt="">
+  <div v-else class="avatar" :class="['avatar--'+ size, circle ? 'avatar__circle' : '']">
+     <img src="/icons/avatar.svg" alt="">
   </div>
 </template>
 
@@ -24,6 +24,10 @@ export default {
       default: 'normal',
       validator: val => ['normal', 'small', 'big' ,'large'].includes(val.toLowerCase()),
     },
+    circle: {
+      type: Boolean,
+      default: true
+    }
   }
 }
 </script>
@@ -31,25 +35,33 @@ export default {
 <style lang="scss">
 .avatar {
   background-color: var(--clr-gray) !important;
+  position: relative;
+  border-radius: 8px;
+  &__circle {
+    border-radius: 50%;
+  }
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+  }
   &--normal {
     padding-top: 40px;
     width: 40px !important;
-    height: 40px !important;
   }
   &--small {
     padding-top: 30px;
     width: 30px !important;
-    height: 30px !important;
   }
   &--large {
     padding-top: 74px;
     width: 74px !important;
-    height: 74px !important;
   }
   &--big {
     padding-top: 60px;
     width: 60px !important;
-    height: 60px !important;
   }
 }
 </style>
