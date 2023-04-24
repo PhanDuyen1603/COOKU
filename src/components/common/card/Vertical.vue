@@ -61,9 +61,12 @@
       >
         <h3 class="card__vertical--title line-clamp-2">{{ data.title }}</h3>
       </NuxtLink>
-      <p v-if="!isTop" class="card__vertical--content" :class="`line-clamp-${ $$isMobile ? 2 : 2 }`">
-        {{ data.excerpt }}
-      </p>
+      <div
+        v-if="!isTop"
+        v-html="data.excerpt || data.content"
+        class="card__vertical--content"
+        :class="`line-clamp-${ $$isMobile ? 2 : 2 }`"
+      />
       <div class="social-share mt-2">
         <div class="icon-comment">{{ count.comments }}</div>
         <div class="icon-like">{{ count.likes }}</div>

@@ -94,8 +94,9 @@ using filter class in ``svg-filter.scss``
 - ~~toast improve~~
 - build pinia first
 - swriper: fix first element
-- handle loading global
+- ~~handle loading global~~
 - loading component
+- lazy component
 - skeleton
 - dayjs locale vn
 - favicon missing some page
@@ -103,6 +104,8 @@ using filter class in ``svg-filter.scss``
 - error page
 - modal disable scroll when open
 - fetch data hook -> loadmore
+- component loading on visble
+- lazyloading image -> loading on visible
 
 #### recipe
 - handle like

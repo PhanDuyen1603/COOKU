@@ -145,7 +145,7 @@ export default {
 
   async setup(props) {
     const { find, create } = useStrapi()
-    const { $$user, $toast } = useNuxtApp()
+    const { $$user, $toast, $wait } = useNuxtApp()
     const router = useRouter()
     const category =  ref('')
     const content = ref('')

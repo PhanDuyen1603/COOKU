@@ -88,6 +88,7 @@
 <script setup>
 import { colorVariables } from '@/constants/theme'
 const { find } = useStrapi()
+const router = useRouter()
 const { $showLoading, $modal, $toast, $$isSigned, $wait, $$isMobile } = useNuxtApp()
 
 const getDefaultStyles = {
@@ -125,7 +126,7 @@ const navigateCreate = async () => {
       }
     })
   } else {
-    $router.push({ name: 'post-create' })
+    router.push({ name: 'post-create' })
   }
 }
 
