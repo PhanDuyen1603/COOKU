@@ -78,7 +78,7 @@ export default {
 
 .tag-blog .tag {
     margin-right: 0.9rem;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     background-color: #df8c26!important;
     margin-bottom: 0.7rem;
     color: #fff;
@@ -90,9 +90,13 @@ export default {
 .title-blog-content{
       color: #df8c26!important;
       border-bottom: 2px solid #df8c26;
+      font-size: 1.25rem;
 }
 
 .title-blog {
     font-size: 1.5rem;
+    font-family: Nunito;
+    font-weight: 700;
 }
+
 </style>

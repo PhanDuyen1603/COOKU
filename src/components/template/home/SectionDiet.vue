@@ -129,10 +129,12 @@ export default {
 
 .title-blog {
     font-size: 1.5rem;
+    font-family: Nunito;
+    font-weight: 700;
 }
 
 .tag-blog .tag {
     margin-right: 0.9rem;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
 }
 </style>

@@ -25,7 +25,7 @@
     <div class="section__body--group">
       <div class="section__body--title">
         <span>
-          <h4>{{ $t('home.section.subtitle3') }}</h4>
+          <h4 class="title-blog-content">{{ $t('home.section.subtitle3') }}</h4>
         </span>
       </div>
       <div class="section__body--content">
@@ -96,5 +96,14 @@ export default {
 }
 .title-blog {
     font-size: 1.5rem;
+    font-family: Nunito;
+    font-weight: 700;
+}
+
+.title-blog-content {
+   color: #65a06b !important;
+    border-bottom: 2px solid #65a06b;
+    margin-left: 17px;
+    font-size: 1.25rem;
 }
 </style>
