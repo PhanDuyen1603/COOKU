@@ -26,8 +26,8 @@ const { find }  = useStrapi()
 const route = useRoute()
 $showLoading(true)
 const [post] = await find('posts', { slug: route.params.slug }) || [{}]
-const relativePosts = await find('posts', { 'author.id': post.author?.id })
-const postsByCategory = await find('posts', { 'post_categories.id': post.post_categories?.[0]?.id })
+// const relativePosts = await find('posts', { 'author.id': post.author?.id })
+// const postsByCategory = await find('posts', { 'post_categories.id': post.post_categories?.[0]?.id })
 $showLoading(false)
 const markedContent = marked.parse(post.content)
 </script>

@@ -100,7 +100,7 @@
             :disabled="loadingInsert"
             @click.prevent="submit"
           >
-              {{ $t('post.form.action_create') }}
+              {{ actionType === 'create' ? $t('post.form.action_create') : $t('post.form.action_update') }}
             <img src="/images/Vector-submit.png" alt="submit" />
           </button>
         </div>
@@ -124,6 +124,10 @@ export default {
       type: String,
       default: 'post',
     },
+    modelValue: {
+      type: [Object, Array],
+      default:() => {}
+    }
   },
   data() {
     this.validationSchema = {
@@ -144,19 +148,20 @@ export default {
   },
 
   async setup(props) {
-    const { find, create } = useStrapi()
-    const { $$user, $toast, $wait } = useNuxtApp()
+    const { find, create, update } = useStrapi()
+    const { $$user, $toast, $wait, $showLoading } = useNuxtApp()
     const router = useRouter()
     const category =  ref('')
     const content = ref('')
     const title = ref('')
     const images = reactive([])
     const featured_media = ref(null)
+    const { actionType, modelValue } = props
 
     const categories = await find('post-categories')
 
     const submitForm = async () => {
-      const params = {
+      const formData = {
         featured_media: featured_media.value,
         author: unref($$user),
         collections: [],
@@ -169,11 +174,21 @@ export default {
         likes: [],
       }
       const matchCategory = categories.find(x => category.value === x.title)
-      params.post_categories = [matchCategory.id]
+      formData.post_categories = [matchCategory.id]
 
-      // params.tags = this.getTags(this.tags)
+      // formData.tags = this.getTags(this.tags)
+      if(actionType === 'create') {
+        await handleCreate(formData)
+      } else {
+        await handleUpdate(formData)
+      }
+      // this.loadingInsert = false
+    }
+
+    const handleCreate = async (formData) => {
       try {
-        const res = await create('posts', params)
+        $showLoading(true)
+        const res = await create('posts', formData)
         $toast.show({
           message: 'đăng bài viết thành công',
           type: 'success'
@@ -185,9 +200,29 @@ export default {
           message: 'đăng bài viết thất bại',
           type: 'error'
         })
+        $showLoading(false)
         console.log(error)
       }
-      // this.loadingInsert = false
+    }
+    // TODO: update image
+    const handleUpdate = async (formData) => {
+      try {
+        $showLoading(true)
+        const res = await update('posts', modelValue.id ,formData)
+        $toast.show({
+          message: 'Cập nhật bài viết thành công',
+          type: 'success'
+        })
+        await $wait(1000)
+        router.push({ name: 'post-slug', params: {  slug: res.slug } })
+      } catch (error) {
+        $toast.show({
+          message: 'Cập nhật bài viết thất bại',
+          type: 'error'
+        })
+        $showLoading(false)
+        console.log(error)
+      }
     }
 
     return {
@@ -202,9 +237,28 @@ export default {
   },
   mounted() {
     if(document) this.loading = false
+    if(process.client && this.modelValue.id) {
+      this.title = this.modelValue.title
+      this.category = this.modelValue.post_categories?.[0]?.title
+      this.content = this.modelValue.content
+      this.images = [this.$$strapi.getMediaLink(this.modelValue.featured_media)]
+    }
+  },
+  updated() {
+    if(this.modelValue.id) {
+      this.$refs.infoSubmit?.setFieldValue('postname', this.title)
+      this.$refs.infoSubmit?.setFieldValue('postcategory', this.category)
+    }
   },
   methods: {
     submit() {
+      this.$refs.infoSubmit.validate().then((valid) => {
+        if (valid) {
+          return this.submitForm()
+        }
+      })
+    },
+    handleCreat() {
       this.$refs.infoSubmit.validate().then((valid) => {
         if (valid) {
           return this.submitForm()
