@@ -123,7 +123,13 @@
   position: relative;
   padding-right: .5rem;
   .input__search {
-    background-color: var(--clr-main);
+    background: #fff;
+    width: 296px;
+    height: 30px;
+    font-size: .8rem;
+    font-weight: 400;
+    padding-left: 0.7rem;
+    font-family: 'Nunito';
     color: var(--clr-white);
     padding: 0 .5rem;
     &::placeholder {

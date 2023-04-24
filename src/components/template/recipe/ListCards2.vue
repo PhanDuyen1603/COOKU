@@ -38,7 +38,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .text-yellow h3,p{
     color: #df8c26;
 }
