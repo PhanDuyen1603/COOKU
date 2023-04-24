@@ -30,9 +30,8 @@
       </div>
       <div class="section__body--content">
         <CommonListView
-          view-mode="slide"
           :items-to-show="$$isMobile ? 2 : 4"
-          :total="4"
+          :total="$$isMobile ? 4 : 12"
           :item-space="20"
           item-component="CommonCardFullImage"
           :dataList="recipes"

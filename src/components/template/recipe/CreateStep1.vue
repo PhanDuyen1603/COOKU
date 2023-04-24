@@ -308,7 +308,6 @@ export default {
 
     onMounted(async () => {
       const recipe = $store.data
-      console.log(recipe)
       if(recipe.id) {
         formData.title = recipe.title
         formData.content = recipe.content
