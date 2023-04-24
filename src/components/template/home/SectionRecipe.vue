@@ -85,6 +85,7 @@ export default {
     border-radius: 100px;
     padding: 1px 10px;
     box-shadow: 4px 4px 11px 1px rgba(0,0,0,.12);
+    font-weight: 400;
 }
 
 .title-blog-content{

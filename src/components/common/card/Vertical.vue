@@ -189,6 +189,12 @@ export default {
 .card__vertical--content {
   max-height: 3.9rem;
   overflow: hidden;
+  font-family: Nunito;
+    font-style: normal;
+    font-weight: 300;
+    font-size: .9rem;
+    line-height: 1.25rem;
+    color: #4f4f4f;
 }
 .card__vertical--author {
   position: absolute;

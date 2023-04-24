@@ -89,6 +89,7 @@ export default {
 .tag-blog .tag {
     margin-right: 0.9rem;
     font-size: 1.15rem;
+    font-weight: 400;
 }
 
 .tag {

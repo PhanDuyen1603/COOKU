@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="icon-scroll-top icon" @click="scrollToTop">
-      <img src="/icons/arrow-up-solid.svg" alt="icon">
+      <img src="/icons/arrow-up-solid.svg" alt="icon" />
     </div>
     <div class="footer__wrapper">
       <div class="footer__item">
@@ -11,17 +11,20 @@
               <GlobalLogoCircle />
             </NuxtLink>
           </div>
-          <p class="mt-3">Cooku giúp bạn cải thiện sức khỏe, thực hiện những chế độ ăn lành mạnh</p>
+          <p class="mt-3">
+            Cooku giúp bạn cải thiện sức khỏe, thực hiện những chế độ ăn lành
+            mạnh
+          </p>
         </div>
         <div class="social__list">
-          <div class="icon__circle icon__circle--big icon__circle--shadow ">
-            <img src="/icons/facebook.svg" alt="">
+          <div class="icon__circle icon__circle--big icon__circle--shadow">
+            <img src="/icons/facebook.svg" alt="" />
           </div>
           <div class="icon__circle icon__circle--big icon__circle--shadow">
-            <img src="/icons/instagram.svg" alt="">
+            <img src="/icons/instagram.svg" alt="" />
           </div>
           <div class="icon__circle icon__circle--big icon__circle--shadow">
-            <img src="/icons/twitter.svg" alt="">
+            <img src="/icons/twitter.svg" alt="" />
           </div>
         </div>
       </div>
@@ -31,11 +34,13 @@
             <h3>Liên kết</h3>
           </li>
           <li class="nav__item clicked">
-            <NuxtLink to="/">
-              Trang chủ
-            </NuxtLink>
+            <NuxtLink to="/"> Trang chủ </NuxtLink>
           </li>
-          <li v-for="(category, index) in categories" :key="index" class="nav__item clicked">
+          <li
+            v-for="(category, index) in categories"
+            :key="index"
+            class="nav__item clicked"
+          >
             <NuxtLink :to="`/${category.key}`">
               {{ category.title }}
             </NuxtLink>
@@ -48,9 +53,7 @@
             <h3>Công ty</h3>
           </li>
           <li class="nav__item clicked">
-            <NuxtLink to="/">
-              COOKU VIETNAM
-            </NuxtLink>
+            <NuxtLink to="/"> COOKU VIETNAM </NuxtLink>
           </li>
         </ul>
       </div>
@@ -60,7 +63,9 @@
             <h3>Ứng dụng</h3>
           </li>
           <li class="nav__item">
-            <p>Tải ngay app <span class="color-main">Cooku</span> <br />để có những trải nghiệm <br />tuyệt vời hơn
+            <p>
+              Tải ngay app <span class="color-main">Cooku</span> <br />để có
+              những trải nghiệm <br />tuyệt vời hơn
             </p>
           </li>
           <li class="nav__item color-main underline">
@@ -73,7 +78,10 @@
       </div>
     </div>
     <div class="copy-right">
-      <p>Copyright © 2023 <span class="color-main">Cooku</span>. All Rights Reserved.</p>
+      <p>
+        Copyright © 2023 <span class="color-main">Cooku</span>. All Rights
+        Reserved.
+      </p>
     </div>
   </footer>
 </template>
@@ -83,33 +91,33 @@ export default {
   data() {
     this.categories = [
       {
-        title: 'Chế độ ăn',
-        key: 'diet'
+        title: "Chế độ ăn",
+        key: "diet",
       },
       {
-        title: 'Món ăn',
-        key: 'recipe'
+        title: "Món ăn",
+        key: "recipe",
       },
       {
-        title: 'Bí quyết',
-        key: 'tip'
+        title: "Bí quyết",
+        key: "tip",
       },
       {
-        title: 'Bài viết',
-        key: 'post'
+        title: "Bài viết",
+        key: "post",
       },
-    ]
-    return {}
+    ];
+    return {};
   },
   methods: {
     scrollToTop() {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     },
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -118,6 +126,7 @@ export default {
   padding-top: 42px;
   margin-top: 70px;
   background: var(--clr-gray);
+  font-family: "Nunito";
 
   &__wrapper {
     display: flex;
@@ -154,7 +163,7 @@ export default {
     }
     &__item:first-child {
       width: 100vw;
-      margin-bottom: 2rem
+      margin-bottom: 2rem;
     }
   }
 }
@@ -202,7 +211,9 @@ export default {
   }
 }
 .icon__circle--shadow {
-  box-shadow: 4px 4px 8px rgba(175, 175, 175, 0.25), 5px 4px 8px rgba(0, 0, 0, 0.15), inset 2px 4px 6px rgba(205, 205, 205, 0.25), inset -10px -10px 10px rgba(247, 247, 247, 0.13);
+  box-shadow: 4px 4px 8px rgba(175, 175, 175, 0.25),
+    5px 4px 8px rgba(0, 0, 0, 0.15), inset 2px 4px 6px rgba(205, 205, 205, 0.25),
+    inset -10px -10px 10px rgba(247, 247, 247, 0.13);
 }
 
 .icon__circle--big {
@@ -229,17 +240,24 @@ export default {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   img {
     width: 25px;
-    filter: invert(48%) sepia(30%) saturate(954%) hue-rotate(314deg) brightness(96%) contrast(104%);
-    transition: all .2s ease-in-out;
+    filter: invert(48%) sepia(30%) saturate(954%) hue-rotate(314deg)
+      brightness(96%) contrast(104%);
+    transition: all 0.2s ease-in-out;
   }
   &:hover {
     background: #e5625c;
     img {
-      filter: invert(100%) sepia(6%) saturate(229%) hue-rotate(3deg) brightness(116%) contrast(100%)
+      filter: invert(100%) sepia(6%) saturate(229%) hue-rotate(3deg)
+        brightness(116%) contrast(100%);
     }
   }
+}
+
+.nav__title h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0;
 }
 </style>
