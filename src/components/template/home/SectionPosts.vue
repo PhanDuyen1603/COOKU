@@ -2,8 +2,8 @@
   <CommonSectionWrapperType1 :style="getDefaultStyles">
     <div class="home-section home-section__head">
       <div class="section__head--title">
-        <img alt="Cooku" src="/images/spaghetti.svg" class="icon">
-        <h3>{{ $t('home.section.title2') }}</h3>
+        <img alt="Cooku" src="/images/TheMunchiesBowl.svg" class="icon">
+        <h3 class="title-blog">{{ $t('home.section.title2') }}</h3>
       </div>
       <a href="/post" class="section__head--title">
         <span>{{ $t('home.showall') }}</span>
@@ -65,3 +65,36 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.section-6 .tag {
+    background-color: #65a06b!important;
+}
+
+.tag-blog {
+    flex-wrap: wrap;
+    white-space: unset;
+    overflow: auto;
+    margin: 2rem 0;
+    padding-left: 1.5rem;
+}
+
+.tag-blog .tag {
+    margin-bottom: 0.7rem;
+    font-weight: 400;
+    color: #fff;
+    border-radius: 100px;
+    padding: 1px 10px;
+}
+
+.tag-blog .tag {
+    margin-right: 0.9rem;
+    font-size: 1.15rem;
+}
+
+.tag {
+    background-color: #65a06b!important;
+}
+.title-blog {
+    font-size: 1.5rem;
+}
+</style>

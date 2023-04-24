@@ -35,8 +35,8 @@
 
       <div class="section__body--group">
         <div class="section__body--title">
-          <span>
-            <h4>Đạt được mục tiêu qua chế độ ăn</h4>
+          <span class="grap-items-blogs">
+            <h4 class="title-underline">Đạt được mục tiêu qua chế độ ăn</h4>
           </span>
         </div>
         <div class="section__body--content">
@@ -109,5 +109,18 @@ const hintItems = randomDiets.status === 'fulfilled'
 <style lang="scss" scoped>
 .slide-diet {
   --section-horizonal-spacing: 20px;
+}
+
+.title-underline {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #e5625c !important;
+    border-bottom: 2px solid;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    text-transform: capitalize;
+    display: inline-block;
 }
 </style>

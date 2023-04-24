@@ -3,7 +3,7 @@
     <div class="home-section home-section__head">
       <div class="section__head--title">
         <img alt="Cooku" src="/images/diet-group.svg" class="icon">
-        <h3>{{ $t('home.section.title1') }}</h3>
+        <h3 class="title-blog">{{ $t('home.section.title1') }}</h3>
       </div>
       <a href="/diet" class="section__head--title">
         <span>{{ $t('home.showall') }}</span>
@@ -25,7 +25,7 @@
     <div class="section__body--group">
       <div class="section__body--title">
         <span>
-          <h4>{{ $t('home.section.subtitle1') }}</h4>
+          <h4 class="title-underline">{{ $t('home.section.subtitle1') }}</h4>
         </span>
       </div>
       <div class="section__body--content">
@@ -36,7 +36,7 @@
     <div class="section__body--group">
         <div class="section__body--title">
           <span>
-            <h4>{{ $t('home.section.subtitle2') }}</h4>
+            <h4 class="title-underline">{{ $t('home.section.subtitle2') }}</h4>
           </span>
         </div>
         <div class="section__body--content">
@@ -80,3 +80,59 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.title-underline {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #e5625c;
+    border-bottom: 2px solid;
+    margin-top: 10px;
+    margin-bottom: 25px;
+    text-transform: capitalize;
+    display: inline-block;
+}
+
+.tag-blog {
+    flex-wrap: wrap;
+    white-space: unset;
+    overflow: auto;
+    margin: 2rem 0;
+    padding-left: 1.5rem;
+
+    .tag-blog .tag {
+    margin-bottom: 0.7rem;
+    font-weight: 400;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 100px;
+    padding: 1px 10px;
+    box-shadow: 4px 4px 11px 1px rgba(0,0,0,.12);
+}
+
+.section-1 .tag {
+    background-color: #e5625c!important;
+}
+
+.tag {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 600;
+    font-size: .9rem;
+    background: #e5625c;
+    border-radius: 110px;
+    color: #fff;
+    padding: 0 15px;
+}
+}
+
+.title-blog {
+    font-size: 1.5rem;
+}
+
+.tag-blog .tag {
+    margin-right: 0.9rem;
+    font-size: 1.25rem;
+}
+</style>

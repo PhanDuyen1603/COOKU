@@ -3,9 +3,9 @@
     <div class="home-section home-section__head">
       <div class="section__head--title">
         <img alt="Cooku" src="/images/spaghetti.svg" class="icon">
-        <h3>{{ $t('home.section.title3') }}</h3>
+        <h3 class="title-blog">{{ $t('home.section.title3') }}</h3>
       </div>
-      <a href="/diet" class="section__head--title">
+      <a href="/recipe" class="section__head--title">
         <span>{{ $t('home.showall') }}</span>
         <div class="section-navigate-icon">
           <span>
@@ -25,7 +25,7 @@
     <div class="section__body--group">
       <div class="section__body--title">
         <span>
-          <h4>{{ $t('home.section.subtitle4') }}</h4>
+          <h4 class="title-blog-content">{{ $t('home.section.subtitle4') }}</h4>
         </span>
       </div>
       <div class="section__body--content">
@@ -70,3 +70,29 @@ export default {
   }
 }
 </script>
+<style scoped>
+.home-section__tags .tag-blog{
+  background: orange !important;
+  color: white !important;
+}
+
+.tag-blog .tag {
+    margin-right: 0.9rem;
+    font-size: 1.25rem;
+    background-color: #df8c26!important;
+    margin-bottom: 0.7rem;
+    color: #fff;
+    border-radius: 100px;
+    padding: 1px 10px;
+    box-shadow: 4px 4px 11px 1px rgba(0,0,0,.12);
+}
+
+.title-blog-content{
+      color: #df8c26!important;
+      border-bottom: 2px solid #df8c26;
+}
+
+.title-blog {
+    font-size: 1.5rem;
+}
+</style>

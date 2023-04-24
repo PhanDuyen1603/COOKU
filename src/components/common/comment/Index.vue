@@ -2,7 +2,7 @@
   <div class="comments comments__wrapper">
     <div class="section mb-md-5 mb-3 p-0">
       <div class="comments__top">
-        <h5>bạn đã thử công thức này chưa?</h5>
+        <h5>Bạn đã thử công thức này chưa?</h5>
         <p>Hãy chia sẽ suy nghĩ của bạn trong phần bình luận bên dưới!</p>
         <p class="text__highlight">{{ totalComment > 0 ? totalComment + ' bình luận' : 'Hãy là người đầu tiên bình luận' }} </p>
         <p v-if="!$$isSigned" class="clicked">
