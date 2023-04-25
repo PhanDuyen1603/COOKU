@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
-.header .router-link-active {
+.header .router-link-active:not(.navbar-brand) {
   border-bottom: 2px solid #fff;
   color: #fff;
 }

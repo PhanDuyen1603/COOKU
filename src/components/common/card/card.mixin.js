@@ -1,3 +1,14 @@
+import { removeAccent } from '~/utils/StringUtils'
+
+const mapType = {
+  recipe: 'recipes',
+  post: 'posts',
+  baiviet: 'posts',
+  congthuc: 'recipes',
+  collection: 'collections',
+  bosuutap: 'collections'
+}
+
 export default {
   props: {
     data: {
@@ -25,21 +36,23 @@ export default {
     editItem() {
       this.$router.push({ name: `${this.pageType}-update-slug`, params: { slug: this.data.slug }})
     },
-    async removeItem() {
+    async removeItem(type = null) {
+      const wType = type ? type : this.pageType
+      const accentType = removeAccent(wType)?.replaceAll(' ', '').toLowerCase()
       const res = await this.$modal.confirm({
-        message: `Bạn có chắc muốn xoá ${this.pageType} này`
+        message: `Bạn có chắc muốn xoá ${wType} này`
       })
       if(res) {
         try {
           this.$toast.show({
             message: 'đang xoá ....'
           })
-          await this.$$strapi._delete(this.pageType + 's', this.data.id)
+          await this.$$strapi._delete(mapType[accentType], this.data.id)
           this.$toast.show({
             message: 'Xoá thành công',
             type: 'success'
           })
-          this.$emit('refetch')
+          this.$emit('remove-item', this.data.id)
         } catch (error) {
           console.log(error)
         }

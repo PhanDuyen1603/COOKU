@@ -81,8 +81,6 @@
     />
     <TemplateProfileLayout1TabCollection
       v-show="activeItem === 'collection'"
-      :recipes="collectionRecipes"
-      :posts="collectionPosts"
     />
   </section>
 </template>

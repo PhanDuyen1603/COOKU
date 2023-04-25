@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav aria-label="Page navigation example">
+    <nav class="horizonal_pagination">
       <ul class="pagination">
         <li
           role="presentation"
@@ -197,5 +197,12 @@ export default {
 
 .page-link {
     color: #e5625c;
+}
+.pagination li:not(.disabled) {
+  cursor: pointer;
+}
+.horizonal_pagination {
+  display: flex;
+  justify-content: center;
 }
 </style>
