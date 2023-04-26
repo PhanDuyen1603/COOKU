@@ -46,7 +46,7 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <CommonAvatar :data="$$user" />
+                  <CommonAvatar :data="unref($$user)" />
                 </button>
                 <ul
                   class="dropdown-menu dropdown-menu__profile"
@@ -89,8 +89,7 @@
 </template>
 
 <script setup>
-const { $modal, $toast} = useNuxtApp()
-const showMobileMenu = false
+const { $modal, $toast, $$user } = useNuxtApp()
 const router = useRouter()
 
 const searchString = ref('')
