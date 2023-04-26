@@ -43,7 +43,7 @@
           <CommonListView
             view-mode="slide"
             :items-to-show="2"
-            item-component="CommonCardHorizonal"
+            item-component="CommonCard"
             :dataList="topDiets"
             page-type="diet"
             :load-more="false"
