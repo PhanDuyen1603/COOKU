@@ -6,7 +6,7 @@
       <div class="hero_content" :style="contentStyles">
         <h2 class="hero_title">
           <!-- You don't know what to cook ? -->
-          Bạn không biết nấu gì ư ?
+          Hôm nay bạn nấu gì?
         </h2>
         <div class="hero_searchbox">
           <div class="searchbox_top">
