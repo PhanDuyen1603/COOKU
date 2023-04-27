@@ -95,6 +95,7 @@ export default {
   width: 100vw;
   height: calc(100vh - var(--header-height));
   position: relative;
+  margin-top: -61px;
 }
 .hero_screen_wrapper, .hero_overlay, .hero_bg {
   position: absolute;
