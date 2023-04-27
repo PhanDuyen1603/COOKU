@@ -123,9 +123,13 @@
   position: relative;
   padding-right: .5rem;
   .input__search {
+    border-radius: 30px;
+    background: #fff;
     background: #fff;
     width: 296px;
     height: 30px;
+    font-size: .8rem;
+    padding-left: 0.7rem;
     font-size: .8rem;
     font-weight: 400;
     padding-left: 0.7rem;
@@ -320,4 +324,8 @@
       font-size: 1.25rem;
     }
   }
+}
+
+body{
+  font-family: 'Nunito';
 }
