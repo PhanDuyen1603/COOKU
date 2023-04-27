@@ -208,7 +208,7 @@ export default {
     const handleUpdate = async (formData) => {
       try {
         $showLoading(true)
-        const res = await update('posts', modelValue.id ,formData)
+        const res = await update('posts', modelValue?.id ,formData)
         $toast.show({
           message: 'Cập nhật bài viết thành công',
           type: 'success'
@@ -237,7 +237,7 @@ export default {
   },
   mounted() {
     if(document) this.loading = false
-    if(process.client && this.modelValue.id) {
+    if(process.client && this.modelValue?.id) {
       this.title = this.modelValue.title
       this.category = this.modelValue.post_categories?.[0]?.title
       this.content = this.modelValue.content
@@ -245,7 +245,7 @@ export default {
     }
   },
   updated() {
-    if(this.modelValue.id) {
+    if(this.modelValue?.id) {
       this.$refs.infoSubmit?.setFieldValue('postname', this.title)
       this.$refs.infoSubmit?.setFieldValue('postcategory', this.category)
     }
