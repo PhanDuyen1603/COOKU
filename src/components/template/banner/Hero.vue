@@ -6,7 +6,7 @@
       <div class="hero_content" :style="contentStyles">
         <h2 class="hero_title">
           <!-- You don't know what to cook ? -->
-          Bạn không biết nấu gì ư ?
+          Hôm nay bạn nấu gì?
         </h2>
         <div class="hero_searchbox">
           <div class="searchbox_top">
@@ -95,6 +95,7 @@ export default {
   width: 100vw;
   height: calc(100vh - var(--header-height));
   position: relative;
+  margin-top: -61px;
 }
 .hero_screen_wrapper, .hero_overlay, .hero_bg {
   position: absolute;
