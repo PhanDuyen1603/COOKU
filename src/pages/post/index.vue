@@ -193,6 +193,7 @@ const navigateCreate = async () => {
   padding: 0;
   display: flex;
   padding-left: 1.5rem;
+  margin-bottom: 3rem;
 }
 
 .tab-blog-child {

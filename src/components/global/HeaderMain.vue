@@ -177,4 +177,11 @@ const openLoginModal = async () => {
   font-family: "Nunito";
   font-weight: 400;
 }
+
+.header-top {
+  position: absolute;
+  z-index: 999;
+  left: 0;
+  right: 0;
+}
 </style>
