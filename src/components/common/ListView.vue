@@ -19,6 +19,7 @@
               v-bind="itemProps"
               :isEditable="isEditable"
               @click="handleItemAction"
+              @remove-item="(id) => $emit('remove-item', id)"
             />
           </slot>
         </template>
@@ -40,6 +41,7 @@
               :isEditable="isEditable"
               v-bind="itemProps"
               @click="handleItemAction"
+              @remove-item="(id) => $emit('remove-item', id)"
             />
           </slot>
         </div>
@@ -61,6 +63,7 @@
           :isEditable="isEditable"
           v-bind="itemProps"
           @click="handleItemAction"
+          @remove-item="(id) => $emit('remove-item', id)"
         />
       </div>
       <LoadingCardsList
@@ -99,7 +102,6 @@ export default {
       type: Number,
       default: 4,
     },
-
     viewMode: {
       type: String,
       default: 'grid',

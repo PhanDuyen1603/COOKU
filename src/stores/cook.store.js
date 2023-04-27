@@ -73,7 +73,6 @@ export default defineStore({
       this.cooking_time.hours = hours
       this.cooking_time.minutes = minutes
 
-      console.log('data', this.cooking_time)
     },
     clearCook() {
       this.cooking_time = {time: 60, humanReadable: '1 giờ'}

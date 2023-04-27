@@ -88,7 +88,8 @@
 <script setup>
 import { colorVariables } from '@/constants/theme'
 const { find } = useStrapi()
-const { $showLoading, $modal, $toast, $$isSigned, $wait } = useNuxtApp()
+const router = useRouter()
+const { $showLoading, $modal, $toast, $$isSigned, $wait, $$isMobile } = useNuxtApp()
 
 const getDefaultStyles = {
   '--section-main-clr': `var(${colorVariables.GREEN})`,
@@ -96,7 +97,7 @@ const getDefaultStyles = {
 }
 
 const filters = reactive({
-  _limit: 4,
+  _limit: unref($$isMobile) ? 4 : 8,
   _sort: 'created_at:desc',
 })
 
@@ -104,7 +105,7 @@ $showLoading(true)
 const [ posts, randoms, top ] = await Promise.all([
   find('posts', filters),
   find('posts/random', { _limit: 4 }),
-  find('posts/top-by/like', { _limit: 10 })
+  find('posts/top-by/like', { _limit: 12 })
 ])
 $showLoading(false)
 
@@ -125,7 +126,7 @@ const navigateCreate = async () => {
       }
     })
   } else {
-    $router.push({ name: 'post-create' })
+    router.push({ name: 'post-create' })
   }
 }
 

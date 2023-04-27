@@ -1,22 +1,24 @@
 <template>
   <CommonSectionWrapperType1>
     <ul class="tag-search my-4">
-      <li v-if="recipes" class="mr-3 cursor-pointer" :class="{ active: tabActive == 'recipes' }"
+      <li v-if="recipeCollections" class="mr-3 cursor-pointer" :class="{ active: tabActive == 'recipes' }"
         @click="handleChangeTab('recipes')">
-        <span>Món ăn ({{recipes.length}})</span>
+        <span>Món ăn ({{recipeCollections.length}})</span>
       </li>
-      <li v-if="posts" class="cursor-pointer" :class="{ active: tabActive == 'posts' }"
+      <li v-if="postCollections" class="cursor-pointer" :class="{ active: tabActive == 'posts' }"
         @click="handleChangeTab('posts')">
-        <span> Bài viết ({{ posts.length }})</span>
+        <span> Bài viết ({{ postCollections.length }})</span>
       </li>
     </ul>
       <div>
         <CommonListView
-          v-if="tabActive == 'recipes' && recipes.length"
+          v-if="tabActive == 'recipes' && recipeCollections.length"
           :items-to-show="$$isMobile ? 1 : 2"
           :item-space="20"
           item-component="LazyCommonCardHorizonal2"
-          :dataList="recipes"
+          :dataList="recipeCollections"
+          :isEditable="isEditable"
+          @remove-item="removeItem"
           type="recipe"
           :itemProps="{
             itemStyles:{
@@ -26,12 +28,14 @@
         />
 
         <CommonListView
-          v-if="tabActive == 'posts' && posts.length"
+          v-if="tabActive == 'posts' && postCollections.length"
           :items-to-show="$$isMobile ? 1 : 2"
           :item-space="20"
           item-component="LazyCommonCardHorizonal2"
-          :dataList="posts"
+          :dataList="postCollections"
+          :isEditable="isEditable"
           type="post"
+          @remove-item="removeItem"
           :itemProps="{
             itemStyles:{
               height: '240px'
@@ -43,42 +47,52 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      recipes: {
-        type: Array,
-        required: true
+import useProfileStore from '~/stores/profile.store'
+export default {
+  data() {
+    return {
+      data: [],
+      selected: 'easy',
+      tabActive: 'recipes',
+      entityResults: this.recipeCollections ? this.recipeCollections : [],
+      imageStyle: {
+        height: "15rem",
       },
-      posts: {
-        type: Array,
-        required: true
-      },
-    },
+      loading: false,
+    }
+  },
 
-    data() {
-      return {
-        data: [],
-        selected: 'easy',
-        tabActive: 'recipes',
-        entityResults: this.recipes ? this.recipes : [],
-        imageStyle: {
-          height: "15rem",
-        },
-        loading: false,
-      }
-    },
+  setup() {
+    const profileStore = useProfileStore()
+    const { $$user } = useNuxtApp()
 
-    methods: {
-      handleChangeTab(entity) {
-        window.scrollTo(0, 0);
-        this.tabActive = entity
-        this.entityResults = this[entity]
-      },
-      // refetchList(event, type) {
-      //   this.$store.dispatch('modules/profile/removeProfilePostsData', { item: event, type })
-      // }
+    const isEditable = computed(() => {
+      return unref($$user) && profileStore.profileInfo?.username && profileStore.profileInfo?.username === unref($$user).username
+    })
+
+    const removeItem = (id) => {
+      profileStore.removeItem('collection', id)
+    }
+
+    const postCollections = computed(() => profileStore.postCollections)
+    const recipeCollections = computed(() => profileStore.recipeCollections)
+
+    return {
+      isEditable,
+      postCollections,
+      recipeCollections,
+      removeItem
+    }
+  },
+
+  methods: {
+    handleChangeTab(entity) {
+      window.scrollTo(0, 0);
+      this.tabActive = entity
+      this.entityResults = this[entity]
     },
-  }
+  },
+}
 
 </script>
 

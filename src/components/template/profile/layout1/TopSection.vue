@@ -81,8 +81,6 @@
     />
     <TemplateProfileLayout1TabCollection
       v-show="activeItem === 'collection'"
-      :recipes="collectionRecipes"
-      :posts="collectionPosts"
     />
   </section>
 </template>
@@ -136,21 +134,22 @@ export default {
     const openListFollows = async (type) => {
       await $store.fetchUserFollowers()
       if(type === 'following') $store.transformList(type)
-      await $modal.show({
-        component: 'TemplateProfileLayout1PopFollowing',
-        props: {
-          data: {
-            followings: props.data.followings,
-            followers: props.data.followers,
-          },
-          type
-        },
-        wrapperProps: {
-          style: {
-            width: '900px'
-          },
-        },
-      })
+      // await $modal.show({
+      //   component: 'TemplateProfileLayout1PopFollowing',
+      //   props: {
+      //     data: {
+      //       followings: props.data.followings,
+      //       followers: props.data.followers,
+      //     },
+      //     type
+      //   },
+      //   wrapperProps: {
+      //     style: {
+      //       width: '900px'
+      //     },
+      //   },
+      // })
+      await $modal.develop({})
     }
 
     return {

@@ -36,7 +36,7 @@ const getComponent = (name) => {
 }
 
 const close = (item, value) => {
-  const result = item.props.formData && value === true
+  const result = item?.props?.formData && value === true
     ? JSON.parse(JSON.stringify(item.props.formData)) : value
 
   if ( value && item.beforeClose ) {

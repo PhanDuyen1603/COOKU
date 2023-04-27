@@ -72,7 +72,6 @@ export default {
       currentMinutes.value = $event
     }
     const confirm = () => {
-      console.log(currentHours, currentMinutes, 1212)
       emit('close', { hours: currentHours.value, minutes: currentMinutes.value })
     }
 

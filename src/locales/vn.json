@@ -5,7 +5,7 @@
   "home.section.subtitle1": "Đạt được mục tiêu qua chế độ ăn",
   "home.section.subtitle2": "Đông thành viên nhất",
   "home.section.title2": "BÀI VIẾT MỚI NHẤT",
-  "home.section.subtitle3": "Bài viết vừa đăng",
+  "home.section.subtitle3": "Bài Viết Vừa Đăng",
   "home.section.title3": "MÓN ĂN HẤP DẪN",
   "home.section.subtitle4": "Công Thức Vừa Đăng",
 
@@ -41,6 +41,7 @@
   "post.form.chose": "Chọn danh mục",
   "post.form.thumb": "1 hình đại diện (ảnh bài viết của bạn)",
   "post.form.action_create": "Đăng bài viết",
+  "post.form.action_update": "Cập nhật bài viết",
 
   "profile.form.title": "THÔNG TIN CÁ NHÂN",
   "profile.form.no_info": "Chưa có thông tin",

@@ -2,12 +2,11 @@
   <div class="container mt-5" :style="getDefaultStyles">
     <div class="section__head section__head--vertical">
       <div class="section__head--title">
-        <h3>CHẾ ĐỘ ĂN</h3>
+        <h3 class="title">Chế độ ăn</h3>
       </div>
       <div class="section__head--desc">
-        <p>
-          Cùng khám phá ngay cách đạt được mục tiêu cho bản thân thông qua chế
-          độ dinh dưỡng nhé
+        <p class="content">
+          Khám phá ngay cách đạt được mục tiêu thông qua chế độ dinh dưỡng.
         </p>
       </div>
       <div class="tags tags__list">
@@ -22,21 +21,15 @@
     </div>
     <div class="section__body">
       <div class="section__body--group">
-        <div class="section__body--title">
-          <span>
-            <h4>Chế độ nào phù hợp ?</h4>
-          </span>
-        </div>
         <div class="section__body--content">
-
           <TemplateDietListCategories :modelValue="hintItems" />
         </div>
       </div>
 
       <div class="section__body--group">
         <div class="section__body--title">
-          <span>
-            <h4>Đạt được mục tiêu qua chế độ ăn</h4>
+          <span class="grap-items-blogs">
+            <h4 class="title-underline">Đạt được mục tiêu qua chế độ ăn</h4>
           </span>
         </div>
         <div class="section__body--content">
@@ -70,44 +63,73 @@
 </template>
 
 <script setup>
-import { colorVariables } from '@/constants/theme'
-const { find } = useStrapi()
-const { $showLoading } = useNuxtApp()
+import { colorVariables } from "@/constants/theme";
+const { find } = useStrapi();
+const { $showLoading } = useNuxtApp();
 
 const filter = reactive({
   _limit: 5,
-  _sort: 'created_at:desc'
-})
+  _sort: "created_at:desc",
+});
 
 const getDefaultStyles = {
-  '--section-main-clr': `var(${colorVariables.RED})`,
-  '--section-horizonal-spacing': '70px',
-}
+  "--section-main-clr": `var(${colorVariables.RED})`,
+  "--section-horizonal-spacing": "70px",
+};
 
 const navigateTag = (tag) => {
   router.push({
-    name: 'tag-slug',
+    name: "tag-slug",
     params: {
       slug: tag.slug,
     },
-  })
-}
-$showLoading(true)
-const [ randomDiets, diets ] = await Promise.allSettled([
-  find('diets/random', { _limit: 10 }),
-  find('diets', filter),
+  });
+};
+$showLoading(true);
+const [randomDiets, diets] = await Promise.allSettled([
+  find("diets/random", { _limit: 10 }),
+  find("diets", filter),
   // find('diets/top-by/join_users')
-])
-$showLoading(false)
-const hintItems = randomDiets.status === 'fulfilled'
-  ? randomDiets.value.data
-  .filter((item) => item.featured_media && item.featured_media.url)
-  .splice(0, 2)
-  : []
+]);
+$showLoading(false);
+const hintItems =
+  randomDiets.status === "fulfilled"
+    ? randomDiets.value.data
+        .filter((item) => item.featured_media && item.featured_media.url)
+        .splice(0, 2)
+    : [];
 </script>
 
 <style lang="scss" scoped>
 .slide-diet {
   --section-horizonal-spacing: 20px;
+}
+
+.title-underline {
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #e5625c !important;
+  border-bottom: 2px solid;
+  margin-top: 10px;
+  margin-bottom: 25px;
+  text-transform: capitalize;
+  display: inline-block;
+}
+
+.section__head--title .title {
+  color: #212529;
+  font-size: 1.875rem;
+  line-height: 2.5rem;
+}
+
+.section__head--desc .content{
+  line-height: 1.4;
+    font-size: 1.125rem;
+}
+
+.section__head .section__head--vertical{
+  gap: 0 !important;
 }
 </style>

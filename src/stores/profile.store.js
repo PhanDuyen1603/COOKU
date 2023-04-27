@@ -35,6 +35,8 @@ export default defineStore({
       followingsCount: state.followings.length,
       followersCount: state.followers.length
     }),
+    recipeCollections:(state) => state.collections.recipes,
+    postCollections:(state) => state.collections.posts,
   },
 
   actions: {
@@ -183,6 +185,14 @@ export default defineStore({
         })
       } else {
         this.followers = transformFollowers(this.followers, this.listUserFollowing)
+      }
+    },
+
+    // remove
+    removeItem(type, id) {
+      if(type === 'collection') {
+        this.collections.posts = [...this.collections.posts].filter(x => x.id != id)
+        this.collections.recipes = [...this.collections.recipes].filter(x => x.id != id)
       }
     }
   }

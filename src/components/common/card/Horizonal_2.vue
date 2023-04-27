@@ -1,6 +1,6 @@
 <template>
   <div class="mt-1 mb-2 image" style="box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;">
-    <div class="d-flex mr-4 justify-content-between cursor-pointer">
+    <div class="d-flex mr-4 justify-content-between align-items-center cursor-pointer">
       <div
         class="d-flex align-items-center"
         @click="addCollection(data)"
@@ -29,13 +29,13 @@
           </p>
         </div>
 
-        <div class="btn-remove-collection">
-          <div v-if="unref($$isSigned) && isEditable" class="icon icon-wrap-circle" @click="removeItem()">
-            <img
-              class="btn p-0 trash-icon"
-              src="/icons/trash-bin.svg"
-            />
-          </div>
+      </div>
+      <div class="btn-remove-collection pe-4">
+        <div v-if="unref($$isSigned) && isEditable" class="icon icon-wrap-circle" @click="removeItem('Bộ sưu tập')">
+          <img
+            class="btn p-0 trash-icon"
+            src="/icons/trash-bin.svg"
+          />
         </div>
       </div>
       <!---->
@@ -138,5 +138,22 @@ export default {
 .text-custom {
   font-size: 25px;
   line-height: 34px;
+}
+
+.trash-icon {
+  width: 24px;
+  height: 24px;
+}
+.icon-wrap-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all .2s ease;
+  &:hover {
+    background-color: var(--clr-gray);
+  }
 }
 </style>

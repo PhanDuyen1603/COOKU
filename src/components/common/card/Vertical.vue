@@ -61,10 +61,13 @@
       >
         <h3 class="card__vertical--title line-clamp-2">{{ data.title }}</h3>
       </NuxtLink>
-      <p v-if="!isTop" class="card__vertical--content" :class="`line-clamp-${ $$isMobile ? 2 : 3 }`">
-        {{ data.excerpt }}
-      </p>
-      <div class="social-share">
+      <div
+        v-if="!isTop"
+        v-html="data.excerpt || data.content"
+        class="card__vertical--content"
+        :class="`line-clamp-${ $$isMobile ? 2 : 2 }`"
+      />
+      <div class="social-share mt-2">
         <div class="icon-comment">{{ count.comments }}</div>
         <div class="icon-like">{{ count.likes }}</div>
         <div class="icon-share">{{ count.shares }}</div>
@@ -189,6 +192,12 @@ export default {
 .card__vertical--content {
   max-height: 3.9rem;
   overflow: hidden;
+  font-family: Nunito;
+  font-style: normal;
+  font-weight: 300;
+  font-size: .9rem;
+  line-height: 1.25rem;
+  color: #4f4f4f;
 }
 .card__vertical--author {
   position: absolute;

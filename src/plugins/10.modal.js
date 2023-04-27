@@ -26,6 +26,17 @@ export default defineNuxtPlugin(( ) => {
             })
           })
         },
+        develop({beforeClose}) {
+          return new Promise(resolve => {
+            const $store = useModalStore()
+            $store.addModal({
+              id: Math.random().toString(),
+              component: 'ModalCommonDeveloping',
+              resolve,
+              beforeClose
+            })
+          })
+        },
         confirm({ html, title, message = '', btnYes = 'OK', btnNo = 'NO' }) {
           return new Promise(resolve => {
             const $store = useModalStore()

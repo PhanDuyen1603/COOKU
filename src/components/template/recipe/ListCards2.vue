@@ -38,13 +38,15 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .text-yellow h3,p{
     color: #df8c26;
+    font-family: 'Nunito';
 }
 .text-yellow h3{
     font-size: 1.5rem !important;
     font-weight: bold;
+    font-family: 'Nunito';
 }
 .ps-3 {
     padding-left: 1rem!important;

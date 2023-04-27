@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav aria-label="Page navigation example">
+    <nav class="horizonal_pagination">
       <ul class="pagination">
         <li
           role="presentation"
@@ -175,3 +175,34 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.page-item.disabled .page-link {
+    color: #8898aa;
+    pointer-events: none;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+
+.page-item.active .page-link {
+    background-color: #e5625c;
+    border-color: #e5625c;
+        z-index: 3;
+    color: #fff;
+}
+
+.page-item:first-child .page-link {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.page-link {
+    color: #e5625c;
+}
+.pagination li:not(.disabled) {
+  cursor: pointer;
+}
+.horizonal_pagination {
+  display: flex;
+  justify-content: center;
+}
+</style>

@@ -21,7 +21,7 @@
           <div v-if="showList.category">
             <span class="badge rounded-pill bg-primary">#{{ getCategory.title }}</span>
           </div>
-          <h5 v-if="!getListShowElements.descTitle" class="line-clamp-2">
+          <h5 v-if="!getListShowElements.descTitle" class="text-primary text-shadow">
             {{ data.title }}
           </h5>
         </div>
@@ -331,5 +331,17 @@ export default {
     width: 60%;
     text-align: center;
   }
+}
+
+.text-shadow {
+    text-shadow: #fff -2px -2px 0, #fff -2px -1px 0, #fff -2px 0 0, #fff -2px 1px 0, #fff -2px 2px 0, #fff -1px -2px 0, #fff -1px -1px 0, #fff -1px 0 0, #fff -1px 1px 0, #fff -1px 2px 0, #fff 0 -2px 0, #fff 0 -1px 0, #fff 0 0 0, #fff 0 1px 0, #fff 0 2px 0, #fff 1px -2px 0, #fff 1px -1px 0, #fff 1px 0 0, #fff 1px 1px 0, #fff 1px 2px 0, #fff 2px -2px 0, #fff 2px -1px 0, #fff 2px 0 0, #fff 2px 1px 0, #fff 2px 2px 0;
+}
+
+.text-primary {
+    color: #e5625c!important;
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.25rem;
 }
 </style>

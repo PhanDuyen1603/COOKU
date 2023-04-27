@@ -64,7 +64,7 @@
           :load-more="false"
         />
 
-        <div class="search-pagination my-3">
+        <div class="search-pagination my-3 mt-5">
           <CommonPaginationHorizonal
             v-if="+total[tabActive] > 12"
             :modelValue="currentPage"

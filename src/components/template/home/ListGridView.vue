@@ -4,14 +4,15 @@
       <nuxt-link :to="buildNavigate(item)" class="card card--image h-100" :style="getItemStyle(item)">
       </nuxt-link>
       <div class="widget__grid__card--content">
-        <NuxtLink v-if="!isStatic" :to="buildNavigate(item)" >
-          <span class="badge rounded-pill">#{{ item.diet_category?.title }}</span>
-        </NuxtLink>
         <nuxt-link :to="buildNavigate(item)">
-          <h5>
+          <h5 class="text-primary text-shadow">
             {{ item.title }}
           </h5>
         </nuxt-link>
+        <NuxtLink v-if="!isStatic" :to="buildNavigate(item)" >
+          <span class="badge rounded-pill">#{{ item.diet_category?.title }}</span>
+        </NuxtLink>
+        
       </div>
     </div>
   </div>

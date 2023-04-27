@@ -2,8 +2,8 @@
   <CommonSectionWrapperType1 :style="getDefaultStyles">
     <div class="home-section home-section__head">
       <div class="section__head--title">
-        <img alt="Cooku" src="/images/spaghetti.svg" class="icon">
-        <h3>{{ $t('home.section.title2') }}</h3>
+        <img alt="Cooku" src="/images/TheMunchiesBowl.svg" class="icon">
+        <h3 class="title-blog">{{ $t('home.section.title2') }}</h3>
       </div>
       <a href="/post" class="section__head--title">
         <span>{{ $t('home.showall') }}</span>
@@ -25,14 +25,13 @@
     <div class="section__body--group">
       <div class="section__body--title">
         <span>
-          <h4>{{ $t('home.section.subtitle3') }}</h4>
+          <h4 class="title-blog-content">{{ $t('home.section.subtitle3') }}</h4>
         </span>
       </div>
       <div class="section__body--content">
         <CommonListView
-          view-mode="slide"
           :items-to-show="$$isMobile ? 2 : 4"
-          :total="4"
+          :total="$$isMobile ? 4 : 12"
           :item-space="20"
           item-component="CommonCardVertical"
           :dataList="posts"
@@ -65,3 +64,46 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.section-6 .tag {
+    background-color: #65a06b!important;
+}
+
+.tag-blog {
+    flex-wrap: wrap;
+    white-space: unset;
+    overflow: auto;
+    margin: 2rem 0;
+    padding-left: 1.5rem;
+}
+
+.tag-blog .tag {
+    margin-bottom: 0.7rem;
+    font-weight: 400;
+    color: #fff;
+    border-radius: 100px;
+    padding: 1px 10px;
+}
+
+.tag-blog .tag {
+    margin-right: 0.9rem;
+    font-size: 1.15rem;
+    font-weight: 400;
+}
+
+.tag {
+    background-color: #65a06b!important;
+}
+.title-blog {
+    font-size: 1.5rem;
+    font-family: Nunito;
+    font-weight: 700;
+}
+
+.title-blog-content {
+   color: #65a06b !important;
+    border-bottom: 2px solid #65a06b;
+    margin-left: 17px;
+    font-size: 1.25rem;
+}
+</style>
