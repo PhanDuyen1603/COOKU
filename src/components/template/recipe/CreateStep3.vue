@@ -286,7 +286,7 @@ export default {
 .item-image .close {
   width: 20px;
   height: 20px;
-  background: url('/images/close-image-recipe-v2.png') center center;
+  // background: url('/images/close-image-recipe-v2.png') center center;
   background-size: cover;
   cursor: pointer;
   margin-right: 10px;
