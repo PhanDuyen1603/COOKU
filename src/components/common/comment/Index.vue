@@ -77,8 +77,8 @@
                     alt=""
                     />Hiện {{ comment.child_comments?.length }} câu trả lời</a
                     >
-                    <!-- src="~/assets/images/cmt-ic.png" -->
-              </div>
+                  </div>
+                  <!-- src="~/assets/images/cmt-ic.png" -->
             </div>
             <div class="comment__child ps-4">
               <div

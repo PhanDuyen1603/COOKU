@@ -31,7 +31,6 @@
     "vue-slick": "^1.2.0"
   },
   "dependencies": {
-    "@vueuse/core": "^9.13.0",
     "jquery": "^3.6.3",
     "marked": "^4.3.0",
     "vue-content-loader": "^2.0.1",
