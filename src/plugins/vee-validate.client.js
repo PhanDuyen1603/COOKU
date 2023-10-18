@@ -92,6 +92,14 @@ export default defineNuxtPlugin(() => {
     return isValid || 'sai dinh dang email';
   });
 
+  defineRule("confirmed", (value, [other]) => {
+    if (value !== other) {
+      return `Vui lòng nhập đúng mật khẩu`;
+    }
+
+    return true;
+  });
+
   // defineRule('telephone', (telephone, _, { field: fieldName }) => {
   //   const isValid = (() => {
   //     if (!telephone) {

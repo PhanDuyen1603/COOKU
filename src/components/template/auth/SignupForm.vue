@@ -11,14 +11,38 @@
         <Field name="email" v-model="dataSignup.email"/>
         <ErrorMessage class="error-message" name="email" />
       </div>
-      <div class="login-form-group mb-3">
+
+      <div class="login-form-group mb-2">
         <label for="password">{{ $t('auth.password') }} *</label>
-        <Field name="password" v-model="dataSignup.password" />
+        <div class="input-wrap">
+          <Field name="password" v-slot="slotField" >
+            <input
+              v-model="dataSignup.password"
+              v-bind="slotField.field"
+              :class="{ 'input-error': slotField.errors?.length }"
+              :type="showTextPasses.pass ? 'text' : 'password'"
+              class="input-password"
+            >
+            <img src="/icons/eyes.png" alt="eyes" @click="toggleType('pass')">
+          </Field>
+        </div>
         <ErrorMessage class="error-message" name="password" />
       </div>
+
       <div class="login-form-group mb-3">
-        <label for="passwordRepeat">{{ $t('auth.repeat_password') }} *</label>
-        <Field name="passwordRepeat" v-model="dataSignup.passwordRepeat"/>
+        <label for="password">{{ $t('auth.repeat_password') }} *</label>
+        <div class="input-wrap">
+          <Field name="passwordRepeat" v-slot="slotField" >
+            <input
+              v-model="dataSignup.passwordRepeat"
+              v-bind="slotField.field"
+              :class="{ 'input-error': slotField.errors?.length }"
+              :type="showTextPasses.repeat ? 'text' : 'password'"
+              class="input-password"
+            >
+            <img src="/icons/eyes.png" alt="eyes" @click="toggleType('repeat')">
+          </Field>
+        </div>
         <ErrorMessage class="error-message" name="passwordRepeat" />
       </div>
 
@@ -46,11 +70,6 @@ export default {
     Form, Field, ErrorMessage
   },
   data() {
-    this.validationSchema = {
-      name: 'required',
-      password: 'required',
-      email: 'required|email'
-    }
     return {
       name: '',
       password: '',
@@ -68,8 +87,13 @@ export default {
       name: 'required',
       email: 'required|email',
       password: 'required',
-      passwordRepeat: 'required',
+      passwordRepeat: 'required|confirmed:@password',
     }
+
+    const showTextPasses = reactive({
+      pass: false,
+      repeat: false
+    })
 
     const dataSignup = reactive({
       name: '',
@@ -77,6 +101,10 @@ export default {
       password: '',
       passwordRepeat: '',
     })
+
+    const toggleType = (type) => {
+      showTextPasses[type] = !showTextPasses[type]
+    }
 
     const openLoginModal = async () => {
       emit('close')
@@ -123,8 +151,10 @@ export default {
     return {
       SignupValidationSchema,
       pending,
+      showTextPasses,
 
       openLoginModal,
+      toggleType,
 
       handleSignup,
 
