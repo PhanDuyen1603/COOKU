@@ -58,9 +58,10 @@
                     v-model="item.number"
                     v-bind="field"
                     :name="`quantity-${index}`"
-                    width="130" type="number"
+                    width="130"
                     class="wrap-item fix-wrap-item w-130"
                     placeholder="Số lượng*" min="0"
+                    @keyup="changeQuantity($event.target.value, index)"
                   />
                 </div>
               </Field>
@@ -315,6 +316,10 @@ export default {
     changeTitleUnitPopup(title, indexUnit, id) {
       this.formData[indexUnit].unit = title
       this.formData[indexUnit].unitId = id
+      this.activeUnit = false
+    },
+    changeQuantity(value, indexUnit) {
+      this.formData[indexUnit].number = value
       this.activeUnit = false
     },
     closeModalMaterial() {
