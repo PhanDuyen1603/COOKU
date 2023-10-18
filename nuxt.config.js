@@ -24,25 +24,7 @@ export default defineNuxtConfig({
     '@nuxtjs/strapi',
     '@nuxtjs/device',
     '@pinia/nuxt',
-    '@nuxtjs/i18n',
   ],
-
-  i18n: {
-    lazy: true,
-    strategy: 'no_prefix',
-    defaultLocale: 'vn',
-    langDir: 'locales',
-    locales: [
-      { code: 'vn', iso: 'vn', file: 'vn.json' }
-    ],
-    vueI18n: {
-      legacy: false,
-      globalInjection: true,
-      silentTranslationWarn: true,
-      fallbackWarn: false,
-      missingWarn: false,
-    },
-  },
 
   strapi: {
     url: strapiBaseUri,
