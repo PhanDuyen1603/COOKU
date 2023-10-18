@@ -74,10 +74,10 @@
                 <a href="/" class="cmt-more"
                   ><img
                     class="icon ic-right"
-                    src="~/assets/images/cmt-ic.png"
                     alt=""
-                  />Hiện {{ comment.child_comments?.length }} câu trả lời</a
-                >
+                    />Hiện {{ comment.child_comments?.length }} câu trả lời</a
+                    >
+                    <!-- src="~/assets/images/cmt-ic.png" -->
               </div>
             </div>
             <div class="comment__child ps-4">
