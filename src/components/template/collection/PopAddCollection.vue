@@ -70,12 +70,12 @@ export default {
     const { find } = useStrapi()
     const filters = {
       'author.username': unref($$user)?.username || '',
-      'is_public': true
+      // 'is_public': true
     }
     const collections = await find('collections', filters)
 
     return {
-      collections
+      collections: collections.filter(x => x.type === 'recipe') || []
     }
   },
 

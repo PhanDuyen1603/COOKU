@@ -299,7 +299,7 @@ export default {
 
   .view-more {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-bottom: 10px;
   }
 
@@ -370,7 +370,7 @@ export default {
 
   .cmt-child-more {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
   }
 }
 .image-cook {

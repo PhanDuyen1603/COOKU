@@ -20,7 +20,55 @@
           <span class="visually-hidden">Loading...</span>
         </span>
         <div class="row">
-          <div v-for="(collection, index) in collections" :key="index" class="col-12 col-md-6">
+          <div v-for="(collection, index) in collections.filter(x => !x.is_public)" :key="index" class="col-12 col-lg-6">
+            <div class="mt-1 mb-2 image" style="box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;">
+              <div class="d-flex mr-4 justify-content-between modals-custom">
+                <div
+                  class="d-flex align-items-center"
+                  @click="addCollection(collection, item)"
+                >
+                  <div
+                    class="border-radius-15 wcollections mr-2"
+                    :class="'image' + getListImages(collection).length"
+                  >
+                    <div
+                      v-for="(itemImage, i) in getListImages(collection)"
+                      :key="i"
+                      class="image"
+                    >
+                      <img
+                        v-if="itemImage"
+                        :src="$$strapi.getStrapiMedia(itemImage)"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <p class="text-custom fw-bold text-start">
+                      {{ collection.name }}
+                    </p>
+                    <p class="text-start text-small">
+                      {{ collection.is_public ? $t('collection.public') : $t('collection.personal') }}
+                    </p>
+                  </div>
+                </div>
+                <!---->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div v-if="$$isSigned" class="text-decoration-underline text-start mb-3 mt-3 text-custom">
+          {{ $t('collection.public_collection') }}
+        </div>
+        <span
+          v-if="loading"
+          role="status"
+          class="spinner-border spinner-border-sm"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </span>
+        <div class="row">
+          <div v-for="(collection, index) in collections.filter(x => x.is_public)" :key="index" class="col-12 col-lg-6">
             <div class="mt-1 mb-2 image" style="box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;">
               <div class="d-flex mr-4 justify-content-between modals-custom">
                 <div
@@ -163,6 +211,7 @@ export default {
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
+  margin-right: 20px;
 }
 .image1 .image {
   height: 100%;

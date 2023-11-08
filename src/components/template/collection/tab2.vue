@@ -297,4 +297,11 @@ body {
   }
 
 }
+.error-red {
+  color: red;
+  margin-top: -10px;
+  margin-left: 20px;
+  padding-bottom: 10px;
+  display: block;
+}
 </style>

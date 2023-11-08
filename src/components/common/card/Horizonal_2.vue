@@ -79,6 +79,7 @@ export default {
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
+  margin-right: 20px;
 }
 .image1 .image {
   height: 100%;

@@ -184,4 +184,7 @@ const openLoginModal = async () => {
   left: 0;
   right: 0;
 }
+.search-icon__wrapper {
+  cursor: pointer;
+}
 </style>

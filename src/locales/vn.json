@@ -27,6 +27,7 @@
 
   "collection": "BỘ SƯU TẬP",
   "collection.personal_collection": "Bộ sưu tập cá nhân",
+  "collection.public_collection": "Bộ sưu tập công khai",
   "collection.message.no_collection": "Bạn chưa có bộ sưu tâp nào. Hãy tạo mới 1 bộ sưu tập.",
   "collection.action.create_new": "TẠO BỘ SƯU TẬP MỚI",
   "collection.show_type": "Chế độ hiển thị",
@@ -63,6 +64,6 @@
   "action.create": "Tạo",
   "action.save": "Lưu",
   "common.name": "Tên",
-  "common.desciption": "Mô tả",
+  "common.description": "Mô tả",
   "common.confirm": "Xác nhận"
 }
