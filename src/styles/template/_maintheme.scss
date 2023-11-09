@@ -307,6 +307,7 @@
       justify-self: center;
       align-items: center;
       background: var(--clr-red-primary);
+      cursor: pointer;
       svg {
         height: 32px;
       }
@@ -333,7 +334,7 @@ body{
 .main{
   position: relative;
   top: 61px
-  
+
 }
 
 
